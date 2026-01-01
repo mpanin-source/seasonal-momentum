@@ -14,24 +14,30 @@ const Hero = () => {
             Creative Core
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium leading-tight text-foreground mb-8 animate-fade-in [animation-delay:100ms] opacity-0">
-            Run ads when demand is highest.
+            Seasonal ads that work when demand peaks
             <span className="block text-muted-foreground mt-2">
-              Not when your budget runs out.
+              — not when budgets fade.
             </span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl animate-fade-in [animation-delay:200ms] opacity-0">
-            Short-cycle seasonal campaigns built around your peak demand windows. 
-            Controlled budgets. Clear timelines. No long-term contracts.
+            From gyms filling New Year classes to home service providers preparing for spring and winter service pros still booking jobs — Creative Core runs short-cycle campaigns for businesses with real calendar demand. No long retainers. No wasted spend.
           </p>
-          <div className="animate-fade-in [animation-delay:300ms] opacity-0">
+          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
             <Button 
               variant="accent" 
               size="xl" 
               onClick={scrollToContact}
               className="group"
             >
-              See if this season is a fit
+              See if your niche is a fit
               <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" />
+            </Button>
+            <Button 
+              variant="outline" 
+              size="xl" 
+              onClick={scrollToContact}
+            >
+              Tell me my industry
             </Button>
           </div>
         </div>
