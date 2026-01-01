@@ -37,7 +37,7 @@ const Hero = () => {
               size="xl" 
               onClick={scrollToContact}
             >
-              BestSeasonalNichesNow
+              Best Seasonal Niches Now
             </Button>
           </div>
         </div>
