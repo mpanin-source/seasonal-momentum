@@ -1,5 +1,6 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
+import SeasonalNiches from "@/components/landing/SeasonalNiches";
 import Problem from "@/components/landing/Problem";
 import CoreOffer from "@/components/landing/CoreOffer";
 import LeadPhilosophy from "@/components/landing/LeadPhilosophy";
@@ -15,7 +16,7 @@ const Index = () => {
       <Header />
       <main className="pt-16">
         <Hero />
-        <Problem />
+        <SeasonalNiches />
         <CoreOffer />
         <LeadPhilosophy />
         <PhaseTwo />
