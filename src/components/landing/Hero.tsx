@@ -37,7 +37,7 @@ const Hero = () => {
               size="xl" 
               onClick={scrollToContact}
             >
-              Tell me my industry
+              BestSeasonalNichesNow
             </Button>
           </div>
         </div>
