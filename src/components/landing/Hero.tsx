@@ -35,7 +35,7 @@ const Hero = () => {
             <Button 
               variant="outline" 
               size="xl" 
-              onClick={scrollToContact}
+              onClick={() => document.getElementById("seasonal-niches")?.scrollIntoView({ behavior: "smooth" })}
             >
               Best Seasonal Niches Now
             </Button>
