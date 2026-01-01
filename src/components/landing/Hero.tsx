@@ -29,7 +29,7 @@ const Hero = () => {
               onClick={scrollToContact}
               className="group"
             >
-              See if your niche is a fit
+              Check If Your Business Fits
               <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
