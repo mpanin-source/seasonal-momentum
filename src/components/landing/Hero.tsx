@@ -13,11 +13,11 @@ const Hero = () => {
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-6 animate-fade-in">
             Creative Core
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-[0.85] tracking-wide text-foreground mb-14 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-[0.9] tracking-wide text-foreground mb-14 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
             Stop paying for ads when nobody is searching.
             <span 
-              className="block text-accent text-[1.05em] tracking-[-0.04em] skew-x-[-5deg] animate-slide-up [animation-delay:300ms] opacity-0"
-              style={{ textShadow: '2px 2px 0px rgba(0,0,0,0.1)' }}
+              className="block text-accent text-[1.05em] tracking-[-0.02em] -mt-1 animate-slide-up [animation-delay:500ms] opacity-0"
+              style={{ textShadow: '3px 3px 0px rgba(0,0,0,0.08)' }}
             >
               Start when they are.
             </span>
