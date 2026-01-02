@@ -15,7 +15,7 @@ const Hero = () => {
           <h1 className="text-[3.5rem] md:text-6xl lg:text-7xl font-display font-black leading-[0.95] tracking-wide text-foreground mb-12 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
             Stop paying for ads when nobody is searching.
             <span style={{
-            textShadow: '0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3), 3px 3px 0px rgba(255,255,255,0.9)'
+            textShadow: '0 0 12px rgba(59, 130, 246, 0.3), 2px 2px 0px rgba(255,255,255,0.7)'
           }} className="block text-accent tracking-[-0.02em] font-display -mt-5 md:-mt-7 skew-x-[-3deg] italic animate-slide-up [animation-delay:500ms] opacity-0 text-[3.5rem] md:text-6xl text-left leading-[0.8] md:leading-[0.85]">
               Start when they are.
             </span>
