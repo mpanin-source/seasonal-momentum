@@ -1,6 +1,7 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
 import SeasonalNiches from "@/components/landing/SeasonalNiches";
+import Q1Timeline from "@/components/landing/Q1Timeline";
 import Problem from "@/components/landing/Problem";
 import CoreOffer from "@/components/landing/CoreOffer";
 import LeadPhilosophy from "@/components/landing/LeadPhilosophy";
@@ -17,6 +18,7 @@ const Index = () => {
       <main className="pt-16">
         <Hero />
         <SeasonalNiches />
+        <Q1Timeline />
         <CoreOffer />
         <LeadPhilosophy />
         <PhaseTwo />
