@@ -133,7 +133,14 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display;
+    @apply font-display tracking-wide;
+    letter-spacing: 0.05em;
+  }
+
+  /* Subheadlines and body text */
+  p, span, li, a {
+    @apply font-body;
+    line-height: 1.6;
   }
 }
 

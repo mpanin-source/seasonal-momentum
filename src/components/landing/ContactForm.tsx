@@ -111,7 +111,7 @@ const ContactForm = () => {
                 className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                 size="lg"
               >
-                {isSubmitting ? "Sending..." : "Request a call"}
+                {isSubmitting ? "Sending..." : "Reserve Your Seasonal Fit Call"}
                 {!isSubmitting && <ArrowRight className="ml-2 w-4 h-4" />}
               </Button>
             </form>
