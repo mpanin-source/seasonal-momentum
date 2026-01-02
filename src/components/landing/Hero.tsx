@@ -29,7 +29,7 @@ const Hero = () => {
               onClick={scrollToContact}
               className="group"
             >
-              Check If Your Business Fits
+              Find Your Growth Window
               <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button 
