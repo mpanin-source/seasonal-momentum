@@ -21,7 +21,7 @@ const FitSection = () => {
     <section className="section-padding bg-card" id="fit">
       <div className="container-wide">
         <div className="container-narrow text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
             Is this a fit?
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -32,7 +32,7 @@ const FitSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           <div className="p-8 bg-background rounded-lg border border-border">
-            <h3 className="text-xl font-display font-medium text-foreground mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-display font-bold text-foreground mb-6 tracking-wider flex items-center gap-3">
               <span className="w-8 h-8 rounded-full bg-sage-light flex items-center justify-center">
                 <Check className="w-4 h-4 text-accent" />
               </span>
@@ -49,7 +49,7 @@ const FitSection = () => {
           </div>
 
           <div className="p-8 bg-background rounded-lg border border-border">
-            <h3 className="text-xl font-display font-medium text-foreground mb-6 flex items-center gap-3">
+            <h3 className="text-xl font-display font-bold text-foreground mb-6 tracking-wider flex items-center gap-3">
               <span className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
                 <X className="w-4 h-4 text-muted-foreground" />
               </span>

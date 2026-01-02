@@ -47,7 +47,7 @@ const SeasonalNiches = () => {
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-4">
             Current Opportunities
           </p>
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
             Best Seasonal Niches Right Now
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -60,13 +60,11 @@ const SeasonalNiches = () => {
           {niches.map((niche, index) => (
             <div
               key={index}
-              className="bg-background border border-border rounded-lg p-6 hover:border-accent/50 transition-colors"
+              className="relative bg-background border border-border rounded-lg p-6 hover:border-accent/50 transition-colors"
             >
-              <div className="flex justify-center mb-4">
-                <niche.icon className="w-8 h-8 text-foreground" strokeWidth={1.5} />
-              </div>
+              <niche.icon className="absolute top-4 right-4 w-4 h-4 text-accent/40" strokeWidth={1.5} />
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-foreground">
+                <h3 className="text-lg font-display font-bold text-foreground tracking-wider">
                   {niche.title}
                 </h3>
                 <span className="text-xs font-medium tracking-wide text-accent uppercase bg-accent/10 px-2 py-1 rounded">

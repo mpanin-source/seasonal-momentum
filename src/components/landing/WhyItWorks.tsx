@@ -26,7 +26,7 @@ const WhyItWorks = () => {
     <section className="section-padding">
       <div className="container-wide">
         <div className="container-narrow text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
             Why this approach works
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -37,7 +37,7 @@ const WhyItWorks = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {reasons.map((reason, index) => (
             <div key={index} className="p-8 bg-card rounded-lg border border-border">
-              <h3 className="text-xl font-display font-medium text-foreground mb-3">
+              <h3 className="text-xl font-display font-bold text-foreground mb-3 tracking-wider">
                 {reason.title}
               </h3>
               <p className="text-muted-foreground leading-relaxed">

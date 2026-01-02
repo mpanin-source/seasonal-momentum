@@ -9,7 +9,7 @@ const PhaseTwo = () => {
             <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-4">
               Optional Add-On
             </p>
-            <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-6">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
               THE RECALL LAYER: AUTOMATED OFF-SEASON RELEVANCE
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
@@ -23,7 +23,7 @@ const PhaseTwo = () => {
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-5 h-5 text-accent" />
               </div>
-              <h3 className="font-display font-medium text-foreground mb-2">
+              <h3 className="font-display font-bold text-foreground mb-2 tracking-wider">
                 The Safety Net
               </h3>
               <p className="text-sm text-muted-foreground">
@@ -35,7 +35,7 @@ const PhaseTwo = () => {
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                 <Clock className="w-5 h-5 text-accent" />
               </div>
-              <h3 className="font-display font-medium text-foreground mb-2">
+              <h3 className="font-display font-bold text-foreground mb-2 tracking-wider">
                 Timed Re-Engagement
               </h3>
               <p className="text-sm text-muted-foreground">
@@ -47,7 +47,7 @@ const PhaseTwo = () => {
               <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4">
                 <Database className="w-5 h-5 text-accent" />
               </div>
-              <h3 className="font-display font-medium text-foreground mb-2">
+              <h3 className="font-display font-bold text-foreground mb-2 tracking-wider">
                 The Data Asset
               </h3>
               <p className="text-sm text-muted-foreground">
