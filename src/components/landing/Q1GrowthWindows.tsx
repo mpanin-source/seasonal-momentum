@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Calculator, TreeDeciduous, Fan, ArrowLeft, TrendingUp, Users, DollarSign, Target, Sparkles } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { Dumbbell, Calculator, TreeDeciduous, Fan, ArrowLeft, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, Scissors } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -9,81 +9,130 @@ interface NicheData {
   title: string;
   painPoint: string;
   forecastData: {
-    leads: string;
-    costPerLead: string;
-    revenue: string;
-    avgTicket: string;
+    leadsMin: number;
+    leadsMax: number;
+    costPerLead: number;
+    avgTicket: number;
   };
 }
 
 interface MonthCard {
   month: string;
-  nicheA: NicheData;
-  nicheB: NicheData;
+  niches: NicheData[];
 }
 
 const timelineData: MonthCard[] = [
   {
     month: "JAN",
-    nicheA: {
-      icon: Dumbbell,
-      title: "Fitness",
-      painPoint: "January sees 340% search volume spike for gym memberships. Stop burning December budget on low-intent traffic—strike when resolution motivation peaks.",
-      forecastData: { leads: "45–60", costPerLead: "$35.00", revenue: "$22,500", avgTicket: "$450" },
-    },
-    nicheB: {
-      icon: Calculator,
-      title: "Tax Prep",
-      painPoint: "Early filers are your highest-value clients. W-2s arrive, urgency builds. CPA firms that wait until March pay 3x CPCs. First-mover wins.",
-      forecastData: { leads: "35–50", costPerLead: "$42.00", revenue: "$31,500", avgTicket: "$750" },
-    },
+    niches: [
+      {
+        icon: Dumbbell,
+        title: "Fitness",
+        painPoint: "January sees 340% search volume spike for gym memberships. Stop burning December budget on low-intent traffic—strike when resolution motivation peaks.",
+        forecastData: { leadsMin: 45, leadsMax: 60, costPerLead: 35, avgTicket: 450 },
+      },
+      {
+        icon: Calculator,
+        title: "Tax Prep",
+        painPoint: "Early filers are your highest-value clients. W-2s arrive, urgency builds. CPA firms that wait until March pay 3x CPCs. First-mover wins.",
+        forecastData: { leadsMin: 35, leadsMax: 50, costPerLead: 42, avgTicket: 750 },
+      },
+      {
+        icon: Heart,
+        title: "Wellness",
+        painPoint: "New Year health resolutions drive 280% surge in wellness searches. Capture the motivated before competitors saturate the space.",
+        forecastData: { leadsMin: 40, leadsMax: 55, costPerLead: 38, avgTicket: 380 },
+      },
+    ],
   },
   {
     month: "FEB",
-    nicheA: {
-      icon: Dumbbell,
-      title: "Fitness",
-      painPoint: "Resolution momentum continues. February filters out casual interest—convert the committed. Don't pause campaigns after Jan; February clients show higher LTV.",
-      forecastData: { leads: "35–50", costPerLead: "$38.00", revenue: "$18,000", avgTicket: "$420" },
-    },
-    nicheB: {
-      icon: Calculator,
-      title: "Tax Prep",
-      painPoint: "Peak research phase. Complex filers compare options—position authority now. Mid-season entry costs 2x. February positioning drives March conversions.",
-      forecastData: { leads: "55–75", costPerLead: "$32.00", revenue: "$48,750", avgTicket: "$780" },
-    },
+    niches: [
+      {
+        icon: Truck,
+        title: "Moving Services",
+        painPoint: "Spring relocation planning starts in February. Families research movers 6-8 weeks ahead. Lock in Q2 bookings before March price wars.",
+        forecastData: { leadsMin: 30, leadsMax: 45, costPerLead: 52, avgTicket: 1200 },
+      },
+      {
+        icon: Calculator,
+        title: "Tax Prep",
+        painPoint: "Peak research phase. Complex filers compare options—position authority now. Mid-season entry costs 2x. February positioning drives March conversions.",
+        forecastData: { leadsMin: 55, leadsMax: 75, costPerLead: 32, avgTicket: 780 },
+      },
+      {
+        icon: Hammer,
+        title: "Home Remodeling",
+        painPoint: "Homeowners plan spring renovations during winter months. Decision phase peaks in February—be there when budgets are set.",
+        forecastData: { leadsMin: 25, leadsMax: 40, costPerLead: 65, avgTicket: 8500 },
+      },
+    ],
   },
   {
     month: "MAR",
-    nicheA: {
-      icon: TreeDeciduous,
-      title: "Landscaping",
-      painPoint: "Spring cleanup searches surge 280%. Homeowners plan seasonal projects—capture booking windows. Missed March means lost Q2 revenue.",
-      forecastData: { leads: "40–60", costPerLead: "$28.00", revenue: "$32,000", avgTicket: "$640" },
-    },
-    nicheB: {
-      icon: Calculator,
-      title: "Tax Prep",
-      painPoint: "Deadline panic phase. High-intent, last-minute filers pay premium prices. Emergency tax clients convert at 2x rate. Capture the procrastinators.",
-      forecastData: { leads: "70–95", costPerLead: "$25.00", revenue: "$68,250", avgTicket: "$825" },
-    },
+    niches: [
+      {
+        icon: TreeDeciduous,
+        title: "Landscaping",
+        painPoint: "Spring cleanup searches surge 280%. Homeowners plan seasonal projects—capture booking windows. Missed March means lost Q2 revenue.",
+        forecastData: { leadsMin: 40, leadsMax: 60, costPerLead: 28, avgTicket: 640 },
+      },
+      {
+        icon: Calculator,
+        title: "Tax Prep",
+        painPoint: "Deadline panic phase. High-intent, last-minute filers pay premium prices. Emergency tax clients convert at 2x rate. Capture the procrastinators.",
+        forecastData: { leadsMin: 70, leadsMax: 95, costPerLead: 25, avgTicket: 825 },
+      },
+      {
+        icon: Bug,
+        title: "Pest Control",
+        painPoint: "Spring pest emergence drives urgent searches. Homeowners discover winter infestations—immediate service need creates high-intent leads.",
+        forecastData: { leadsMin: 50, leadsMax: 70, costPerLead: 22, avgTicket: 320 },
+      },
+    ],
   },
   {
     month: "APR",
-    nicheA: {
-      icon: TreeDeciduous,
-      title: "Landscaping",
-      painPoint: "Prime installation window. Convert planners into projects before summer rush pricing. April bookings = predictable summer revenue.",
-      forecastData: { leads: "55–75", costPerLead: "$26.00", revenue: "$45,500", avgTicket: "$700" },
-    },
-    nicheB: {
-      icon: Fan,
-      title: "HVAC",
-      painPoint: "Pre-summer AC maintenance window. Smart homeowners prep before June emergency calls. Emergency calls pay less than planned installs—own the decision phase.",
-      forecastData: { leads: "30–45", costPerLead: "$48.00", revenue: "$33,750", avgTicket: "$900" },
-    },
+    niches: [
+      {
+        icon: TreeDeciduous,
+        title: "Landscaping",
+        painPoint: "Prime installation window. Convert planners into projects before summer rush pricing. April bookings = predictable summer revenue.",
+        forecastData: { leadsMin: 55, leadsMax: 75, costPerLead: 26, avgTicket: 700 },
+      },
+      {
+        icon: Fan,
+        title: "HVAC",
+        painPoint: "Pre-summer AC maintenance window. Smart homeowners prep before June emergency calls. Emergency calls pay less than planned installs—own the decision phase.",
+        forecastData: { leadsMin: 30, leadsMax: 45, costPerLead: 48, avgTicket: 900 },
+      },
+      {
+        icon: Droplets,
+        title: "Pool Services",
+        painPoint: "Pool opening season peaks. Homeowners book seasonal maintenance 4-6 weeks ahead. April bookings lock in summer recurring revenue.",
+        forecastData: { leadsMin: 35, leadsMax: 50, costPerLead: 35, avgTicket: 550 },
+      },
+    ],
   },
 ];
+
+// Animated counter component
+const AnimatedNumber = ({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) => {
+  const [displayValue, setDisplayValue] = useState(0);
+  const prevValue = useRef(value);
+
+  useEffect(() => {
+    const controls = animate(prevValue.current, value, {
+      duration: 0.8,
+      ease: "easeOut",
+      onUpdate: (latest) => setDisplayValue(Math.round(latest)),
+    });
+    prevValue.current = value;
+    return () => controls.stop();
+  }, [value]);
+
+  return <>{prefix}{displayValue.toLocaleString()}{suffix}</>;
+};
 
 interface NicheRowProps {
   niche: NicheData;
@@ -97,7 +146,7 @@ const NicheRow = ({ niche, isFlipped, onFlip, onBack, onViewForecast }: NicheRow
   const IconComponent = niche.icon;
 
   return (
-    <div className="relative h-[140px] md:h-[150px] perspective-1000">
+    <div className="relative h-[110px] md:h-[120px] perspective-1000">
       <motion.div
         className="relative w-full h-full"
         initial={false}
@@ -123,20 +172,20 @@ const NicheRow = ({ niche, isFlipped, onFlip, onBack, onViewForecast }: NicheRow
             }}
           />
           
-          <div className="relative z-10 flex items-center justify-between h-full px-5 md:px-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-lg bg-accent/10 border border-accent/30">
-                <IconComponent className="w-5 h-5 text-accent" strokeWidth={1.5} />
+          <div className="relative z-10 flex items-center justify-between h-full px-4 md:px-5">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 rounded-lg bg-accent/10 border border-accent/30">
+                <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
               </div>
-              <span className="text-lg md:text-xl font-display font-bold text-white tracking-wider uppercase">
+              <span className="text-base md:text-lg font-display font-bold text-white tracking-wider uppercase">
                 {niche.title}
               </span>
             </div>
             <div className="flex items-center gap-2 text-accent/70 group-hover:text-accent transition-colors">
-              <span className="text-xs font-medium tracking-wider uppercase hidden sm:block">
-                Analyze Opportunity
+              <span className="text-[10px] font-medium tracking-wider uppercase hidden sm:block">
+                Analyze
               </span>
-              <Sparkles className="w-4 h-4" />
+              <Sparkles className="w-3.5 h-3.5" />
             </div>
           </div>
 
@@ -154,14 +203,14 @@ const NicheRow = ({ niche, isFlipped, onFlip, onBack, onViewForecast }: NicheRow
             border: "1px solid hsl(217 91% 53% / 0.4)",
           }}
         >
-          <div className="relative z-10 flex flex-col h-full p-4 md:p-5">
+          <div className="relative z-10 flex flex-col h-full p-3 md:p-4">
             {/* Back button and title */}
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded bg-accent/15 border border-accent/30">
-                  <IconComponent className="w-3.5 h-3.5 text-accent" strokeWidth={1.5} />
+                <div className="p-1 rounded bg-accent/15 border border-accent/30">
+                  <IconComponent className="w-3 h-3 text-accent" strokeWidth={1.5} />
                 </div>
-                <span className="text-sm font-display font-bold text-white tracking-wider uppercase">
+                <span className="text-xs font-display font-bold text-white tracking-wider uppercase">
                   {niche.title}
                 </span>
               </div>
@@ -170,19 +219,19 @@ const NicheRow = ({ niche, isFlipped, onFlip, onBack, onViewForecast }: NicheRow
                   e.stopPropagation();
                   onBack();
                 }}
-                className="flex items-center gap-1 text-white/50 hover:text-white transition-colors text-xs"
+                className="flex items-center gap-1 text-white/50 hover:text-white transition-colors text-[10px]"
               >
-                <ArrowLeft className="w-3 h-3" />
+                <ArrowLeft className="w-2.5 h-2.5" />
                 Back
               </button>
             </div>
 
             {/* Pain Point Copy */}
-            <p className="text-xs md:text-sm leading-relaxed text-white/80 mb-3 line-clamp-3">
+            <p className="text-[10px] md:text-xs leading-relaxed text-white/80 mb-2 line-clamp-2">
               {niche.painPoint}
             </p>
 
-            {/* CTA Button */}
+            {/* CTA Button with glow */}
             <div className="mt-auto">
               <Button
                 onClick={(e) => {
@@ -190,10 +239,18 @@ const NicheRow = ({ niche, isFlipped, onFlip, onBack, onViewForecast }: NicheRow
                   onViewForecast();
                 }}
                 size="sm"
-                className="w-full bg-accent hover:bg-accent/90 text-white font-display tracking-wider uppercase text-xs py-2"
+                className="w-full bg-accent hover:bg-accent/90 text-white font-display tracking-wider uppercase text-[10px] py-1.5 relative overflow-hidden group/btn"
+                style={{
+                  boxShadow: "0 0 20px hsl(217 91% 53% / 0.4), 0 0 40px hsl(217 91% 53% / 0.2)",
+                }}
               >
-                <TrendingUp className="w-3 h-3 mr-1.5" />
-                View Performance Forecast
+                <motion.div
+                  className="absolute inset-0 bg-white/20"
+                  animate={{ x: ["-100%", "100%"] }}
+                  transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                />
+                <TrendingUp className="w-3 h-3 mr-1.5 relative z-10" />
+                <span className="relative z-10">View ROI Forecast</span>
               </Button>
             </div>
           </div>
@@ -221,9 +278,9 @@ const MasterCard = ({ card, onSelectNiche }: MasterCardProps) => {
   };
 
   return (
-    <div className="flex-shrink-0 w-[300px] md:w-[360px]">
+    <div className="flex-shrink-0 w-[280px] md:w-[320px]">
       <motion.div
-        className="rounded-xl overflow-hidden bg-[#0f0f1c] p-5 md:p-6"
+        className="rounded-xl overflow-hidden bg-[#0f0f1c] p-4 md:p-5"
         style={{
           border: "1px solid hsl(217 91% 53% / 0.25)",
           boxShadow: "0 0 50px hsl(217 91% 53% / 0.06)",
@@ -234,9 +291,9 @@ const MasterCard = ({ card, onSelectNiche }: MasterCardProps) => {
         transition={{ duration: 0.3 }}
       >
         {/* Month Header */}
-        <div className="mb-5 text-center">
+        <div className="mb-4 text-center">
           <span
-            className="text-4xl md:text-5xl font-display font-black tracking-[0.15em] text-accent"
+            className="text-3xl md:text-4xl font-display font-black tracking-[0.15em] text-accent"
             style={{
               textShadow: "0 0 30px hsl(217 91% 53% / 0.5)",
             }}
@@ -245,22 +302,18 @@ const MasterCard = ({ card, onSelectNiche }: MasterCardProps) => {
           </span>
         </div>
 
-        {/* Niche Rows - Stacked Vertically */}
-        <div className="flex flex-col gap-4">
-          <NicheRow
-            niche={card.nicheA}
-            isFlipped={flippedIndex === 0}
-            onFlip={() => setFlippedIndex(flippedIndex === 0 ? null : 0)}
-            onBack={() => setFlippedIndex(null)}
-            onViewForecast={() => handleViewForecast(card.nicheA)}
-          />
-          <NicheRow
-            niche={card.nicheB}
-            isFlipped={flippedIndex === 1}
-            onFlip={() => setFlippedIndex(flippedIndex === 1 ? null : 1)}
-            onBack={() => setFlippedIndex(null)}
-            onViewForecast={() => handleViewForecast(card.nicheB)}
-          />
+        {/* Niche Rows - 3 Stacked Vertically */}
+        <div className="flex flex-col gap-3">
+          {card.niches.map((niche, index) => (
+            <NicheRow
+              key={index}
+              niche={niche}
+              isFlipped={flippedIndex === index}
+              onFlip={() => setFlippedIndex(flippedIndex === index ? null : index)}
+              onBack={() => setFlippedIndex(null)}
+              onViewForecast={() => handleViewForecast(niche)}
+            />
+          ))}
         </div>
       </motion.div>
     </div>
@@ -273,8 +326,12 @@ interface ROISectionProps {
 }
 
 const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
-  const data = selectedNiche?.forecastData || { leads: "40–60", costPerLead: "$35.00", revenue: "$28,000", avgTicket: "$550" };
+  const data = selectedNiche?.forecastData || { leadsMin: 40, leadsMax: 60, costPerLead: 35, avgTicket: 550 };
   const title = selectedNiche?.title || "Your Industry";
+  
+  // Calculate revenue based on leads and avg ticket
+  const avgLeads = Math.round((data.leadsMin + data.leadsMax) / 2);
+  const revenue = avgLeads * data.avgTicket;
 
   return (
     <section id="roi-calculator" className="py-20 md:py-28 bg-[#080810] relative overflow-hidden">
@@ -300,7 +357,7 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
         {/* Section Header */}
         <div className="text-center mb-14 md:mb-20">
           <p className="text-sm font-medium tracking-[0.25em] text-accent uppercase mb-5">
-            ROI Calculator
+            Seasonal ROI Calculator
           </p>
           <h2 
             className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-6 tracking-wider uppercase"
@@ -320,10 +377,10 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
         <div className="grid md:grid-cols-3 gap-5 md:gap-8 max-w-5xl mx-auto mb-14">
           {/* Leads Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.5 }}
+            key={`leads-${selectedNiche?.title}-${month}`}
+            initial={{ opacity: 0.5, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             className="bg-[#0f0f1c] rounded-2xl p-7 md:p-10 text-center relative overflow-hidden group"
             style={{ border: "1px solid hsl(217 91% 53% / 0.2)" }}
           >
@@ -341,12 +398,12 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
                 Estimated Leads
               </p>
               <p 
-                className="text-5xl md:text-6xl font-display font-black text-white tracking-tight"
+                className="text-4xl md:text-5xl font-display font-black text-white tracking-tight"
                 style={{
                   textShadow: "0 0 30px hsl(217 91% 53% / 0.25)",
                 }}
               >
-                {data.leads}
+                <AnimatedNumber value={data.leadsMin} />–<AnimatedNumber value={data.leadsMax} />
               </p>
               <p className="text-sm text-white/30 mt-3 font-medium">per month</p>
             </div>
@@ -354,10 +411,10 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
 
           {/* Cost Per Lead Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
+            key={`cpl-${selectedNiche?.title}-${month}`}
+            initial={{ opacity: 0.5, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.05 }}
             className="bg-[#0f0f1c] rounded-2xl p-7 md:p-10 text-center relative overflow-hidden group"
             style={{ border: "1px solid hsl(217 91% 53% / 0.2)" }}
           >
@@ -375,12 +432,12 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
                 Projected Cost-Per-Lead
               </p>
               <p 
-                className="text-5xl md:text-6xl font-display font-black text-purple-400 tracking-tight"
+                className="text-4xl md:text-5xl font-display font-black text-purple-400 tracking-tight"
                 style={{
                   textShadow: "0 0 30px hsl(280 80% 50% / 0.25)",
                 }}
               >
-                {data.costPerLead}
+                $<AnimatedNumber value={data.costPerLead} />.00
               </p>
               <p className="text-sm text-white/30 mt-3 font-medium">average</p>
             </div>
@@ -388,10 +445,10 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
 
           {/* Revenue Card */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+            key={`revenue-${selectedNiche?.title}-${month}`}
+            initial={{ opacity: 0.5, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
             className="bg-[#0f0f1c] rounded-2xl p-7 md:p-10 text-center relative overflow-hidden group"
             style={{ border: "1px solid hsl(145 60% 40% / 0.2)" }}
           >
@@ -409,15 +466,15 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
                 Potential Revenue Opportunity
               </p>
               <p 
-                className="text-5xl md:text-6xl font-display font-black text-emerald-400 tracking-tight"
+                className="text-4xl md:text-5xl font-display font-black text-emerald-400 tracking-tight"
                 style={{
                   textShadow: "0 0 30px hsl(145 60% 40% / 0.3)",
                 }}
               >
-                {data.revenue}
+                $<AnimatedNumber value={revenue} />
               </p>
               <p className="text-sm text-white/30 mt-3 font-medium">
-                at {data.avgTicket} avg ticket
+                at ${data.avgTicket.toLocaleString()} avg job
               </p>
             </div>
           </motion.div>
