@@ -8,7 +8,7 @@ const Hero = () => {
   };
   return <section className="section-padding min-h-[85vh] flex items-center">
       <div className="container-wide">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl py-0 my-0 mx-0">
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-6 animate-fade-in">
             Creative Core
           </p>
@@ -16,11 +16,11 @@ const Hero = () => {
             Stop paying for ads when nobody is searching.
             <span style={{
             textShadow: '2px 2px 0px rgba(0,0,0,0.08)'
-          }} className="block text-accent tracking-[-0.02em] text-left font-display -mt-2 skew-x-[-3deg] animate-slide-up [animation-delay:500ms] opacity-0 text-7xl my-[16px]">
+          }} className="block text-accent tracking-[-0.02em] text-left font-display -mt-2 skew-x-[-3deg] animate-slide-up [animation-delay:500ms] opacity-0 text-8xl my-[16px]">
               Start when they are.
             </span>
           </h1>
-          <p className="text-[1.1rem] md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">
+          <p className="text-[1.1rem] md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0 py-0">
             Creative Core runs high-intensity, 30-day ad sprints for seasonal businesses like gyms, HVAC, and landscapers. We capture demand when it peaks—then we turn the budget off.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
