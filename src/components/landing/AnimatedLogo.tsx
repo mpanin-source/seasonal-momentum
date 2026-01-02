@@ -64,10 +64,12 @@ const AnimatedLogo = () => {
           style={{ transitionDelay: isHovered ? "200ms" : "0ms" }}
         >
           <span
-            className="text-2xl font-bold text-foreground whitespace-nowrap tracking-wider"
+            className="text-2xl font-bold text-foreground whitespace-nowrap tracking-wider flex items-center"
             style={{ fontFamily: "'Bebas Neue', sans-serif" }}
           >
-            CREATIVE CORE
+            CREATIVE C
+            <BullseyeIcon className="text-foreground w-5 h-5 mx-[-1px] inline-block" />
+            RE
           </span>
         </div>
       </div>
