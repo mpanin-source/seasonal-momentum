@@ -13,14 +13,14 @@ const Hero = () => {
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-6 animate-fade-in">
             Creative Core
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium leading-tight text-foreground mb-8 animate-fade-in [animation-delay:100ms] opacity-0">
-            Seasonal ads that work when demand peaks
-            <span className="block text-muted-foreground mt-2">
-              — not when budgets fade.
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-body font-semibold leading-tight tracking-tight text-foreground mb-8 animate-fade-in [animation-delay:100ms] opacity-0">
+            Stop paying for ads when nobody is searching.
+            <span className="block text-foreground mt-2">
+              Start when they are.
             </span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl animate-fade-in [animation-delay:200ms] opacity-0">
-            From gyms filling New Year classes to home service providers preparing for spring and winter service pros still booking jobs — Creative Core runs short-cycle campaigns for businesses with real calendar demand. No long retainers. No wasted spend.
+            Creative Core runs high-intensity, 30-day ad sprints for seasonal businesses like gyms, HVAC, and landscapers. We capture demand when it peaks—then we turn the budget off.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
             <Button 

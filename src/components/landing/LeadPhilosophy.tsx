@@ -1,42 +1,68 @@
+import { X, Check } from "lucide-react";
+
 const LeadPhilosophy = () => {
+  const oldWay = [
+    "6-12 month retainers",
+    "Ads run year-round (even off-season)",
+    "Vague monthly reports",
+    "Budget bleeds during slow periods",
+    "Locked into long contracts",
+  ];
+
+  const creativeWay = [
+    "30-day focused sprints",
+    "Ads run only during peak demand",
+    "Clear, actionable insights",
+    "Budget stops when demand stops",
+    "No long-term commitments",
+  ];
+
   return (
     <section className="section-padding bg-card">
       <div className="container-wide">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid lg:grid-cols-5 gap-12 items-center">
-            <div className="lg:col-span-3">
-              <p className="text-sm font-medium tracking-wide text-accent uppercase mb-4">
-                Our Philosophy
-              </p>
-              <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-6">
-                Traffic is easy. Managing attention is where the money goes.
-              </h2>
-              <div className="space-y-4 text-muted-foreground leading-relaxed">
-                <p>
-                  Generating clicks isn't the hard part. Any ad account with a budget 
-                  can drive traffic. The challenge is what happens after.
-                </p>
-                <p>
-                  Not everyone who clicks is ready to buy today. Some are researching. 
-                  Some are comparing. Some will forget about you by tomorrow.
-                </p>
-                <p>
-                  Systems should capture both immediate and delayed intent. The first 
-                  click opens a window. What you do in that window determines whether 
-                  attention becomes revenue.
-                </p>
-              </div>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-sm font-medium tracking-wide text-accent uppercase mb-4">
+              Our Philosophy
+            </p>
+            <h2 className="text-3xl md:text-4xl font-display font-semibold tracking-tight text-foreground">
+              A smarter way to run seasonal ads
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* The Old Way */}
+            <div className="bg-background p-8 rounded-lg border border-border">
+              <h3 className="text-xl font-semibold text-foreground mb-6 tracking-tight">
+                The Old Way
+              </h3>
+              <ul className="space-y-4">
+                {oldWay.map((item, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center mt-0.5">
+                      <X className="w-3 h-3 text-destructive" />
+                    </div>
+                    <span className="text-muted-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="lg:col-span-2">
-              <div className="bg-background p-8 rounded-lg border border-border">
-                <div className="text-5xl font-display font-medium text-foreground mb-2">
-                  72%
-                </div>
-                <p className="text-muted-foreground">
-                  of interested prospects don't convert on their first visit. 
-                  Most businesses have no system to re-engage them.
-                </p>
-              </div>
+
+            {/* The Creative Core Way */}
+            <div className="bg-accent/5 p-8 rounded-lg border border-accent/20">
+              <h3 className="text-xl font-semibold text-foreground mb-6 tracking-tight">
+                The Creative Core Way
+              </h3>
+              <ul className="space-y-4">
+                {creativeWay.map((item, index) => (
+                  <li key={index} className="flex items-start gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-accent/10 flex items-center justify-center mt-0.5">
+                      <Check className="w-3 h-3 text-accent" />
+                    </div>
+                    <span className="text-foreground">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

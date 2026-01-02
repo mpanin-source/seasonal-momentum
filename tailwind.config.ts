@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
+        display: ["Inter", "-apple-system", "sans-serif"],
         body: ["Inter", "-apple-system", "sans-serif"],
       },
       colors: {
