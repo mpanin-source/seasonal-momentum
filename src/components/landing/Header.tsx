@@ -26,7 +26,7 @@ const Header = () => {
               Is this for me?
             </a>
             <Button variant="accent" size="sm" onClick={scrollToContact}>
-              Get started
+              Check Availability
             </Button>
           </nav>
           <Button 
@@ -35,7 +35,7 @@ const Header = () => {
             onClick={scrollToContact}
             className="md:hidden"
           >
-            Get started
+            Check Availability
           </Button>
         </div>
       </div>
