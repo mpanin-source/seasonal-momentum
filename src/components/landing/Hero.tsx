@@ -16,7 +16,7 @@ const Hero = () => {
             Stop paying for ads when nobody is searching.
             <span style={{
             textShadow: '2px 2px 0px rgba(0,0,0,0.08)'
-          }} className="block text-accent tracking-[-0.02em] text-left font-display -mt-2 skew-x-[-3deg] italic animate-slide-up [animation-delay:500ms] opacity-0 text-8xl mt-1">
+          }} className="block text-accent tracking-[-0.02em] text-left font-display -mt-2 skew-x-[-3deg] italic animate-slide-up [animation-delay:500ms] opacity-0 text-8xl mt-1 my-[12px]">
               Start when they are.
             </span>
           </h1>
