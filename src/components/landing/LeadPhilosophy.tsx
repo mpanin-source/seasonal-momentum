@@ -30,9 +30,9 @@ const LeadPhilosophy = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-0 border border-border rounded-lg overflow-hidden">
             {/* The Old Way */}
-            <div className="bg-background p-8 rounded-lg border border-border">
+            <div className="bg-muted/30 p-8 md:border-r border-border">
               <h3 className="text-xl font-semibold text-foreground mb-6 tracking-tight">
                 The Old Way
               </h3>
@@ -49,7 +49,7 @@ const LeadPhilosophy = () => {
             </div>
 
             {/* The Creative Core Way */}
-            <div className="bg-accent/5 p-8 rounded-lg border border-accent/20">
+            <div className="bg-accent/5 p-8">
               <h3 className="text-xl font-semibold text-foreground mb-6 tracking-tight">
                 The Creative Core Way
               </h3>

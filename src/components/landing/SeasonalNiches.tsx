@@ -1,34 +1,42 @@
+import { Dumbbell, Thermometer, TreeDeciduous, Calculator, Waves, Snowflake } from "lucide-react";
+
 const SeasonalNiches = () => {
   const niches = [
     {
       title: "Fitness & Gyms",
       season: "January - March",
       description: "New Year resolution traffic peaks in early Q1",
+      icon: Dumbbell,
     },
     {
       title: "HVAC Services",
       season: "Spring & Fall",
       description: "Seasonal maintenance and emergency repairs",
+      icon: Thermometer,
     },
     {
       title: "Landscaping",
       season: "March - May",
       description: "Spring cleanup and seasonal prep demand",
+      icon: TreeDeciduous,
     },
     {
       title: "Tax Preparation",
       season: "January - April",
       description: "Tax season drives consistent high-intent searches",
+      icon: Calculator,
     },
     {
       title: "Pool Services",
       season: "April - June",
       description: "Opening season creates predictable demand",
+      icon: Waves,
     },
     {
       title: "Snow Removal",
       season: "November - February",
       description: "Weather-driven urgency and local searches",
+      icon: Snowflake,
     },
   ];
 
@@ -54,6 +62,9 @@ const SeasonalNiches = () => {
               key={index}
               className="bg-background border border-border rounded-lg p-6 hover:border-accent/50 transition-colors"
             >
+              <div className="flex justify-center mb-4">
+                <niche.icon className="w-8 h-8 text-foreground" strokeWidth={1.5} />
+              </div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium text-foreground">
                   {niche.title}
