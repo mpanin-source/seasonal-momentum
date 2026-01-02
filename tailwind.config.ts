@@ -19,7 +19,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Inter", "-apple-system", "sans-serif"],
+        display: ["Bebas Neue", "Impact", "sans-serif"],
         body: ["Inter", "-apple-system", "sans-serif"],
       },
       colors: {
