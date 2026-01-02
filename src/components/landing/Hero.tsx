@@ -13,9 +13,9 @@ const Hero = () => {
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-6 animate-fade-in">
             Creative Core
           </p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-body font-semibold leading-tight tracking-tight text-foreground mb-8 animate-fade-in [animation-delay:100ms] opacity-0">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display leading-none tracking-wide text-foreground mb-8 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
             Stop paying for ads when nobody is searching.
-            <span className="block text-foreground mt-2">
+            <span className="block text-accent mt-2">
               Start when they are.
             </span>
           </h1>

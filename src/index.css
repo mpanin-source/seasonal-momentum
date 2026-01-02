@@ -2,54 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap');
 
 @layer base {
   :root {
-    /* #F9F8F6 -> hsl(40, 20%, 97%) */
-    --background: 40 20% 97%;
-    /* #1A1A1A -> hsl(0, 0%, 10%) */
-    --foreground: 0 0% 10%;
+    /* #F8F9FC - cool off-white */
+    --background: 225 33% 98%;
+    /* #1A1A2E - deep navy text */
+    --foreground: 240 28% 14%;
 
-    --card: 40 15% 95%;
-    --card-foreground: 0 0% 10%;
+    --card: 225 25% 95%;
+    --card-foreground: 240 28% 14%;
 
-    --popover: 40 20% 97%;
-    --popover-foreground: 0 0% 10%;
+    --popover: 225 33% 98%;
+    --popover-foreground: 240 28% 14%;
 
-    --primary: 0 0% 10%;
-    --primary-foreground: 40 20% 97%;
+    --primary: 240 28% 14%;
+    --primary-foreground: 225 33% 98%;
 
-    --secondary: 35 15% 92%;
-    --secondary-foreground: 0 0% 10%;
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 240 28% 14%;
 
-    --muted: 35 10% 90%;
-    --muted-foreground: 0 0% 35%;
+    --muted: 220 15% 90%;
+    --muted-foreground: 220 10% 40%;
 
-    /* #2D4F3F -> hsl(153, 28%, 24%) */
-    --accent: 153 28% 24%;
+    /* Deep blue accent #2563EB */
+    --accent: 217 91% 53%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 70% 50%;
-    --destructive-foreground: 40 20% 98%;
+    --destructive-foreground: 225 33% 98%;
 
-    --border: 35 15% 88%;
-    --input: 35 15% 88%;
-    --ring: 153 28% 24%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 217 91% 53%;
 
     --radius: 0.5rem;
 
     /* Custom tokens */
-    --stone: 35 12% 85%;
-    --stone-dark: 35 10% 70%;
-    --warm-white: 40 30% 99%;
-    --sage: 153 28% 24%;
-    --sage-light: 150 20% 92%;
-    --charcoal: 0 0% 10%;
-    --slate: 0 0% 35%;
+    --stone: 220 12% 85%;
+    --stone-dark: 220 10% 70%;
+    --warm-white: 225 30% 99%;
+    --sage: 217 91% 53%;
+    --sage-light: 217 80% 95%;
+    --charcoal: 240 28% 14%;
+    --slate: 220 10% 40%;
 
     /* Typography */
-    --font-display: 'Inter', -apple-system, sans-serif;
+    --font-display: 'Bebas Neue', Impact, sans-serif;
     --font-body: 'Inter', -apple-system, sans-serif;
 
     /* Shadows */
