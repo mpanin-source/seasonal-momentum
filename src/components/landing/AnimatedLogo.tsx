@@ -7,29 +7,29 @@ const AnimatedLogo = () => {
   return (
     <a
       href="/"
-      className="flex items-center gap-2 group"
+      className="flex items-center gap-3 group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Logo Icon */}
+      {/* Bullseye Logo Icon */}
       <img
         src={logo}
         alt="Creative Core"
-        className="h-8 w-8 object-contain"
+        className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-105"
       />
 
-      {/* Expanding Text Container */}
+      {/* Expanding Text Container - Stacked Layout */}
       <div
         className={`
           overflow-hidden transition-all duration-[400ms] ease-in-out
-          md:w-0 md:group-hover:w-[140px]
-          w-[140px]
+          md:w-0 md:group-hover:w-[100px]
+          w-[100px]
         `}
       >
-        <div className="flex whitespace-nowrap">
+        <div className="flex flex-col leading-tight whitespace-nowrap">
           <span
             className={`
-              font-display text-lg font-bold text-foreground tracking-wide
+              font-display text-base font-bold text-foreground tracking-wider
               transition-opacity duration-300 ease-in-out
               md:opacity-0 md:group-hover:opacity-100
               opacity-100
@@ -40,7 +40,7 @@ const AnimatedLogo = () => {
           </span>
           <span
             className={`
-              font-display text-lg font-bold text-foreground tracking-wide ml-1
+              font-display text-base font-bold text-foreground tracking-wider
               transition-opacity duration-300 ease-in-out
               md:opacity-0 md:group-hover:opacity-100
               opacity-100
