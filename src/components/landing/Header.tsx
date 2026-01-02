@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import AnimatedLogo from "./AnimatedLogo";
 
 const Header = () => {
   const scrollToContact = () => {
@@ -9,9 +10,7 @@ const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <div className="container-wide px-6 md:px-8 lg:px-12">
         <div className="flex items-center justify-between h-16">
-          <a href="/" className="font-display text-xl font-medium text-foreground">
-            Creative Core
-          </a>
+          <AnimatedLogo />
           <nav className="hidden md:flex items-center gap-8">
             <a 
               href="#offer" 
