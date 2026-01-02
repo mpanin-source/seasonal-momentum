@@ -13,13 +13,13 @@ const Hero = () => {
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-6 animate-fade-in">
             Creative Core
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display leading-none tracking-wide text-foreground mb-8 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display leading-none tracking-wide text-foreground mb-14 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
             Stop paying for ads when nobody is searching.
             <span className="block text-accent mt-2">
               Start when they are.
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl animate-fade-in [animation-delay:200ms] opacity-0">
+          <p className="text-[1.1rem] md:text-xl text-muted-foreground leading-relaxed mb-10 max-w-2xl animate-fade-in [animation-delay:200ms] opacity-0">
             Creative Core runs high-intensity, 30-day ad sprints for seasonal businesses like gyms, HVAC, and landscapers. We capture demand when it peaks—then we turn the budget off.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
