@@ -36,8 +36,8 @@ const ContactForm = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     toast({
-      title: "Application Received",
-      description: "We'll review your information and reach out within 24 hours.",
+      title: "Application Received!",
+      description: "Check your email for next steps. We'll be in touch within 24 hours to schedule your strategy session.",
     });
 
     setFormData({
@@ -65,7 +65,7 @@ const ContactForm = () => {
   };
 
   const inputClasses =
-    "bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-primary-foreground/40";
+    "bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/50 focus:border-accent focus:ring-accent/20";
 
   return (
     <section className="section-padding bg-primary" id="contact">
@@ -252,13 +252,13 @@ const ContactForm = () => {
                 placeholder="Tell us about your peak season timing, goals, or any questions..."
                 value={formData.message}
                 onChange={handleChange}
-                rows={3}
+                rows={4}
                 className={`${inputClasses} resize-none`}
               />
             </div>
 
             {/* Value-Add Note */}
-            <div className="bg-accent/15 border border-accent/30 rounded-lg p-6 text-center">
+            <div className="bg-accent/10 border border-accent rounded-lg p-3 text-center">
               <p className="text-primary-foreground leading-relaxed">
                 <strong className="text-accent">Note:</strong> Our service includes the construction of a custom, high-conversion lead funnel. We don't just send traffic to your existing homepage; we build a dedicated environment designed to turn clicks into customers.
               </p>
