@@ -1,12 +1,27 @@
 import { Check, X } from "lucide-react";
 
 const CoreOffer = () => {
+  const phases = [
+    {
+      title: "Phase 1: Seasonal Alignment",
+      description: "We identify your peak demand window and craft an offer positioned for maximum market resonance.",
+    },
+    {
+      title: "Phase 2: High-Intensity Execution",
+      description: "Rapid deployment of paid campaigns across Meta and Google with conversion-optimized landing pages.",
+    },
+    {
+      title: "Phase 3: Data-Driven Handover",
+      description: "Comprehensive performance review with documented insights and actionable next steps for sustained growth.",
+    },
+  ];
+
   const included = [
-    "Seasonal offer alignment and positioning",
+    "Strategic seasonal offer positioning",
     "Paid ad setup across Meta, Google, or both",
-    "Simple, conversion-focused landing page",
-    "Budget pacing with mid-sprint performance review",
-    "End-of-sprint debrief with learnings documented",
+    "Conversion-focused landing page",
+    "Real-time budget optimization",
+    "Complete performance documentation",
   ];
 
   const notIncluded = [
@@ -30,6 +45,20 @@ const CoreOffer = () => {
             A 30–45 day sprint designed around your peak season. We set up, run, 
             and optimize a focused campaign while demand is high.
           </p>
+        </div>
+
+        {/* Three Phases */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+          {phases.map((phase, index) => (
+            <div key={index} className="p-6 bg-card rounded-lg border border-border text-center">
+              <h3 className="text-lg font-display font-medium text-foreground mb-3">
+                {phase.title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {phase.description}
+              </p>
+            </div>
+          ))}
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
