@@ -36,6 +36,7 @@ const Hero = () => {
               variant="outline" 
               size="xl" 
               onClick={() => document.getElementById("seasonal-niches")?.scrollIntoView({ behavior: "smooth" })}
+              className="hover:bg-foreground hover:text-background hover:border-foreground"
             >
               Best Seasonal Niches Now
             </Button>
