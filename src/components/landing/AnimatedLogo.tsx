@@ -6,15 +6,16 @@ const AnimatedLogo = () => {
   return (
     <a
       href="/"
-      className="flex items-center gap-2 group relative h-12"
+      className="flex items-center gap-2 group relative h-10 md:h-12"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={() => setIsHovered(!isHovered)}
     >
-      {/* Bullseye SVG - Rotates and fades out on hover */}
+      {/* Bullseye SVG - Rotates and fades out on hover/tap */}
       <div
         className={`
           transition-all duration-500 ease-in-out
-          ${isHovered ? "md:rotate-[360deg] md:scale-0 md:opacity-0" : "rotate-0 scale-100 opacity-100"}
+          ${isHovered ? "rotate-[360deg] scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"}
         `}
       >
         <svg
@@ -23,7 +24,7 @@ const AnimatedLogo = () => {
           viewBox="0 0 100 100"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="text-foreground"
+          className="text-foreground w-8 h-8 md:w-10 md:h-10"
         >
           {/* Outer ring */}
           <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="3" fill="none" />
@@ -43,29 +44,18 @@ const AnimatedLogo = () => {
         </svg>
       </div>
 
-      {/* Text Logo - Fades in on hover (desktop) / Always visible (mobile) */}
+      {/* Text Logo - Fades in on hover/tap */}
       <div
         className={`
           absolute left-0 transition-all duration-500 ease-in-out
-          md:opacity-0 md:scale-95 md:translate-x-0
-          ${isHovered ? "md:opacity-100 md:scale-100" : ""}
-          opacity-0 pointer-events-none
-          md:block hidden
+          opacity-0 scale-95
+          ${isHovered ? "opacity-100 scale-100" : ""}
+          pointer-events-none
         `}
         style={{ transitionDelay: isHovered ? "200ms" : "0ms" }}
       >
         <span
-          className="text-2xl font-bold text-foreground whitespace-nowrap"
-          style={{ fontFamily: "'Pacifico', cursive" }}
-        >
-          Creative Core
-        </span>
-      </div>
-
-      {/* Mobile: Always show text next to bullseye */}
-      <div className="md:hidden flex items-center">
-        <span
-          className="text-xl font-bold text-foreground whitespace-nowrap"
+          className="text-lg md:text-2xl font-bold text-foreground whitespace-nowrap"
           style={{ fontFamily: "'Pacifico', cursive" }}
         >
           Creative Core
