@@ -6,7 +6,7 @@ const Hero = () => {
       behavior: "smooth"
     });
   };
-  return <section className="section-padding min-h-[85vh] flex items-center px-6 md:px-8 lg:px-12">
+  return <section className="section-padding min-h-[85vh] flex items-center px-6 md:px-8 lg:px-12 -mt-16 pt-16">
       <div className="container-wide">
         <div className="max-w-3xl py-0 my-0 mx-0">
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-8 animate-fade-in">
