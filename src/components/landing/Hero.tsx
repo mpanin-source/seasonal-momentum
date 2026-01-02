@@ -6,31 +6,31 @@ const Hero = () => {
       behavior: "smooth"
     });
   };
-  return <section className="section-padding min-h-[85vh] flex items-center">
+  return <section className="section-padding min-h-[85vh] flex items-center px-6 md:px-8 lg:px-12">
       <div className="container-wide">
         <div className="max-w-3xl py-0 my-0 mx-0">
           <p className="text-sm font-medium tracking-wide text-muted-foreground uppercase mb-8 animate-fade-in">
             Creative Core
           </p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-black leading-[0.95] tracking-wide text-foreground mb-12 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
+          <h1 className="text-[3.5rem] md:text-6xl lg:text-7xl font-display font-black leading-[0.95] tracking-wide text-foreground mb-12 animate-fade-in [animation-delay:100ms] opacity-0 uppercase">
             Stop paying for ads when nobody is searching.
             <span style={{
             textShadow: '2px 2px 0px rgba(0,0,0,0.08)'
-          }} className="block text-accent tracking-[-0.02em] font-display -mt-2 skew-x-[-3deg] italic animate-slide-up [animation-delay:500ms] opacity-0 mt-1 text-6xl text-left my-[12px]">
+          }} className="block text-accent tracking-[-0.02em] font-display -mt-2 skew-x-[-3deg] italic animate-slide-up [animation-delay:500ms] opacity-0 mt-1 text-[3.5rem] md:text-6xl text-left my-[12px] leading-[0.8] md:leading-[0.85]">
               Start when they are.
             </span>
           </h1>
-          <p className="text-[1.1rem] md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-full md:max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">
             Creative Core runs high-intensity, 30-day ad sprints for seasonal businesses like gyms, HVAC, and landscapers. We capture demand when it peaks—then we turn the budget off.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
-            <Button variant="accent" size="xl" onClick={scrollToContact} className="group">
+            <Button variant="accent" size="xl" onClick={scrollToContact} className="group w-full sm:w-auto">
               Find Your Growth Window
               <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button variant="outline" size="xl" onClick={() => document.getElementById("seasonal-niches")?.scrollIntoView({
             behavior: "smooth"
-          })} className="hover:bg-foreground hover:text-background hover:border-foreground">
+          })} className="hover:bg-foreground hover:text-background hover:border-foreground w-full sm:w-auto">
               View Trending Niches
             </Button>
           </div>
