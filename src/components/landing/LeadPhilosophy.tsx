@@ -21,19 +21,19 @@ const LeadPhilosophy = () => {
     <section className="section-padding bg-card">
       <div className="container-wide">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-16">
             <p className="text-sm font-medium tracking-wide text-accent uppercase mb-4">
               Our Philosophy
             </p>
-            <h2 className="text-3xl md:text-4xl font-display font-semibold tracking-tight text-foreground">
+            <h2 className="text-3xl md:text-4xl font-display font-bold tracking-wider text-foreground">
               A smarter way to run seasonal ads
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-0 border border-border rounded-lg overflow-hidden">
             {/* The Old Way */}
-            <div className="bg-muted/30 p-8 md:border-r border-border">
-              <h3 className="text-xl font-semibold text-foreground mb-6 tracking-tight">
+            <div className="bg-muted/30 p-10 md:border-r border-border">
+              <h3 className="text-xl font-display font-bold text-foreground mb-6 tracking-widest uppercase">
                 The Old Way
               </h3>
               <ul className="space-y-4">
@@ -49,8 +49,8 @@ const LeadPhilosophy = () => {
             </div>
 
             {/* The Creative Core Way */}
-            <div className="bg-accent/5 p-8">
-              <h3 className="text-xl font-semibold text-foreground mb-6 tracking-tight">
+            <div className="bg-accent/5 p-10">
+              <h3 className="text-xl font-display font-bold text-foreground mb-6 tracking-widest uppercase">
                 The Creative Core Way
               </h3>
               <ul className="space-y-4">

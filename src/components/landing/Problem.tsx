@@ -3,7 +3,7 @@ const Problem = () => {
     <section className="section-padding bg-card">
       <div className="container-wide">
         <div className="container-narrow text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-display font-medium text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
             Most ads fail before they even start.
           </h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -16,7 +16,7 @@ const Problem = () => {
             <div className="w-10 h-10 rounded-full bg-sage-light flex items-center justify-center mb-5">
               <span className="text-sage font-display text-lg">1</span>
             </div>
-            <h3 className="text-xl font-display font-medium text-foreground mb-3">
+            <h3 className="text-xl font-display font-bold text-foreground mb-3 tracking-wider">
               Off-season spending
             </h3>
             <p className="text-muted-foreground leading-relaxed">
@@ -29,7 +29,7 @@ const Problem = () => {
             <div className="w-10 h-10 rounded-full bg-sage-light flex items-center justify-center mb-5">
               <span className="text-sage font-display text-lg">2</span>
             </div>
-            <h3 className="text-xl font-display font-medium text-foreground mb-3">
+            <h3 className="text-xl font-display font-bold text-foreground mb-3 tracking-wider">
               Low-intent traffic
             </h3>
             <p className="text-muted-foreground leading-relaxed">
@@ -42,7 +42,7 @@ const Problem = () => {
             <div className="w-10 h-10 rounded-full bg-sage-light flex items-center justify-center mb-5">
               <span className="text-sage font-display text-lg">3</span>
             </div>
-            <h3 className="text-xl font-display font-medium text-foreground mb-3">
+            <h3 className="text-xl font-display font-bold text-foreground mb-3 tracking-wider">
               Lost attention
             </h3>
             <p className="text-muted-foreground leading-relaxed">
