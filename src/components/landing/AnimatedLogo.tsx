@@ -29,14 +29,15 @@ const AnimatedLogo = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Mobile: Combined bullseye + text logo (always visible) */}
-      <div className="md:hidden flex items-center gap-1">
-        <BullseyeIcon className="text-foreground w-6 h-6" />
+      {/* Mobile: Logo with bullseye as the O in CORE */}
+      <div className="md:hidden flex items-center">
         <span 
-          className="text-lg font-bold text-foreground whitespace-nowrap tracking-wide"
+          className="text-lg font-bold text-foreground whitespace-nowrap tracking-wide flex items-center"
           style={{ fontFamily: "'Bebas Neue', sans-serif" }}
         >
-          CREATIVE CORE
+          CREATIVE C
+          <BullseyeIcon className="text-foreground w-4 h-4 mx-[-1px] inline-block" />
+          RE
         </span>
       </div>
 
