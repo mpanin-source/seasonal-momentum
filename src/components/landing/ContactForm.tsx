@@ -63,7 +63,9 @@ const ContactForm = () => {
   };
 
   const inputClasses =
-    "bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-accent focus:ring-accent/30 h-12";
+    "bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-accent focus:ring-accent/30 h-12";
+
+  const sevenMs = ["Model", "Market", "Message", "Media", "Machine", "Metrics", "Momentum"];
 
   return (
     <section className="relative py-20 md:py-28 bg-[hsl(var(--hero-dark))]" id="contact">
@@ -71,41 +73,59 @@ const ContactForm = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.08),transparent_70%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,hsl(var(--hero-dark)/0.5))]" />
       
-      <div className="container-wide relative z-10">
+      {/* Container with max-width constraint */}
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
-          <div className="text-center mb-12">
-            {/* Title with bullseye icon */}
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-accent mb-6 uppercase tracking-wide flex items-center justify-center gap-1">
+          <div className="text-center mb-10 md:mb-14">
+            {/* Title with bullseye icon - responsive scaling */}
+            <h2 className="font-display font-bold text-accent uppercase tracking-wide flex flex-wrap items-center justify-center gap-0.5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6">
               <span>GET YOUR FREE C</span>
-              <Target className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-accent inline-block" strokeWidth={2.5} />
+              <Target 
+                className="text-accent inline-block flex-shrink-0" 
+                style={{ width: '0.85em', height: '0.85em' }}
+                strokeWidth={2.5} 
+              />
               <span>REDIAGNOSTIC</span>
             </h2>
             
             {/* Headline */}
-            <p className="text-xl md:text-2xl text-white font-medium mb-4">
+            <p className="text-lg sm:text-xl md:text-2xl text-white font-medium mb-5">
               Stop guessing. Get a 15-minute surgical breakdown of your 2026 local market dominance.
             </p>
             
-            {/* Sub-headline */}
-            <p className="text-white/60 text-base md:text-lg">
-              We audit your <span className="text-accent font-medium">Model</span>, <span className="text-accent font-medium">Market</span>, <span className="text-accent font-medium">Message</span>, <span className="text-accent font-medium">Media</span>, <span className="text-accent font-medium">Machine</span>, <span className="text-accent font-medium">Metrics</span>, and <span className="text-accent font-medium">Momentum</span>—for free.
+            {/* Sub-headline with 7 M's in clean grid */}
+            <p className="text-white/70 text-sm sm:text-base md:text-lg mb-4">
+              We audit your 7 pillars—for free:
             </p>
+            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 sm:gap-3 max-w-xl mx-auto">
+              {sevenMs.map((m, i) => (
+                <span 
+                  key={m} 
+                  className={`text-accent font-medium text-xs sm:text-sm uppercase tracking-wider ${
+                    i >= 4 ? 'col-span-1' : ''
+                  }`}
+                >
+                  {m}
+                </span>
+              ))}
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Group 1: Basics */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-sm">
+            <div className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-xs sm:text-sm">
                   1
                 </div>
-                <h3 className="font-display text-white uppercase tracking-wider text-sm">The Basics</h3>
+                <h3 className="font-display text-white uppercase tracking-wider text-xs sm:text-sm">The Basics</h3>
               </div>
               
-              <div className="grid md:grid-cols-3 gap-4">
+              {/* Single column on mobile, 2 columns on desktop */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                     Your Name
                   </label>
                   <Input
@@ -119,7 +139,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                     Business Email
                   </label>
                   <Input
@@ -132,8 +152,8 @@ const ContactForm = () => {
                     className={inputClasses}
                   />
                 </div>
-                <div>
-                  <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                <div className="md:col-span-2">
+                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                     Website URL
                   </label>
                   <Input
@@ -152,17 +172,18 @@ const ContactForm = () => {
             <div className="border-t border-white/10" />
 
             {/* Group 2: Diagnostic Inputs */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-sm">
+            <div className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-xs sm:text-sm">
                   2
                 </div>
-                <h3 className="font-display text-white uppercase tracking-wider text-sm">Diagnostic Inputs</h3>
+                <h3 className="font-display text-white uppercase tracking-wider text-xs sm:text-sm">Diagnostic Inputs</h3>
               </div>
               
-              <div className="grid md:grid-cols-2 gap-6">
+              {/* Single column on mobile, 2 columns on desktop */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                     Average Project/Customer Value
                   </label>
                   <Select
@@ -185,7 +206,7 @@ const ContactForm = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                     Primary Service Area (Zip/City)
                   </label>
                   <Input
@@ -200,7 +221,7 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <label className="block text-white/70 text-xs uppercase tracking-wider mb-3">
+                <label className="block text-white text-xs uppercase tracking-wider mb-3 font-medium">
                   Are you currently running any automated follow-up (SMS/Email)?
                 </label>
                 <RadioGroup
@@ -213,18 +234,18 @@ const ContactForm = () => {
                   <label className="flex items-center gap-3 cursor-pointer group">
                     <RadioGroupItem
                       value="yes"
-                      className="border-white/30 text-white data-[state=checked]:border-accent data-[state=checked]:text-accent"
+                      className="border-white/40 text-white data-[state=checked]:border-accent data-[state=checked]:text-accent"
                     />
-                    <span className="text-white/70 group-hover:text-white transition-colors">
+                    <span className="text-white/80 group-hover:text-white transition-colors">
                       Yes
                     </span>
                   </label>
                   <label className="flex items-center gap-3 cursor-pointer group">
                     <RadioGroupItem
                       value="no"
-                      className="border-white/30 text-white data-[state=checked]:border-accent data-[state=checked]:text-accent"
+                      className="border-white/40 text-white data-[state=checked]:border-accent data-[state=checked]:text-accent"
                     />
-                    <span className="text-white/70 group-hover:text-white transition-colors">
+                    <span className="text-white/80 group-hover:text-white transition-colors">
                       No
                     </span>
                   </label>
@@ -236,16 +257,16 @@ const ContactForm = () => {
             <div className="border-t border-white/10" />
 
             {/* Group 3: Timing */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-8 h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-sm">
+            <div className="space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-xs sm:text-sm">
                   3
                 </div>
-                <h3 className="font-display text-white uppercase tracking-wider text-sm">Timing</h3>
+                <h3 className="font-display text-white uppercase tracking-wider text-xs sm:text-sm">Timing</h3>
               </div>
               
               <div>
-                <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                   When is your next peak seasonal window?
                 </label>
                 <Select
@@ -268,7 +289,7 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <label className="block text-white/70 text-xs uppercase tracking-wider mb-2">
+                <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
                   Anything else we should know? (Optional)
                 </label>
                 <Textarea
@@ -287,7 +308,7 @@ const ContactForm = () => {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-display uppercase tracking-wider text-lg h-14 relative overflow-hidden group"
+                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-display uppercase tracking-wider text-base sm:text-lg h-12 sm:h-14 relative overflow-hidden group"
                 size="lg"
                 style={{
                   boxShadow: '0 0 30px hsl(var(--accent) / 0.5), 0 0 60px hsl(var(--accent) / 0.3), inset 0 1px 0 hsl(var(--accent-foreground) / 0.1)',
@@ -303,7 +324,7 @@ const ContactForm = () => {
               </Button>
 
               {/* Note below button */}
-              <p className="text-center text-white/50 text-sm mt-4">
+              <p className="text-center text-white/60 text-xs sm:text-sm mt-4">
                 Your 15-minute video diagnostic will be delivered to your inbox within 48 hours.
               </p>
             </div>
