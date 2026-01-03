@@ -232,13 +232,13 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex items-center gap-3 h-full px-4"
-                      style={{ height: "50px" }}
+                      className="flex items-center justify-start gap-2.5 h-full px-3"
+                      style={{ height: "44px" }}
                     >
-                      <div className="p-2 rounded-lg bg-accent/10 border border-accent/30">
-                        <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
+                      <div className="flex items-center justify-center w-7 h-7 rounded-md bg-accent/10 border border-accent/30">
+                        <IconComponent className="w-[18px] h-[18px] text-accent" strokeWidth={1.5} />
                       </div>
-                      <span className="text-sm font-display font-bold text-white/70 tracking-wider uppercase">
+                      <span className="text-xs font-display font-bold text-white/70 tracking-wider uppercase leading-none">
                         {niche.title}
                       </span>
                     </motion.div>
@@ -351,8 +351,11 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                           e.stopPropagation();
                           onViewROI(niche);
                         }}
-                        className="relative mt-auto w-full py-3 px-4 rounded-lg font-display font-bold text-sm uppercase tracking-wider text-white overflow-hidden group"
+                        className="relative mt-auto w-full py-3 px-4 rounded-lg font-display font-bold text-sm uppercase tracking-wider text-white overflow-hidden"
                         style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
                           background: "linear-gradient(135deg, hsl(217 91% 53%) 0%, hsl(217 91% 43%) 100%)",
                           boxShadow: "0 0 20px hsl(217 91% 53% / 0.4)",
                         }}
@@ -378,23 +381,23 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                       </motion.button>
                     </motion.div>
                   ) : (
-                    // Default State - Full Row
+                    // Default State - Full Row (streamlined for mobile)
                     <motion.div
                       key="default"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="flex items-center justify-between h-full px-4 group"
+                      className="flex items-center justify-between h-full px-3 py-2.5 group"
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="p-2.5 rounded-lg bg-accent/10 border border-accent/30 group-hover:bg-accent/15 group-hover:border-accent/40 transition-colors">
-                          <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-md bg-accent/10 border border-accent/30 group-hover:bg-accent/15 group-hover:border-accent/40 transition-colors">
+                          <IconComponent className="w-[18px] h-[18px] text-accent" strokeWidth={1.5} />
                         </div>
-                        <span className="text-base font-display font-bold text-white tracking-wider uppercase">
+                        <span className="text-sm font-display font-bold text-white tracking-wider uppercase leading-none">
                           {niche.title}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2 text-accent/70 group-hover:text-accent transition-colors">
+                      <div className="flex items-center gap-1.5 text-accent/70 group-hover:text-accent transition-colors">
                         <span className="text-[10px] font-medium tracking-wider uppercase hidden sm:block">
                           Analyze
                         </span>
