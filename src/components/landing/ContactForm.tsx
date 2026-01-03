@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { ArrowRight, ArrowLeft, Target, HelpCircle, Loader2 } from "lucide-react";
+import { ArrowRight, ArrowLeft, Target, HelpCircle, Loader2, Flame } from "lucide-react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
@@ -238,29 +238,30 @@ const ContactForm = () => {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-6 md:mb-8">
-            {/* Logo and FREE Diagnostic */}
+            {/* Primary Call-Out with Fire Icon */}
             <div className="flex flex-col items-center mb-6">
-              <img 
-                src="/lovable-uploads/0f765a18-56d7-4f09-8c32-741999a97f6d.png" 
-                alt="Creative Core" 
-                className="h-12 sm:h-14 md:h-16 w-auto mb-3"
-                style={{ filter: 'brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(1500%) hue-rotate(196deg) brightness(102%) contrast(101%)' }}
-              />
-              <span className="font-display text-accent uppercase text-2xl sm:text-3xl md:text-4xl tracking-wider">
-                FREE Diagnostic
-              </span>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Flame className="w-6 h-6 sm:w-7 sm:h-7 text-accent animate-pulse" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--accent) / 0.8))' }} />
+                <span className="font-display text-accent uppercase text-xl sm:text-2xl md:text-3xl tracking-wider font-bold">
+                  READY TO SCALE?
+                </span>
+                <Flame className="w-6 h-6 sm:w-7 sm:h-7 text-accent animate-pulse" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--accent) / 0.8))' }} />
+              </div>
+              <h2 className="font-display text-accent uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wider font-bold">
+                GET YOUR FREE SEASONAL GROWTH AUDIT
+              </h2>
             </div>
             
-            {/* Headline */}
-            <p className="font-display text-lg sm:text-xl md:text-2xl text-[#FFFFFF]/90 mb-5 uppercase tracking-wide">
-              Stop guessing. Get a 15-minute surgical breakdown of your 2026 local market dominance.
+            {/* Sub-Headline */}
+            <p className="text-base sm:text-lg md:text-xl text-[#FFFFFF]/90 mb-5 max-w-2xl mx-auto leading-relaxed">
+              Stop guessing. Get an actionable 15-minute roadmap to dominate your local market and start capturing more high-intent leads every single month.
             </p>
           </div>
 
           {/* Sticky Protocol Pills */}
           <div className="sticky top-0 z-20 bg-[hsl(220,20%,8%)]/95 backdrop-blur-sm py-4 mb-8 -mx-4 px-4 border-b border-white/10">
-            <p className="text-[#FFFFFF]/90 text-xs sm:text-sm text-center mb-3 uppercase tracking-wider">
-              We audit your 7 pillars—for free:
+            <p className="text-accent text-xs sm:text-sm text-center mb-3 uppercase tracking-widest font-bold">
+              OUR 7-POINT SYSTEM FOR GUARANTEED SCALE:
             </p>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {sevenMs.map((m) => {
@@ -286,24 +287,29 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* Step Indicator */}
-          <div className="flex items-center justify-center gap-2 mb-8">
+          {/* Step Indicator - Clear & Centered */}
+          <div className="text-center mb-4">
+            <p className="text-[#FFFFFF]/70 text-xs uppercase tracking-wider mb-3">
+              Fast 3-Step Process
+            </p>
+          </div>
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mb-6">
             {[1, 2, 3].map((step) => (
               <div key={step} className="flex items-center">
                 <div 
-                  className={`w-8 h-8 rounded-full flex items-center justify-center font-display text-sm transition-all duration-300 ${
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-display text-base sm:text-lg font-bold transition-all duration-300 ${
                     step === currentStep 
                       ? 'bg-accent text-accent-foreground' 
                       : step < currentStep 
-                        ? 'bg-accent/30 text-accent border border-accent' 
-                        : 'bg-[#1A1A1A] text-[#888888] border border-[#333333]'
+                        ? 'bg-accent/30 text-accent border-2 border-accent' 
+                        : 'bg-[#1A1A1A] text-[#888888] border-2 border-[#333333]'
                   }`}
-                  style={step === currentStep ? { boxShadow: '0 0 20px hsl(var(--accent) / 0.5)' } : {}}
+                  style={step === currentStep ? { boxShadow: '0 0 25px hsl(var(--accent) / 0.6)' } : {}}
                 >
                   {step}
                 </div>
                 {step < 3 && (
-                  <div className={`w-12 sm:w-20 h-0.5 mx-2 transition-all duration-300 ${
+                  <div className={`w-8 sm:w-16 md:w-20 h-1 mx-1 sm:mx-2 rounded-full transition-all duration-300 ${
                     step < currentStep ? 'bg-accent' : 'bg-[#333333]'
                   }`} />
                 )}
@@ -313,7 +319,7 @@ const ContactForm = () => {
 
           {/* Step Labels */}
           <div className="text-center mb-8">
-            <span className="text-accent font-display uppercase tracking-wider text-sm">
+            <span className="text-accent font-display uppercase tracking-wider text-sm sm:text-base font-bold">
               Step {currentStep}: {currentStep === 1 ? 'Identity' : currentStep === 2 ? 'Infrastructure' : 'Opportunity'}
             </span>
           </div>
