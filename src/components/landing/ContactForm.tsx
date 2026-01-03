@@ -63,7 +63,9 @@ const ContactForm = () => {
   };
 
   const inputClasses =
-    "bg-[#1A1A1A] border border-white/20 text-[#FFFFFF] placeholder:text-[#888888] focus:border-accent focus:ring-accent/30 focus:ring-1 h-12 transition-colors duration-200";
+    "bg-[#1A1A1A] border border-[#333333] text-[#FFFFFF] placeholder:text-[#888888] focus:border-accent focus:ring-accent/40 focus:ring-2 focus:shadow-[0_0_10px_rgba(0,150,255,0.3)] h-12 transition-all duration-200";
+  
+  const labelClasses = "block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium";
 
   const sevenMs = ["Model", "Market", "Message", "Media", "Machine", "Metrics", "Momentum"];
 
@@ -126,9 +128,7 @@ const ContactForm = () => {
               {/* Single column on mobile, 2 columns on desktop */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                  <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                    Your Name
-                  </label>
+                  <label className={labelClasses}>Your Name</label>
                   <Input
                     type="text"
                     name="name"
@@ -140,9 +140,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                    Business Email
-                  </label>
+                  <label className={labelClasses}>Business Email</label>
                   <Input
                     type="email"
                     name="email"
@@ -154,9 +152,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                    Website URL
-                  </label>
+                  <label className={labelClasses}>Website URL</label>
                   <Input
                     type="url"
                     name="website"
@@ -184,9 +180,7 @@ const ContactForm = () => {
               {/* Single column on mobile, 2 columns on desktop */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                    Average Project/Customer Value
-                  </label>
+                  <label className={labelClasses}>Average Project/Customer Value</label>
                   <Select
                     value={formData.customerValue}
                     onValueChange={(value) =>
@@ -207,9 +201,7 @@ const ContactForm = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                    Primary Service Area (Zip/City)
-                  </label>
+                  <label className={labelClasses}>Primary Service Area (Zip/City)</label>
                   <Input
                     type="text"
                     name="serviceArea"
@@ -222,7 +214,7 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-3 font-medium">
+                <label className={`${labelClasses} mb-3`}>
                   Are you currently running any automated follow-up (SMS/Email)?
                 </label>
                 <RadioGroup
@@ -267,9 +259,7 @@ const ContactForm = () => {
               </div>
               
               <div>
-                <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                  When is your next peak seasonal window?
-                </label>
+                <label className={labelClasses}>When is your next peak seasonal window?</label>
                 <Select
                   value={formData.peakWindow}
                   onValueChange={(value) =>
@@ -290,9 +280,7 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <label className="block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium">
-                  Anything else we should know? (Optional)
-                </label>
+                <label className={labelClasses}>Anything else we should know? (Optional)</label>
                 <Textarea
                   name="additionalNotes"
                   placeholder="Tell us about your goals, challenges, or questions..."
