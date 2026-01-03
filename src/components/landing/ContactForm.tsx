@@ -63,7 +63,7 @@ const ContactForm = () => {
   };
 
   const inputClasses =
-    "bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-accent focus:ring-accent/30 h-12";
+    "bg-white/5 border-white/20 text-[#FFFFFF] placeholder:text-gray-400 focus:border-accent focus:ring-accent/30 h-12";
 
   const sevenMs = ["Model", "Market", "Message", "Media", "Machine", "Metrics", "Momentum"];
 
@@ -78,33 +78,33 @@ const ContactForm = () => {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-10 md:mb-14">
-            {/* Title with bullseye icon - responsive scaling */}
-            <h2 className="font-display font-bold text-accent uppercase tracking-wide flex flex-wrap items-center justify-center gap-0.5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6">
+            {/* Title with bullseye icon - responsive scaling with tight kerning */}
+            <h2 className="font-display font-bold text-accent uppercase flex flex-wrap items-center justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6" style={{ letterSpacing: '-0.02em' }}>
               <span>GET YOUR FREE C</span>
               <Target 
-                className="text-accent inline-block flex-shrink-0" 
-                style={{ width: '0.85em', height: '0.85em' }}
+                className="text-accent inline-block flex-shrink-0 -mx-[0.05em]" 
+                style={{ width: '0.8em', height: '0.8em' }}
                 strokeWidth={2.5} 
               />
               <span>REDIAGNOSTIC</span>
             </h2>
             
             {/* Headline */}
-            <p className="text-lg sm:text-xl md:text-2xl text-white font-medium mb-5">
+            <p className="text-lg sm:text-xl md:text-2xl text-[#FFFFFF] font-medium mb-5">
               Stop guessing. Get a 15-minute surgical breakdown of your 2026 local market dominance.
             </p>
             
-            {/* Sub-headline with 7 M's in clean grid */}
-            <p className="text-white/70 text-sm sm:text-base md:text-lg mb-4">
+            {/* Sub-headline */}
+            <p className="text-[#FFFFFF] text-sm sm:text-base md:text-lg mb-5">
               We audit your 7 pillars—for free:
             </p>
-            <div className="grid grid-cols-4 sm:grid-cols-7 gap-2 sm:gap-3 max-w-xl mx-auto">
-              {sevenMs.map((m, i) => (
+            
+            {/* Diagnostic Pills */}
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-2xl mx-auto">
+              {sevenMs.map((m) => (
                 <span 
                   key={m} 
-                  className={`text-accent font-medium text-xs sm:text-sm uppercase tracking-wider ${
-                    i >= 4 ? 'col-span-1' : ''
-                  }`}
+                  className="bg-[#1a1a1a] border border-accent/60 text-accent font-medium text-xs sm:text-sm uppercase tracking-wider px-3 sm:px-4 py-1.5 rounded-full"
                 >
                   {m}
                 </span>
@@ -112,20 +112,20 @@ const ContactForm = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-8">
+          <form onSubmit={handleSubmit} className="space-y-8 pt-[60px]">
             {/* Group 1: Basics */}
             <div className="space-y-5">
               <div className="flex items-center gap-3">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-xs sm:text-sm">
                   1
                 </div>
-                <h3 className="font-display text-white uppercase tracking-wider text-xs sm:text-sm">The Basics</h3>
+                <h3 className="font-display text-[#FFFFFF] uppercase tracking-wider text-xs sm:text-sm">The Basics</h3>
               </div>
               
               {/* Single column on mobile, 2 columns on desktop */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                  <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                     Your Name
                   </label>
                   <Input
@@ -139,7 +139,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                  <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                     Business Email
                   </label>
                   <Input
@@ -153,7 +153,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                  <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                     Website URL
                   </label>
                   <Input
@@ -177,13 +177,13 @@ const ContactForm = () => {
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-xs sm:text-sm">
                   2
                 </div>
-                <h3 className="font-display text-white uppercase tracking-wider text-xs sm:text-sm">Diagnostic Inputs</h3>
+                <h3 className="font-display text-[#FFFFFF] uppercase tracking-wider text-xs sm:text-sm">Diagnostic Inputs</h3>
               </div>
               
               {/* Single column on mobile, 2 columns on desktop */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                  <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                     Average Project/Customer Value
                   </label>
                   <Select
@@ -206,7 +206,7 @@ const ContactForm = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                  <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                     Primary Service Area (Zip/City)
                   </label>
                   <Input
@@ -221,7 +221,7 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <label className="block text-white text-xs uppercase tracking-wider mb-3 font-medium">
+                <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-3 font-medium">
                   Are you currently running any automated follow-up (SMS/Email)?
                 </label>
                 <RadioGroup
@@ -262,11 +262,11 @@ const ContactForm = () => {
                 <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-display font-bold text-xs sm:text-sm">
                   3
                 </div>
-                <h3 className="font-display text-white uppercase tracking-wider text-xs sm:text-sm">Timing</h3>
+                <h3 className="font-display text-[#FFFFFF] uppercase tracking-wider text-xs sm:text-sm">Timing</h3>
               </div>
               
               <div>
-                <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                   When is your next peak seasonal window?
                 </label>
                 <Select
@@ -289,7 +289,7 @@ const ContactForm = () => {
               </div>
 
               <div>
-                <label className="block text-white text-xs uppercase tracking-wider mb-2 font-medium">
+                <label className="block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium">
                   Anything else we should know? (Optional)
                 </label>
                 <Textarea
@@ -303,15 +303,21 @@ const ContactForm = () => {
               </div>
             </div>
 
-            {/* Submit Button with neon glow */}
+            {/* Submit Button with neon glow and hover effects */}
             <div className="pt-4">
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-display uppercase tracking-wider text-base sm:text-lg h-12 sm:h-14 relative overflow-hidden group"
+                className="w-full bg-accent text-accent-foreground font-display uppercase tracking-wider text-base sm:text-lg h-12 sm:h-14 relative overflow-hidden group transition-all duration-300 ease-out hover:scale-[1.05]"
                 size="lg"
                 style={{
                   boxShadow: '0 0 30px hsl(var(--accent) / 0.5), 0 0 60px hsl(var(--accent) / 0.3), inset 0 1px 0 hsl(var(--accent-foreground) / 0.1)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 40px hsl(var(--accent) / 0.7), 0 0 80px hsl(var(--accent) / 0.5), inset 0 1px 0 hsl(var(--accent-foreground) / 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 30px hsl(var(--accent) / 0.5), 0 0 60px hsl(var(--accent) / 0.3), inset 0 1px 0 hsl(var(--accent-foreground) / 0.1)';
                 }}
               >
                 {/* Animated glow overlay */}
@@ -324,7 +330,7 @@ const ContactForm = () => {
               </Button>
 
               {/* Note below button */}
-              <p className="text-center text-white/60 text-xs sm:text-sm mt-4">
+              <p className="text-center text-[#FFFFFF]/60 text-xs sm:text-sm mt-4">
                 Your 15-minute video diagnostic will be delivered to your inbox within 48 hours.
               </p>
             </div>
