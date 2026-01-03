@@ -238,16 +238,18 @@ const ContactForm = () => {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="text-center mb-6 md:mb-8">
-            {/* Title with bullseye icon */}
-            <h2 className="font-display font-bold text-accent uppercase flex flex-wrap items-center justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-6" style={{ letterSpacing: '-0.05em' }}>
-              <span>GET YOUR FREE C</span>
-              <Target 
-                className="text-accent inline-block flex-shrink-0 -mx-[0.08em]" 
-                style={{ width: '0.8em', height: '0.8em' }}
-                strokeWidth={2.5} 
+            {/* Logo and FREE Diagnostic */}
+            <div className="flex flex-col items-center mb-6">
+              <img 
+                src="/lovable-uploads/0f765a18-56d7-4f09-8c32-741999a97f6d.png" 
+                alt="Creative Core" 
+                className="h-12 sm:h-14 md:h-16 w-auto mb-3"
+                style={{ filter: 'brightness(0) saturate(100%) invert(45%) sepia(98%) saturate(1500%) hue-rotate(196deg) brightness(102%) contrast(101%)' }}
               />
-              <span>REDIAGNOSTIC</span>
-            </h2>
+              <span className="font-display text-accent uppercase text-2xl sm:text-3xl md:text-4xl tracking-wider">
+                FREE Diagnostic
+              </span>
+            </div>
             
             {/* Headline */}
             <p className="text-lg sm:text-xl md:text-2xl text-[#FFFFFF]/90 font-medium mb-5">
