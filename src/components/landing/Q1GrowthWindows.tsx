@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence, animate } from "framer-motion";
-import { Dumbbell, Calculator, TreeDeciduous, Fan, ArrowLeft, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, Check, AlertTriangle } from "lucide-react";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface NicheData {
   id: string;
@@ -142,213 +141,29 @@ const timelineData: MonthCard[] = [
   },
 ];
 
-// Animated counter component
-const AnimatedNumber = ({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) => {
-  const [displayValue, setDisplayValue] = useState(0);
-  const prevValue = useRef(value);
-
-  useEffect(() => {
-    const controls = animate(prevValue.current, value, {
-      duration: 0.8,
-      ease: "easeOut",
-      onUpdate: (latest) => setDisplayValue(Math.round(latest)),
-    });
-    prevValue.current = value;
-    return () => controls.stop();
-  }, [value]);
-
-  return <>{prefix}{displayValue.toLocaleString()}{suffix}</>;
-};
-
-interface NicheRowProps {
-  niche: NicheData;
-  isFlipped: boolean;
-  isSelected: boolean;
-  onFlip: () => void;
-  onBack: () => void;
-  onViewForecast: () => void;
-}
-
-const NicheRow = ({ niche, isFlipped, isSelected, onFlip, onBack, onViewForecast }: NicheRowProps) => {
-  const IconComponent = niche.icon;
-
-  return (
-    <div className="relative h-[130px] md:h-[140px] perspective-1000">
-      <motion.div
-        className="relative w-full h-full"
-        initial={false}
-        animate={{ rotateX: isFlipped ? 180 : 0 }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        {/* Front Face - Default State */}
-        <div
-          className={`absolute inset-0 backface-hidden rounded-lg cursor-pointer group overflow-hidden transition-all duration-300 ${
-            isSelected ? "ring-2 ring-accent" : ""
-          }`}
-          style={{ 
-            backfaceVisibility: "hidden",
-            background: isSelected 
-              ? "linear-gradient(135deg, #1a1a3a 0%, #1e1e42 100%)" 
-              : "linear-gradient(135deg, #16162a 0%, #1a1a32 100%)",
-            border: isSelected 
-              ? "1px solid hsl(217 91% 53% / 0.5)" 
-              : "1px solid hsl(217 91% 53% / 0.2)",
-            boxShadow: isSelected 
-              ? "0 0 30px hsl(217 91% 53% / 0.25), inset 0 0 20px hsl(217 91% 53% / 0.1)" 
-              : "none",
-          }}
-          onClick={onFlip}
-        >
-          {/* Pulse border on hover */}
-          <motion.div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg"
-            style={{
-              boxShadow: "inset 0 0 25px hsl(217 91% 53% / 0.25), 0 0 35px hsl(217 91% 53% / 0.12)",
-            }}
-          />
-          
-          <div className="relative z-10 flex items-center justify-between h-full px-4 md:px-5">
-            <div className="flex items-center gap-3">
-              <div className={`p-2.5 rounded-lg border ${
-                isSelected 
-                  ? "bg-accent/20 border-accent/50" 
-                  : "bg-accent/10 border-accent/30"
-              }`}>
-                <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
-              </div>
-              <span className="text-base md:text-lg font-display font-bold text-white tracking-wider uppercase">
-                {niche.title}
-              </span>
-              {/* Selected checkmark */}
-              <AnimatePresence>
-                {isSelected && (
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    className="w-5 h-5 rounded-full bg-accent flex items-center justify-center"
-                  >
-                    <Check className="w-3 h-3 text-white" strokeWidth={3} />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-            <div className="flex items-center gap-2 text-accent/70 group-hover:text-accent transition-colors">
-              <span className="text-[10px] font-medium tracking-wider uppercase hidden sm:block">
-                Analyze
-              </span>
-              <Sparkles className="w-3.5 h-3.5" />
-            </div>
-          </div>
-
-          {/* Bottom accent line */}
-          <div className={`absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent transition-opacity ${
-            isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-          }`} />
-        </div>
-
-        {/* Back Face - Flipped State */}
-        <div
-          className="absolute inset-0 backface-hidden rounded-lg overflow-hidden"
-          style={{ 
-            backfaceVisibility: "hidden",
-            transform: "rotateX(180deg)",
-            background: "linear-gradient(135deg, #1a1a2e 0%, #1e1e3a 100%)",
-            border: "1px solid hsl(217 91% 53% / 0.4)",
-          }}
-        >
-          <div className="relative z-10 flex flex-col h-full p-3 md:p-4">
-            {/* Back button and title */}
-            <div className="flex items-center justify-between mb-1.5">
-              <div className="flex items-center gap-2">
-                <div className="p-1 rounded bg-accent/15 border border-accent/30">
-                  <IconComponent className="w-3 h-3 text-accent" strokeWidth={1.5} />
-                </div>
-                <span className="text-xs font-display font-bold text-white tracking-wider uppercase">
-                  {niche.title}
-                </span>
-              </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onBack();
-                }}
-                className="flex items-center gap-1 text-white/50 hover:text-white transition-colors text-[10px]"
-              >
-                <ArrowLeft className="w-2.5 h-2.5" />
-                Back
-              </button>
-            </div>
-
-            {/* Pain Point Copy */}
-            <p className="text-[10px] md:text-xs leading-relaxed text-white/80 mb-1.5 line-clamp-2">
-              {niche.painPoint}
-            </p>
-
-            {/* Cost of Inaction */}
-            <div className="flex items-center gap-1.5 mb-2">
-              <AlertTriangle className="w-3 h-3 text-amber-400 flex-shrink-0" />
-              <span className="text-[10px] text-amber-400/90 font-medium">
-                {niche.costOfInaction}
-              </span>
-            </div>
-
-            {/* CTA Button with glow */}
-            <div className="mt-auto">
-              <Button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onViewForecast();
-                }}
-                size="sm"
-                className="w-full bg-accent hover:bg-accent/90 text-white font-display tracking-wider uppercase text-[10px] py-1.5 relative overflow-hidden group/btn"
-                style={{
-                  boxShadow: "0 0 20px hsl(217 91% 53% / 0.4), 0 0 40px hsl(217 91% 53% / 0.2)",
-                }}
-              >
-                <motion.div
-                  className="absolute inset-0 bg-white/20"
-                  animate={{ x: ["-100%", "100%"] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
-                />
-                <TrendingUp className="w-3 h-3 mr-1.5 relative z-10" />
-                <span className="relative z-10">View ROI Forecast</span>
-              </Button>
-            </div>
-          </div>
-
-          {/* Neon accent glow */}
-          <div className="absolute inset-0 rounded-lg pointer-events-none" style={{
-            boxShadow: "inset 0 0 30px hsl(217 91% 53% / 0.15)",
-          }} />
-        </div>
-      </motion.div>
-    </div>
-  );
-};
-
 interface MasterCardProps {
   card: MonthCard;
-  selectedNicheId: string | null;
-  onSelectNiche: (niche: NicheData, month: string) => void;
 }
 
-const MasterCard = ({ card, selectedNicheId, onSelectNiche }: MasterCardProps) => {
-  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
+const MasterCard = ({ card }: MasterCardProps) => {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-  const handleViewForecast = (niche: NicheData) => {
-    onSelectNiche(niche, card.month);
-    setFlippedIndex(null);
+  const handleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const handleClose = () => {
+    setExpandedIndex(null);
   };
 
   return (
-    <div className="flex-shrink-0 w-[280px] md:w-[320px]">
+    <div className="flex-shrink-0 w-[300px] md:w-[340px]">
       <motion.div
         className="rounded-xl overflow-hidden bg-[#0f0f1c] p-4 md:p-5"
         style={{
           border: "1px solid hsl(217 91% 53% / 0.25)",
           boxShadow: "0 0 50px hsl(217 91% 53% / 0.06)",
+          minHeight: "520px",
         }}
         whileHover={{
           boxShadow: "0 0 70px hsl(217 91% 53% / 0.12)",
@@ -367,59 +182,218 @@ const MasterCard = ({ card, selectedNicheId, onSelectNiche }: MasterCardProps) =
           </span>
         </div>
 
-        {/* Niche Rows - 3 Stacked Vertically */}
-        <div className="flex flex-col gap-3">
-          {card.niches.map((niche, index) => (
-            <NicheRow
-              key={niche.id}
-              niche={niche}
-              isFlipped={flippedIndex === index}
-              isSelected={selectedNicheId === niche.id}
-              onFlip={() => setFlippedIndex(flippedIndex === index ? null : index)}
-              onBack={() => setFlippedIndex(null)}
-              onViewForecast={() => handleViewForecast(niche)}
-            />
-          ))}
+        {/* Niche Rows - Focus Mode */}
+        <div className="flex flex-col gap-2 h-[440px]">
+          {card.niches.map((niche, index) => {
+            const IconComponent = niche.icon;
+            const isExpanded = expandedIndex === index;
+            const isMinimized = expandedIndex !== null && expandedIndex !== index;
+            
+            // Calculate revenue
+            const avgLeads = Math.round((niche.forecastData.leadsMin + niche.forecastData.leadsMax) / 2);
+            const revenue = avgLeads * niche.forecastData.avgTicket;
+
+            return (
+              <motion.div
+                key={niche.id}
+                layout
+                layoutId={`niche-${niche.id}`}
+                onClick={() => !isExpanded && handleExpand(index)}
+                className={`relative rounded-lg overflow-hidden cursor-pointer ${
+                  isMinimized ? "cursor-pointer" : ""
+                }`}
+                style={{
+                  background: isExpanded
+                    ? "linear-gradient(135deg, hsl(217 91% 53% / 0.15) 0%, hsl(217 91% 53% / 0.05) 100%)"
+                    : "linear-gradient(135deg, #16162a 0%, #1a1a32 100%)",
+                  border: isExpanded
+                    ? "1px solid hsl(217 91% 53% / 0.5)"
+                    : "1px solid hsl(217 91% 53% / 0.2)",
+                  boxShadow: isExpanded
+                    ? "0 0 40px hsl(217 91% 53% / 0.25), inset 0 0 30px hsl(217 91% 53% / 0.1)"
+                    : "none",
+                }}
+                animate={{
+                  flex: isExpanded ? "1 0 70%" : isMinimized ? "0 0 15%" : "1 0 33%",
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                }}
+              >
+                <AnimatePresence mode="wait">
+                  {isMinimized ? (
+                    // Minimized State - Icon + Name only
+                    <motion.div
+                      key="minimized"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center gap-3 h-full px-4"
+                    >
+                      <div className="p-2 rounded-lg bg-accent/10 border border-accent/30">
+                        <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
+                      </div>
+                      <span className="text-sm font-display font-bold text-white/70 tracking-wider uppercase">
+                        {niche.title}
+                      </span>
+                    </motion.div>
+                  ) : isExpanded ? (
+                    // Expanded State - Full Content
+                    <motion.div
+                      key="expanded"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="h-full flex flex-col p-4"
+                    >
+                      {/* Header with Close Button */}
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <div className="p-2 rounded-lg bg-accent/20 border border-accent/50">
+                            <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
+                          </div>
+                          <span className="text-base font-display font-bold text-white tracking-wider uppercase">
+                            {niche.title}
+                          </span>
+                        </div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleClose();
+                          }}
+                          className="p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+                        >
+                          <X className="w-4 h-4 text-white/70" />
+                        </button>
+                      </div>
+
+                      {/* Strategic Logic */}
+                      <p className="text-xs leading-relaxed text-white/80 mb-3">
+                        {niche.painPoint}
+                      </p>
+
+                      {/* Cost of Inaction Warning */}
+                      <div className="flex items-center gap-2 mb-4 p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
+                        <AlertTriangle className="w-4 h-4 text-amber-400 flex-shrink-0" />
+                        <span className="text-xs text-amber-400 font-medium">
+                          {niche.costOfInaction}
+                        </span>
+                      </div>
+
+                      {/* Projected Performance Dashboard */}
+                      <div className="mt-auto">
+                        <div className="flex items-center gap-1.5 mb-3">
+                          <TrendingUp className="w-3.5 h-3.5 text-accent" />
+                          <span className="text-[10px] uppercase tracking-[0.2em] text-accent font-medium">
+                            Projected Performance
+                          </span>
+                        </div>
+                        
+                        <div className="grid grid-cols-3 gap-2">
+                          {/* Leads */}
+                          <div className="bg-[#0a0a14] rounded-lg p-2.5 text-center border border-accent/20">
+                            <Users className="w-4 h-4 text-accent mx-auto mb-1.5" />
+                            <p className="text-lg font-display font-black text-white">
+                              {niche.forecastData.leadsMin}–{niche.forecastData.leadsMax}
+                            </p>
+                            <p className="text-[9px] uppercase tracking-wider text-white/40">Leads</p>
+                          </div>
+                          
+                          {/* CPL */}
+                          <div className="bg-[#0a0a14] rounded-lg p-2.5 text-center border border-purple-500/20">
+                            <Target className="w-4 h-4 text-purple-400 mx-auto mb-1.5" />
+                            <p className="text-lg font-display font-black text-purple-400">
+                              ${niche.forecastData.costPerLead}
+                            </p>
+                            <p className="text-[9px] uppercase tracking-wider text-white/40">CPL</p>
+                          </div>
+                          
+                          {/* Revenue */}
+                          <div className="bg-[#0a0a14] rounded-lg p-2.5 text-center border border-emerald-500/20 relative overflow-hidden">
+                            {/* Revenue bar animation */}
+                            <motion.div
+                              className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-emerald-500/20 to-transparent"
+                              initial={{ height: "0%" }}
+                              animate={{ height: "100%" }}
+                              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                            />
+                            <div className="relative z-10">
+                              <DollarSign className="w-4 h-4 text-emerald-400 mx-auto mb-1.5" />
+                              <p className="text-lg font-display font-black text-emerald-400">
+                                ${(revenue / 1000).toFixed(0)}K
+                              </p>
+                              <p className="text-[9px] uppercase tracking-wider text-white/40">Revenue</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Average Ticket Info */}
+                        <p className="text-[10px] text-white/40 text-center mt-2">
+                          at ${niche.forecastData.avgTicket.toLocaleString()} avg job
+                        </p>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    // Default State - Full Row
+                    <motion.div
+                      key="default"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex items-center justify-between h-full px-4 group"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="p-2.5 rounded-lg bg-accent/10 border border-accent/30 group-hover:bg-accent/15 group-hover:border-accent/40 transition-colors">
+                          <IconComponent className="w-4 h-4 text-accent" strokeWidth={1.5} />
+                        </div>
+                        <span className="text-base font-display font-bold text-white tracking-wider uppercase">
+                          {niche.title}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-accent/70 group-hover:text-accent transition-colors">
+                        <span className="text-[10px] font-medium tracking-wider uppercase hidden sm:block">
+                          Analyze
+                        </span>
+                        <Sparkles className="w-3.5 h-3.5" />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Bottom accent line for default state */}
+                {!isExpanded && !isMinimized && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                )}
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </div>
   );
 };
 
-interface ROISectionProps {
-  selectedNiche: NicheData | null;
-  month: string;
-}
-
-const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
-  const data = selectedNiche?.forecastData || { leadsMin: 40, leadsMax: 60, costPerLead: 35, avgTicket: 550 };
-  const title = selectedNiche?.title || "Your Industry";
-  
-  // Calculate revenue based on leads and avg ticket
-  const avgLeads = Math.round((data.leadsMin + data.leadsMax) / 2);
-  const revenue = avgLeads * data.avgTicket;
-  
-  // Calculate bar percentage (max revenue ~$70k for full bar)
-  const maxRevenue = 70000;
-  const barPercentage = Math.min((revenue / maxRevenue) * 100, 100);
-
+const Q1GrowthWindows = () => {
   return (
-    <section id="roi-calculator" className="py-20 md:py-28 bg-[#080810] relative overflow-hidden">
+    <section id="q1-growth-windows" className="py-20 md:py-28 bg-[#0a0a14] relative overflow-hidden">
       {/* Background grid pattern */}
       <div
-        className="absolute inset-0 opacity-[0.025]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: `linear-gradient(hsl(217 91% 53% / 0.6) 1px, transparent 1px),
-                           linear-gradient(90deg, hsl(217 91% 53% / 0.6) 1px, transparent 1px)`,
-          backgroundSize: "50px 50px",
+          backgroundImage: `linear-gradient(hsl(217 91% 53% / 0.5) 1px, transparent 1px),
+                           linear-gradient(90deg, hsl(217 91% 53% / 0.5) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
         }}
       />
 
       {/* Radial glow */}
       <div 
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] opacity-20 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] opacity-15 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse at center, hsl(217 91% 53% / 0.3) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at center, hsl(217 91% 53% / 0.2) 0%, transparent 60%)",
         }}
       />
 
@@ -427,258 +401,37 @@ const ROISection = ({ selectedNiche, month }: ROISectionProps) => {
         {/* Section Header */}
         <div className="text-center mb-14 md:mb-20">
           <p className="text-sm font-medium tracking-[0.25em] text-accent uppercase mb-5">
-            Seasonal ROI Calculator
+            Strategic Calendar
           </p>
           <h2 
-            className="text-3xl md:text-5xl lg:text-6xl font-display font-black text-white mb-6 tracking-wider uppercase"
+            className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-6 tracking-wider uppercase"
             style={{
-              textShadow: "0 0 40px hsl(217 91% 53% / 0.3)",
+              textShadow: "0 0 40px hsl(217 91% 53% / 0.25)",
             }}
           >
-            What to Expect from a $2K{" "}
-            <motion.span
-              key={title}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-accent"
-            >
-              {title}
-            </motion.span>
-            {" "}Sprint
+            The Q1 Growth Windows
           </h2>
-          <p className="text-lg md:text-xl text-white/50 max-w-3xl mx-auto leading-relaxed">
-            {month ? (
-              <>Projected returns for <span className="text-white font-semibold">{month}</span> based on historical performance data</>
-            ) : (
-              <>Select a niche above to see projected returns</>
-            )}
+          <p className="text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
+            Click on any niche to reveal strategic insights and projected performance—all in one view.
           </p>
         </div>
 
-        {/* Dashboard Cards - 3 Column Grid */}
-        <div className="grid md:grid-cols-3 gap-5 md:gap-8 max-w-5xl mx-auto mb-14">
-          {/* Leads Card */}
-          <motion.div
-            key={`leads-${selectedNiche?.id}`}
-            initial={{ opacity: 0.5, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            className="bg-[#0f0f1c] rounded-2xl p-7 md:p-10 text-center relative overflow-hidden group"
-            style={{ border: "1px solid hsl(217 91% 53% / 0.2)" }}
-          >
-            <motion.div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at center, hsl(217 91% 53% / 0.08) 0%, transparent 70%)",
-              }}
-            />
-            <div className="relative z-10">
-              <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/30 flex items-center justify-center mx-auto mb-5">
-                <Users className="w-7 h-7 text-accent" />
-              </div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-white/40 mb-3 font-medium">
-                Estimated Leads
-              </p>
-              <p 
-                className="text-4xl md:text-5xl font-display font-black text-white tracking-tight"
-                style={{
-                  textShadow: "0 0 30px hsl(217 91% 53% / 0.25)",
-                }}
-              >
-                <AnimatedNumber value={data.leadsMin} />–<AnimatedNumber value={data.leadsMax} />
-              </p>
-              <p className="text-sm text-white/30 mt-3 font-medium">per month</p>
-            </div>
-          </motion.div>
+        {/* Horizontal Scroll Container */}
+        <div className="relative -mx-4 md:-mx-8">
+          <div className="flex gap-5 md:gap-7 overflow-x-auto pb-6 px-4 md:px-8 scrollbar-thin scrollbar-thumb-accent/30 scrollbar-track-transparent justify-start md:justify-center">
+            {timelineData.map((card, index) => (
+              <MasterCard 
+                key={index} 
+                card={card}
+              />
+            ))}
+          </div>
 
-          {/* Cost Per Lead Card */}
-          <motion.div
-            key={`cpl-${selectedNiche?.id}`}
-            initial={{ opacity: 0.5, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.05 }}
-            className="bg-[#0f0f1c] rounded-2xl p-7 md:p-10 text-center relative overflow-hidden group"
-            style={{ border: "1px solid hsl(217 91% 53% / 0.2)" }}
-          >
-            <motion.div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at center, hsl(280 80% 50% / 0.08) 0%, transparent 70%)",
-              }}
-            />
-            <div className="relative z-10">
-              <div className="w-14 h-14 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center mx-auto mb-5">
-                <Target className="w-7 h-7 text-purple-400" />
-              </div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-white/40 mb-3 font-medium">
-                Projected Cost-Per-Lead
-              </p>
-              <p 
-                className="text-4xl md:text-5xl font-display font-black text-purple-400 tracking-tight"
-                style={{
-                  textShadow: "0 0 30px hsl(280 80% 50% / 0.25)",
-                }}
-              >
-                $<AnimatedNumber value={data.costPerLead} />.00
-              </p>
-              <p className="text-sm text-white/30 mt-3 font-medium">average</p>
-            </div>
-          </motion.div>
-
-          {/* Revenue Card with Bar Chart */}
-          <motion.div
-            key={`revenue-${selectedNiche?.id}`}
-            initial={{ opacity: 0.5, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-            className="bg-[#0f0f1c] rounded-2xl p-7 md:p-10 text-center relative overflow-hidden group"
-            style={{ border: "1px solid hsl(145 60% 40% / 0.2)" }}
-          >
-            <motion.div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: "radial-gradient(ellipse at center, hsl(145 60% 40% / 0.1) 0%, transparent 70%)",
-              }}
-            />
-            
-            {/* Animated Bar Chart Background */}
-            <motion.div
-              className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-emerald-500/20 via-emerald-500/10 to-transparent"
-              initial={{ height: "0%" }}
-              animate={{ height: `${barPercentage}%` }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            />
-            <motion.div
-              className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-emerald-400 to-transparent"
-              initial={{ opacity: 0, bottom: "0%" }}
-              animate={{ opacity: 0.6, bottom: `${barPercentage}%` }}
-              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-            />
-            
-            <div className="relative z-10">
-              <div className="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center mx-auto mb-5">
-                <DollarSign className="w-7 h-7 text-emerald-400" />
-              </div>
-              <p className="text-[11px] uppercase tracking-[0.25em] text-white/40 mb-3 font-medium">
-                Potential Revenue Opportunity
-              </p>
-              <p 
-                className="text-4xl md:text-5xl font-display font-black text-emerald-400 tracking-tight"
-                style={{
-                  textShadow: "0 0 30px hsl(145 60% 40% / 0.3)",
-                }}
-              >
-                $<AnimatedNumber value={revenue} />
-              </p>
-              <p className="text-sm text-white/30 mt-3 font-medium">
-                at ${data.avgTicket.toLocaleString()} avg job
-              </p>
-            </div>
-          </motion.div>
+          {/* Scroll hint gradient - mobile only */}
+          <div className="md:hidden absolute right-0 top-0 bottom-6 w-20 bg-gradient-to-l from-[#0a0a14] to-transparent pointer-events-none" />
         </div>
-
-        {/* Disclaimer */}
-        <motion.p 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="text-center text-xs text-white/35 max-w-2xl mx-auto leading-relaxed"
-        >
-          Forecasts based on historical 2025 sprint data. Results vary by local market saturation. 
-          All projections assume proper landing page optimization and conversion tracking implementation.
-        </motion.p>
       </div>
     </section>
-  );
-};
-
-const Q1GrowthWindows = () => {
-  const [selectedNiche, setSelectedNiche] = useState<NicheData | null>(null);
-  const [selectedMonth, setSelectedMonth] = useState<string>("");
-
-  const handleSelectNiche = (niche: NicheData, month: string) => {
-    setSelectedNiche(niche);
-    setSelectedMonth(month);
-    
-    // Smooth scroll to ROI section with perfect centering
-    setTimeout(() => {
-      const roiSection = document.getElementById("roi-calculator");
-      if (roiSection) {
-        const headerOffset = 80;
-        const elementPosition = roiSection.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.scrollY - headerOffset;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
-      }
-    }, 150);
-  };
-
-  return (
-    <>
-      <section id="q1-growth-windows" className="py-20 md:py-28 bg-[#0a0a14] relative overflow-hidden">
-        {/* Background grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `linear-gradient(hsl(217 91% 53% / 0.5) 1px, transparent 1px),
-                             linear-gradient(90deg, hsl(217 91% 53% / 0.5) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-
-        {/* Radial glow */}
-        <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[600px] opacity-15 pointer-events-none"
-          style={{
-            background: "radial-gradient(ellipse at center, hsl(217 91% 53% / 0.2) 0%, transparent 60%)",
-          }}
-        />
-
-        <div className="container-wide relative z-10">
-          {/* Section Header */}
-          <div className="text-center mb-14 md:mb-20">
-            <p className="text-sm font-medium tracking-[0.25em] text-accent uppercase mb-5">
-              Strategic Calendar
-            </p>
-            <h2 
-              className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-white mb-6 tracking-wider uppercase"
-              style={{
-                textShadow: "0 0 40px hsl(217 91% 53% / 0.25)",
-              }}
-            >
-              The Q1 Growth Windows
-            </h2>
-            <p className="text-lg text-white/50 max-w-2xl mx-auto leading-relaxed">
-              Click on any niche to reveal the strategic insight and view projected performance.
-            </p>
-          </div>
-
-          {/* Horizontal Scroll Container */}
-          <div className="relative -mx-4 md:-mx-8">
-            <div className="flex gap-5 md:gap-7 overflow-x-auto pb-6 px-4 md:px-8 scrollbar-thin scrollbar-thumb-accent/30 scrollbar-track-transparent justify-start md:justify-center">
-              {timelineData.map((card, index) => (
-                <MasterCard 
-                  key={index} 
-                  card={card} 
-                  selectedNicheId={selectedNiche?.id || null}
-                  onSelectNiche={handleSelectNiche} 
-                />
-              ))}
-            </div>
-
-            {/* Scroll hint gradient - mobile only */}
-            <div className="md:hidden absolute right-0 top-0 bottom-6 w-20 bg-gradient-to-l from-[#0a0a14] to-transparent pointer-events-none" />
-          </div>
-        </div>
-      </section>
-
-      {/* ROI Calculator Section */}
-      <ROISection selectedNiche={selectedNiche} month={selectedMonth} />
-    </>
   );
 };
 
