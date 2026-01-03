@@ -25,7 +25,7 @@ const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
             <Button variant="accent" size="xl" onClick={scrollToContact} className="group w-full sm:w-auto">
-              Find Your Growth Window
+              FREE Loom Audit
               <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" />
             </Button>
             <Button variant="outline" size="xl" onClick={() => document.getElementById("seasonal-niches")?.scrollIntoView({
