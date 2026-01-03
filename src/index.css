@@ -52,6 +52,10 @@
     --font-display: 'Bebas Neue', Impact, sans-serif;
     --font-body: 'Inter', -apple-system, sans-serif;
 
+    /* Hero dark section */
+    --hero-dark: 220 20% 8%;
+    --hero-dark-foreground: 0 0% 100%;
+
     /* Shadows */
     --shadow-subtle: 0 1px 3px 0 hsl(220 15% 20% / 0.04);
     --shadow-card: 0 4px 12px -2px hsl(220 15% 20% / 0.06);
