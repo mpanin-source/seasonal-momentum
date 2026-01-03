@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X, ChevronRight } from "lucide-react";
+import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X, ChevronRight, Calendar } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 interface NicheData {
@@ -9,6 +9,7 @@ interface NicheData {
   title: string;
   painPoint: string;
   costOfInaction: string;
+  marketOutlook: string;
   forecastData: {
     leadsMin: number;
     leadsMax: number;
@@ -32,6 +33,7 @@ const timelineData: MonthCard[] = [
         title: "Fitness",
         painPoint: "January sees 340% search volume spike for gym memberships. Stop burning December budget on low-intent traffic—strike when resolution motivation peaks.",
         costOfInaction: "~12 qualified leads lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Post-holiday guilt peaks in first 2 weeks. 78% of gym sign-ups happen in January—lowest CPCs of the year.",
         forecastData: { leadsMin: 45, leadsMax: 60, costPerLead: 35, avgTicket: 450 },
       },
       {
@@ -40,6 +42,7 @@ const timelineData: MonthCard[] = [
         title: "Tax Prep",
         painPoint: "Early filers are your highest-value clients. W-2s arrive, urgency builds. CPA firms that wait until March pay 3x CPCs. First-mover wins.",
         costOfInaction: "~8 high-value filers lost per week of delay",
+        marketOutlook: "2026 Market Outlook: IRS opens Jan 27. Early filers have higher avg income—these are your premium clients.",
         forecastData: { leadsMin: 35, leadsMax: 50, costPerLead: 42, avgTicket: 750 },
       },
       {
@@ -48,6 +51,7 @@ const timelineData: MonthCard[] = [
         title: "Wellness",
         painPoint: "New Year health resolutions drive 280% surge in wellness searches. Capture the motivated before competitors saturate the space.",
         costOfInaction: "~10 motivated clients lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Mental health awareness at all-time high. Wellness spending projected +22% YoY in Q1.",
         forecastData: { leadsMin: 40, leadsMax: 55, costPerLead: 38, avgTicket: 380 },
       },
     ],
@@ -61,6 +65,7 @@ const timelineData: MonthCard[] = [
         title: "Moving Services",
         painPoint: "Spring relocation planning starts in February. Families research movers 6-8 weeks ahead. Lock in Q2 bookings before March price wars.",
         costOfInaction: "~7 relocation bookings lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Remote work normalization drives 15% more mid-year relocations. Early bookers get priority scheduling.",
         forecastData: { leadsMin: 30, leadsMax: 45, costPerLead: 52, avgTicket: 1200 },
       },
       {
@@ -69,6 +74,7 @@ const timelineData: MonthCard[] = [
         title: "Tax Prep",
         painPoint: "Peak research phase. Complex filers compare options—position authority now. Mid-season entry costs 2x. February positioning drives March conversions.",
         costOfInaction: "~14 complex filers lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Complex returns (1099, investments) research peaks Feb 10-25. Decision window before March rush.",
         forecastData: { leadsMin: 55, leadsMax: 75, costPerLead: 32, avgTicket: 780 },
       },
       {
@@ -77,6 +83,7 @@ const timelineData: MonthCard[] = [
         title: "Home Remodeling",
         painPoint: "Homeowners plan spring renovations during winter months. Decision phase peaks in February—be there when budgets are set.",
         costOfInaction: "~5 major projects lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Home equity at historic highs. HELOC applications spike 40% in Feb for spring projects.",
         forecastData: { leadsMin: 25, leadsMax: 40, costPerLead: 65, avgTicket: 8500 },
       },
     ],
@@ -90,6 +97,7 @@ const timelineData: MonthCard[] = [
         title: "Landscaping",
         painPoint: "Spring cleanup searches surge 280%. Homeowners plan seasonal projects—capture booking windows. Missed March means lost Q2 revenue.",
         costOfInaction: "~11 cleanup contracts lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Tax refunds hit bank accounts mid-March. Disposable income peaks—highest conversion rates of year.",
         forecastData: { leadsMin: 40, leadsMax: 60, costPerLead: 28, avgTicket: 640 },
       },
       {
@@ -98,6 +106,7 @@ const timelineData: MonthCard[] = [
         title: "Tax Prep",
         painPoint: "Deadline panic phase. High-intent, last-minute filers pay premium prices. Emergency tax clients convert at 2x rate. Capture the procrastinators.",
         costOfInaction: "~18 urgent filers lost per week of delay",
+        marketOutlook: "2026 Market Outlook: April 15 deadline drives 65% of remaining filers. Emergency pricing accepted—highest margins of season.",
         forecastData: { leadsMin: 70, leadsMax: 95, costPerLead: 25, avgTicket: 825 },
       },
       {
@@ -106,6 +115,7 @@ const timelineData: MonthCard[] = [
         title: "Pest Control",
         painPoint: "Spring pest emergence drives urgent searches. Homeowners discover winter infestations—immediate service need creates high-intent leads.",
         costOfInaction: "~13 service calls lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Warmer winters = earlier pest activity. First warm week triggers 3x search volume—be ready.",
         forecastData: { leadsMin: 50, leadsMax: 70, costPerLead: 22, avgTicket: 320 },
       },
     ],
@@ -119,6 +129,7 @@ const timelineData: MonthCard[] = [
         title: "Landscaping",
         painPoint: "Prime installation window. Convert planners into projects before summer rush pricing. April bookings = predictable summer revenue.",
         costOfInaction: "~14 installation projects lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Spring planting window optimal Apr 1-30. Clients booking now avoid May/June premium pricing.",
         forecastData: { leadsMin: 55, leadsMax: 75, costPerLead: 26, avgTicket: 700 },
       },
       {
@@ -127,6 +138,7 @@ const timelineData: MonthCard[] = [
         title: "HVAC",
         painPoint: "Pre-summer AC maintenance window. Smart homeowners prep before June emergency calls. Emergency calls pay less than planned installs—own the decision phase.",
         costOfInaction: "~8 maintenance contracts lost per week of delay",
+        marketOutlook: "2026 Market Outlook: New efficiency standards effective 2026. Upgrade demand up 35%—proactive maintenance converts to replacements.",
         forecastData: { leadsMin: 30, leadsMax: 45, costPerLead: 48, avgTicket: 900 },
       },
       {
@@ -135,6 +147,7 @@ const timelineData: MonthCard[] = [
         title: "Pool Services",
         painPoint: "Pool opening season peaks. Homeowners book seasonal maintenance 4-6 weeks ahead. April bookings lock in summer recurring revenue.",
         costOfInaction: "~9 seasonal contracts lost per week of delay",
+        marketOutlook: "2026 Market Outlook: Pool ownership +18% since 2020. Seasonal service contracts create predictable recurring revenue through September.",
         forecastData: { leadsMin: 35, leadsMax: 50, costPerLead: 35, avgTicket: 550 },
       },
     ],
@@ -216,7 +229,11 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                   minHeight: isExpanded ? "340px" : undefined,
                 }}
                 animate={{
-                  flex: isExpanded ? "1 0 auto" : isMinimized ? "0 0 50px" : "1 0 33%",
+                  flex: isExpanded 
+                    ? "1 0 90%" // 90% on mobile
+                    : isMinimized 
+                      ? "0 0 50px" 
+                      : "1 0 33%",
                 }}
                 transition={{
                   type: "spring",
@@ -250,14 +267,22 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ delay: 0.1 }}
-                      className="flex flex-col p-4 overflow-y-auto"
+                      className="flex flex-col p-4 h-full"
                       style={{ 
                         minHeight: "340px",
-                        maxHeight: "380px",
+                        maxHeight: "calc(90vh - 120px)",
+                        overflowY: "auto",
                         scrollbarWidth: "none",
                         msOverflowStyle: "none",
                       }}
                     >
+                      {/* Custom scrollbar hide for webkit */}
+                      <style>{`
+                        .expanded-content::-webkit-scrollbar {
+                          display: none;
+                        }
+                      `}</style>
+                      
                       {/* Header with Close Button */}
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
@@ -283,6 +308,14 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                       <p className="text-xs leading-relaxed text-white/80 mb-3">
                         {niche.painPoint}
                       </p>
+
+                      {/* 2026 Market Outlook */}
+                      <div className="flex items-start gap-2 mb-3 p-2.5 rounded-lg bg-accent/5 border border-accent/20">
+                        <Calendar className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                        <span className="text-xs text-accent/90 font-medium leading-relaxed">
+                          {niche.marketOutlook}
+                        </span>
+                      </div>
 
                       {/* Cost of Inaction Warning */}
                       <div className="flex items-center gap-2 mb-4 p-2 rounded-lg bg-amber-500/10 border border-amber-500/30">
@@ -450,9 +483,11 @@ const AnimatedCounter = ({ value, prefix = "", suffix = "" }: { value: number; p
 
 const Q1GrowthWindows = () => {
   const [selectedNiche, setSelectedNiche] = useState<NicheData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const calculatorRef = useRef<HTMLDivElement>(null);
 
   const handleViewROI = (niche: NicheData) => {
+    setIsLoading(true);
     setSelectedNiche(niche);
     
     // Spring-like smooth scroll to calculator
@@ -467,6 +502,9 @@ const Q1GrowthWindows = () => {
           behavior: "smooth",
         });
       }
+      
+      // Clear loading state after animation
+      setTimeout(() => setIsLoading(false), 600);
     }, 100);
   };
 
@@ -597,13 +635,22 @@ const Q1GrowthWindows = () => {
                   {/* ROI Metrics Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                     {/* Expected Leads */}
-                    <div 
-                      className="rounded-xl p-5 text-center"
+                    <motion.div 
+                      className="rounded-xl p-5 text-center relative overflow-hidden"
                       style={{
                         background: "linear-gradient(135deg, hsl(217 91% 53% / 0.1) 0%, transparent 100%)",
                         border: "1px solid hsl(217 91% 53% / 0.3)",
                       }}
                     >
+                      {/* Data loading pulse overlay */}
+                      {isLoading && (
+                        <motion.div
+                          className="absolute inset-0 bg-accent/20 rounded-xl"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: [0, 0.5, 0] }}
+                          transition={{ duration: 0.6, ease: "easeInOut" }}
+                        />
+                      )}
                       <Users className="w-8 h-8 text-accent mx-auto mb-4" />
                       <p className="text-4xl md:text-5xl font-display font-black text-white mb-2">
                         <AnimatedCounter value={selectedNiche.forecastData.leadsMin} />–<AnimatedCounter value={selectedNiche.forecastData.leadsMax} />
@@ -611,16 +658,25 @@ const Q1GrowthWindows = () => {
                       <p className="text-sm uppercase tracking-[0.15em] text-white/50">
                         Expected Leads
                       </p>
-                    </div>
+                    </motion.div>
 
                     {/* Cost Per Lead */}
-                    <div 
-                      className="rounded-xl p-5 text-center"
+                    <motion.div 
+                      className="rounded-xl p-5 text-center relative overflow-hidden"
                       style={{
                         background: "linear-gradient(135deg, hsl(280 70% 50% / 0.1) 0%, transparent 100%)",
                         border: "1px solid hsl(280 70% 50% / 0.3)",
                       }}
                     >
+                      {/* Data loading pulse overlay */}
+                      {isLoading && (
+                        <motion.div
+                          className="absolute inset-0 bg-purple-400/20 rounded-xl"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: [0, 0.5, 0] }}
+                          transition={{ duration: 0.6, ease: "easeInOut", delay: 0.1 }}
+                        />
+                      )}
                       <Target className="w-8 h-8 text-purple-400 mx-auto mb-4" />
                       <p className="text-4xl md:text-5xl font-display font-black text-purple-400 mb-2">
                         $<AnimatedCounter value={selectedNiche.forecastData.costPerLead} />
@@ -628,16 +684,25 @@ const Q1GrowthWindows = () => {
                       <p className="text-sm uppercase tracking-[0.15em] text-white/50">
                         Cost Per Lead
                       </p>
-                    </div>
+                    </motion.div>
 
                     {/* Revenue Opportunity with Bar Chart */}
-                    <div 
+                    <motion.div 
                       className="rounded-xl p-5 text-center relative overflow-hidden"
                       style={{
                         background: "linear-gradient(135deg, hsl(160 60% 40% / 0.1) 0%, transparent 100%)",
                         border: "1px solid hsl(160 60% 40% / 0.3)",
                       }}
                     >
+                      {/* Data loading pulse overlay */}
+                      {isLoading && (
+                        <motion.div
+                          className="absolute inset-0 bg-emerald-400/20 rounded-xl"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: [0, 0.5, 0] }}
+                          transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+                        />
+                      )}
                       {/* Animated bar chart background */}
                       <motion.div
                         className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-emerald-500/20 via-emerald-500/10 to-transparent"
@@ -657,7 +722,7 @@ const Q1GrowthWindows = () => {
                           at ${selectedNiche.forecastData.avgTicket.toLocaleString()} avg job
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
 
                   {/* Cost of Inaction Reminder */}
