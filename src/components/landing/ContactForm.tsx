@@ -252,7 +252,7 @@ const ContactForm = () => {
             </div>
             
             {/* Headline */}
-            <p className="text-lg sm:text-xl md:text-2xl text-[#FFFFFF]/90 font-medium mb-5">
+            <p className="font-display text-lg sm:text-xl md:text-2xl text-[#FFFFFF]/90 mb-5 uppercase tracking-wide">
               Stop guessing. Get a 15-minute surgical breakdown of your 2026 local market dominance.
             </p>
           </div>
