@@ -20,9 +20,7 @@ const Hero = () => {
               Start when they are.
             </span>
           </h1>
-          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-full md:max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">
-            Creative Core runs high-intensity, 30-day ad sprints for seasonal businesses like gyms, HVAC, and landscapers. We capture demand when it peaks—then we turn the budget off.
-          </p>
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-full md:max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">Creative Core runs Core Funnel Audits for Ecom & local brands. We find where your funnel is leaking—impressions, clicks, leads, or sales—then show you exactly what to fix before you scale your ads.</p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
             <Button variant="accent" size="xl" onClick={scrollToContact} className="group w-full sm:w-auto">
               Ready to Scale?
