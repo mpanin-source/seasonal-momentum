@@ -412,6 +412,11 @@ const MasterCard = ({ card, onViewROI }: MasterCardProps) => {
                           <ChevronRight className="w-4 h-4" />
                         </span>
                       </motion.button>
+                      
+                      {/* Core Funnel Audit CTA */}
+                      <p className="text-[10px] text-accent/70 text-center mt-3 leading-relaxed">
+                        Want us to map this play to your funnel? <a href="#contact" className="underline hover:text-accent transition-colors">Request a free Core Funnel Audit</a> and we'll show you the exact gaps.
+                      </p>
                     </motion.div>
                   ) : (
                     // Default State - Full Row (streamlined for mobile)
@@ -737,6 +742,11 @@ const Q1GrowthWindows = () => {
                       </p>
                     </div>
                   </div>
+                  
+                  {/* Projection disclaimer */}
+                  <p className="text-xs text-white/40 text-center mt-6">
+                    These are projections. Your Core Funnel Audit uses your actual numbers to find realistic upside.
+                  </p>
                 </div>
               </motion.div>
             ) : (

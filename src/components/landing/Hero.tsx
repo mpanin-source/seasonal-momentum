@@ -20,16 +20,16 @@ const Hero = () => {
               Start when they are.
             </span>
           </h1>
-          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-full md:max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">Creative Core runs Core Funnel Audits for Ecom & local brands. We find where your funnel is leaking—impressions, clicks, leads, or sales—then show you exactly what to fix before you scale your ads.</p>
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-full md:max-w-[650px] text-left animate-fade-in [animation-delay:200ms] opacity-0">Creative Core is a full-funnel creative agency. We fix leaky funnels, build ads that sell, and bring you buyers—not random, low-intent leads.</p>
           <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:300ms] opacity-0">
             <Button variant="accent" size="xl" onClick={scrollToContact} className="group w-full sm:w-auto">
               Ready to Scale?
               <ArrowRight className="ml-1 transition-transform group-hover:translate-x-1" />
             </Button>
-            <Button variant="outline" size="xl" onClick={() => document.getElementById("seasonal-niches")?.scrollIntoView({
+            <Button variant="outline" size="xl" onClick={() => document.getElementById("q1-growth-windows")?.scrollIntoView({
             behavior: "smooth"
           })} className="hover:bg-foreground hover:text-background hover:border-foreground w-full sm:w-auto">
-              View Trending Niches
+              View Seasonal Playbook
             </Button>
           </div>
         </div>
