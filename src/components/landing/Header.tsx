@@ -24,8 +24,18 @@ const Header = () => {
             >
               Is this for me?
             </a>
+            <a 
+              href="#contact" 
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToContact();
+              }}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Core Funnel Audit
+            </a>
             <Button variant="accent" size="sm" onClick={scrollToContact}>
-              Check Availability
+              Get Started
             </Button>
           </nav>
           <Button 
@@ -34,7 +44,7 @@ const Header = () => {
             onClick={scrollToContact}
             className="md:hidden"
           >
-            Check Availability
+            Get Started
           </Button>
         </div>
       </div>

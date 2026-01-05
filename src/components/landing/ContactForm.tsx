@@ -30,34 +30,46 @@ const ContactForm = () => {
     // Step 1: Identity
     name: "",
     email: "",
+    brandName: "",
     website: "",
     // Step 2: Infrastructure
-    customerValue: "",
-    serviceArea: "",
-    hasAutomation: "",
+    primaryOffer: "",
+    monthlyAdSpend: "",
+    trafficSources: "",
     competitor: "",
     // Step 3: Opportunity
-    peakWindow: "",
-    additionalNotes: "",
+    bottleneck: "",
+    winGoal: "",
   });
+
+  // 7 M pills with subtitles
+  const sevenMs = [
+    { name: "Model", subtitle: "Offer & pricing structure" },
+    { name: "Market", subtitle: "Who you're actually reaching" },
+    { name: "Message", subtitle: "Hooks, angles, and promises" },
+    { name: "Media", subtitle: "Channels, creatives, and CPM/CTR" },
+    { name: "Machine", subtitle: "Landing pages, forms, checkout UX" },
+    { name: "Metrics", subtitle: "AOV, ATC%, CVR, LTV, ROAS" },
+    { name: "Momentum", subtitle: "Seasonal timing & follow-up" },
+  ];
 
   // Calculate which pills should glow based on completed fields
   const getPillStatus = (pillName: string): boolean => {
     switch (pillName) {
       case "Model":
-        return !!formData.customerValue;
+        return !!formData.primaryOffer;
       case "Market":
-        return !!formData.serviceArea || !!formData.competitor;
+        return !!formData.competitor;
       case "Message":
-        return !!formData.website;
+        return !!formData.brandName || !!formData.website;
       case "Media":
-        return !!formData.email;
+        return !!formData.trafficSources;
       case "Machine":
-        return !!formData.hasAutomation;
+        return !!formData.website;
       case "Metrics":
-        return !!formData.peakWindow;
+        return !!formData.monthlyAdSpend;
       case "Momentum":
-        return !!formData.additionalNotes;
+        return !!formData.bottleneck || !!formData.winGoal;
       default:
         return false;
     }
@@ -88,8 +100,8 @@ const ContactForm = () => {
     setShowSuccess(true);
 
     toast({
-      title: "Protocol Initiated!",
-      description: "Your surgical breakdown is being recorded.",
+      title: "Audit Request Received!",
+      description: "Your personalized funnel breakdown is on its way.",
     });
   };
 
@@ -129,8 +141,6 @@ const ContactForm = () => {
   
   const labelClasses = "block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium";
 
-  const sevenMs = ["Model", "Market", "Message", "Media", "Machine", "Metrics", "Momentum"];
-
   // Success State
   if (showSuccess) {
     return (
@@ -147,26 +157,26 @@ const ContactForm = () => {
               </div>
               
               <h2 className="font-display text-3xl sm:text-4xl md:text-5xl text-accent uppercase mb-4">
-                PROTOCOL INITIATED
+                AUDIT REQUEST RECEIVED
               </h2>
               
               <p className="text-xl sm:text-2xl text-[#FFFFFF]/90 mb-6">
-                Your surgical breakdown is being recorded.
+                Got it. Max will record a personalized Loom breakdown of your funnel within 48 hours, with 2–3 immediate changes you can make to plug revenue leaks.
               </p>
               
               <p className="text-[#FFFFFF]/60 text-sm sm:text-base">
-                Expect your personalized 15-minute video diagnostic in your inbox within 48 hours.
+                Check your inbox for confirmation.
               </p>
               
               {/* All pills glowing */}
               <div className="flex flex-wrap justify-center gap-3 max-w-2xl mx-auto mt-10">
                 {sevenMs.map((m) => (
                   <span 
-                    key={m} 
+                    key={m.name} 
                     className="bg-accent/20 border border-accent text-accent font-medium text-xs sm:text-sm uppercase tracking-wider px-4 py-1.5 rounded-full animate-pulse"
                     style={{ boxShadow: '0 0 15px rgba(0, 150, 255, 0.5)' }}
                   >
-                    {m}
+                    {m.name}
                   </span>
                 ))}
               </div>
@@ -198,7 +208,7 @@ const ContactForm = () => {
               </div>
               
               <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-accent uppercase mb-4">
-                Analyzing Systems...
+                Analyzing Your Funnel...
               </h2>
               
               {/* Progress bar */}
@@ -215,10 +225,10 @@ const ContactForm = () => {
               </div>
               
               <div className="space-y-2 text-[#FFFFFF]/60 text-sm">
-                <p className={analyzingProgress > 20 ? 'text-accent' : ''}>✓ Scanning market position...</p>
-                <p className={analyzingProgress > 40 ? 'text-accent' : ''}>✓ Analyzing competitor landscape...</p>
-                <p className={analyzingProgress > 60 ? 'text-accent' : ''}>✓ Evaluating automation gaps...</p>
-                <p className={analyzingProgress > 80 ? 'text-accent' : ''}>✓ Calculating revenue opportunities...</p>
+                <p className={analyzingProgress > 20 ? 'text-accent' : ''}>✓ Scanning traffic sources...</p>
+                <p className={analyzingProgress > 40 ? 'text-accent' : ''}>✓ Analyzing landing page UX...</p>
+                <p className={analyzingProgress > 60 ? 'text-accent' : ''}>✓ Evaluating follow-up gaps...</p>
+                <p className={analyzingProgress > 80 ? 'text-accent' : ''}>✓ Identifying revenue leaks...</p>
               </div>
             </div>
           </div>
@@ -248,40 +258,46 @@ const ContactForm = () => {
                 <Flame className="w-6 h-6 sm:w-7 sm:h-7 text-accent animate-pulse" style={{ filter: 'drop-shadow(0 0 8px hsl(var(--accent) / 0.8))' }} />
               </div>
               <h2 className="font-display text-accent uppercase text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wider font-bold">
-                GET YOUR FREE SEASONAL GROWTH AUDIT
+                GET YOUR FREE CORE FUNNEL AUDIT
               </h2>
             </div>
             
             {/* Sub-Headline */}
             <p className="text-base sm:text-lg md:text-xl text-[#FFFFFF]/90 mb-5 max-w-2xl mx-auto leading-relaxed">
-              Stop guessing. Get an actionable 15-minute roadmap to dominate your local market and start capturing more high-intent leads every single month.
+              In 15 minutes, we'll show you exactly where your funnel is leaking—traffic, site, or follow-up—and how to turn more clicks into customers this quarter.
             </p>
           </div>
 
-          {/* Sticky Protocol Pills */}
+          {/* Sticky Protocol Pills with Subtitles */}
           <div className="sticky top-0 z-20 bg-[hsl(220,20%,8%)]/95 backdrop-blur-sm py-4 mb-8 -mx-4 px-4 border-b border-white/10">
             <p className="text-accent text-xs sm:text-sm text-center mb-3 uppercase tracking-widest font-bold">
-              OUR 7-POINT SYSTEM FOR GUARANTEED SCALE:
+              Our 7-Point Core Funnel System:
             </p>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
               {sevenMs.map((m) => {
-                const isActive = getPillStatus(m);
+                const isActive = getPillStatus(m.name);
                 return (
-                  <span 
-                    key={m} 
-                    className={`font-medium text-[10px] sm:text-xs uppercase tracking-wider px-3 py-1 sm:px-4 sm:py-1.5 rounded-full transition-all duration-500 ${
-                      isActive 
-                        ? 'bg-accent/20 border border-accent text-accent animate-pulse' 
-                        : 'bg-[#1a1a1a] border border-accent/30 text-accent/60'
-                    }`}
-                    style={{ 
-                      boxShadow: isActive 
-                        ? '0 0 15px rgba(0, 150, 255, 0.5)' 
-                        : '0 0 10px rgba(0, 150, 255, 0.1)' 
-                    }}
-                  >
-                    {m}
-                  </span>
+                  <Tooltip key={m.name}>
+                    <TooltipTrigger asChild>
+                      <span 
+                        className={`font-medium text-[10px] sm:text-xs uppercase tracking-wider px-3 py-1 sm:px-4 sm:py-1.5 rounded-full transition-all duration-500 cursor-help ${
+                          isActive 
+                            ? 'bg-accent/20 border border-accent text-accent animate-pulse' 
+                            : 'bg-[#1a1a1a] border border-accent/30 text-accent/60'
+                        }`}
+                        style={{ 
+                          boxShadow: isActive 
+                            ? '0 0 15px rgba(0, 150, 255, 0.5)' 
+                            : '0 0 10px rgba(0, 150, 255, 0.1)' 
+                        }}
+                      >
+                        {m.name}
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent className="bg-[#1A1A1A] border-accent/30 text-[#FFFFFF]">
+                      <p className="text-sm">{m.subtitle}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 );
               })}
             </div>
@@ -336,6 +352,10 @@ const ContactForm = () => {
                     <h3 className="font-display text-accent uppercase tracking-wider text-sm sm:text-base">Identity</h3>
                   </div>
                   
+                  <p className="text-[#888888] text-sm mb-4">
+                    So we know who we're recording this Loom for.
+                  </p>
+                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className={labelClasses}>Your Name *</label>
@@ -350,7 +370,7 @@ const ContactForm = () => {
                       />
                     </div>
                     <div>
-                      <label className={labelClasses}>Business Email *</label>
+                      <label className={labelClasses}>Email *</label>
                       <Input
                         type="email"
                         name="email"
@@ -361,7 +381,18 @@ const ContactForm = () => {
                         className={inputClasses}
                       />
                     </div>
-                    <div className="md:col-span-2">
+                    <div>
+                      <label className={labelClasses}>Brand / Business Name</label>
+                      <Input
+                        type="text"
+                        name="brandName"
+                        placeholder="Your company name"
+                        value={formData.brandName}
+                        onChange={handleChange}
+                        className={inputClasses}
+                      />
+                    </div>
+                    <div>
                       <label className={labelClasses}>Website URL</label>
                       <Input
                         type="url"
@@ -388,45 +419,58 @@ const ContactForm = () => {
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
+                      <label className={labelClasses}>Primary Offer / Service</label>
+                      <Input
+                        type="text"
+                        name="primaryOffer"
+                        placeholder="e.g., Kitchen remodels, Tax prep, Fitness coaching"
+                        value={formData.primaryOffer}
+                        onChange={handleChange}
+                        className={inputClasses}
+                      />
+                    </div>
+                    
+                    <div>
                       <div className="flex items-center gap-2 mb-2">
                         <label className="text-[#FFFFFF] text-xs uppercase tracking-wider font-medium">
-                          Average Project/Customer Value
+                          Monthly Ad Spend (or Planned Budget)
                         </label>
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <HelpCircle className="w-4 h-4 text-[#888888] hover:text-accent cursor-help transition-colors" />
                           </TooltipTrigger>
                           <TooltipContent className="max-w-xs bg-[#1A1A1A] border-accent/30 text-[#FFFFFF]">
-                            <p className="text-sm">Why we ask: This helps us calculate your potential revenue recovery and prioritize high-impact recommendations.</p>
+                            <p className="text-sm">Helps us calibrate recommendations to your current scale.</p>
                           </TooltipContent>
                         </Tooltip>
                       </div>
                       <Select
-                        value={formData.customerValue}
+                        value={formData.monthlyAdSpend}
                         onValueChange={(value) =>
-                          setFormData((prev) => ({ ...prev, customerValue: value }))
+                          setFormData((prev) => ({ ...prev, monthlyAdSpend: value }))
                         }
                       >
                         <SelectTrigger className={`${inputClasses} w-full`}>
                           <SelectValue placeholder="Select a range..." />
                         </SelectTrigger>
                         <SelectContent className="bg-card border-border">
-                          <SelectItem value="under-500">Under $500</SelectItem>
-                          <SelectItem value="500-1000">$500 - $1,000</SelectItem>
-                          <SelectItem value="1000-2500">$1,000 - $2,500</SelectItem>
-                          <SelectItem value="2500-5000">$2,500 - $5,000</SelectItem>
-                          <SelectItem value="5000-plus">$5,000+</SelectItem>
+                          <SelectItem value="under-1k">Under $1,000</SelectItem>
+                          <SelectItem value="1k-3k">$1,000 - $3,000</SelectItem>
+                          <SelectItem value="3k-5k">$3,000 - $5,000</SelectItem>
+                          <SelectItem value="5k-10k">$5,000 - $10,000</SelectItem>
+                          <SelectItem value="10k-plus">$10,000+</SelectItem>
+                          <SelectItem value="not-yet">Not running ads yet</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     
-                    <div>
-                      <label className={labelClasses}>Primary Service Area (Zip/City)</label>
+                    <div className="md:col-span-2">
+                      <label className={labelClasses}>Main Traffic Sources</label>
                       <Input
                         type="text"
-                        name="serviceArea"
-                        placeholder="e.g., 90210 or Los Angeles, CA"
-                        value={formData.serviceArea}
+                        name="trafficSources"
+                        placeholder="e.g., Meta Ads, Google Ads, TikTok, Organic"
+                        value={formData.trafficSources}
                         onChange={handleChange}
                         className={inputClasses}
                       />
@@ -435,9 +479,19 @@ const ContactForm = () => {
 
                   {/* Competitor Field - Required */}
                   <div>
-                    <label className={labelClasses}>
-                      Who is your #1 local competitor? *
-                    </label>
+                    <div className="flex items-center gap-2 mb-2">
+                      <label className="text-[#FFFFFF] text-xs uppercase tracking-wider font-medium">
+                        Who is your #1 local competitor? *
+                      </label>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <HelpCircle className="w-4 h-4 text-[#888888] hover:text-accent cursor-help transition-colors" />
+                        </TooltipTrigger>
+                        <TooltipContent className="max-w-xs bg-[#1A1A1A] border-accent/30 text-[#FFFFFF]">
+                          <p className="text-sm">We look at who's already winning so you don't have to guess.</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </div>
                     <Input
                       type="text"
                       name="competitor"
@@ -447,51 +501,6 @@ const ContactForm = () => {
                       required
                       className={inputClasses}
                     />
-                    <p className="text-[#888888] text-xs mt-2 italic">
-                      We use this for your market-gap analysis
-                    </p>
-                  </div>
-
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <label className="text-[#FFFFFF] text-xs uppercase tracking-wider font-medium">
-                        Are you currently running any automated follow-up (SMS/Email)?
-                      </label>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <HelpCircle className="w-4 h-4 text-[#888888] hover:text-accent cursor-help transition-colors" />
-                        </TooltipTrigger>
-                        <TooltipContent className="max-w-xs bg-[#1A1A1A] border-accent/30 text-[#FFFFFF]">
-                          <p className="text-sm">Why we ask: Automation gaps are often the biggest revenue leaks. This tells us where to focus your diagnostic.</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </div>
-                    <RadioGroup
-                      value={formData.hasAutomation}
-                      onValueChange={(value) =>
-                        setFormData((prev) => ({ ...prev, hasAutomation: value }))
-                      }
-                      className="flex gap-6"
-                    >
-                      <label className="flex items-center gap-3 cursor-pointer group">
-                        <RadioGroupItem
-                          value="yes"
-                          className="border-white/40 text-white data-[state=checked]:border-accent data-[state=checked]:text-accent"
-                        />
-                        <span className="text-white/80 group-hover:text-white transition-colors">
-                          Yes
-                        </span>
-                      </label>
-                      <label className="flex items-center gap-3 cursor-pointer group">
-                        <RadioGroupItem
-                          value="no"
-                          className="border-white/40 text-white data-[state=checked]:border-accent data-[state=checked]:text-accent"
-                        />
-                        <span className="text-white/80 group-hover:text-white transition-colors">
-                          No
-                        </span>
-                      </label>
-                    </RadioGroup>
                   </div>
                 </div>
               )}
@@ -507,37 +516,42 @@ const ContactForm = () => {
                   </div>
                   
                   <div>
-                    <label className={labelClasses}>When is your next peak seasonal window?</label>
+                    <label className={labelClasses}>Biggest bottleneck right now?</label>
                     <Select
-                      value={formData.peakWindow}
+                      value={formData.bottleneck}
                       onValueChange={(value) =>
-                        setFormData((prev) => ({ ...prev, peakWindow: value }))
+                        setFormData((prev) => ({ ...prev, bottleneck: value }))
                       }
                     >
-                      <SelectTrigger className={`${inputClasses} w-full md:w-1/2`}>
-                        <SelectValue placeholder="Select your peak season..." />
+                      <SelectTrigger className={`${inputClasses} w-full`}>
+                        <SelectValue placeholder="Select your main challenge..." />
                       </SelectTrigger>
                       <SelectContent className="bg-card border-border">
-                        <SelectItem value="jan-mar">January - March (Q1)</SelectItem>
-                        <SelectItem value="apr-jun">April - June (Q2)</SelectItem>
-                        <SelectItem value="jul-sep">July - September (Q3)</SelectItem>
-                        <SelectItem value="oct-dec">October - December (Q4)</SelectItem>
-                        <SelectItem value="year-round">Year-Round</SelectItem>
+                        <SelectItem value="not-enough-impressions">Not enough impressions</SelectItem>
+                        <SelectItem value="clicks-few-leads">Lots of clicks, few leads</SelectItem>
+                        <SelectItem value="leads-few-sales">Lots of leads, few sales</SelectItem>
+                        <SelectItem value="sales-no-repeat">Great sales, no repeat buyers</SelectItem>
+                        <SelectItem value="unsure">Not sure where the leak is</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <label className={labelClasses}>Anything else we should know? (Optional)</label>
+                    <label className={labelClasses}>What does 'a win' look like in the next 90 days?</label>
                     <Textarea
-                      name="additionalNotes"
-                      placeholder="Tell us about your goals, challenges, or questions..."
-                      value={formData.additionalNotes}
+                      name="winGoal"
+                      placeholder="e.g., 20 new leads/month, $50K in new revenue, 3x ROAS..."
+                      value={formData.winGoal}
                       onChange={handleChange}
                       rows={3}
                       className={`${inputClasses} h-auto resize-none`}
                     />
                   </div>
+                  
+                  {/* Reassurance line */}
+                  <p className="text-[#888888] text-sm italic text-center">
+                    We'll prioritize the fastest, least-fragile wins for you.
+                  </p>
                 </div>
               )}
 
@@ -592,7 +606,7 @@ const ContactForm = () => {
               {/* Step note */}
               {currentStep === 3 && (
                 <p className="text-center text-[#FFFFFF]/60 text-xs sm:text-sm mt-4">
-                  Your 15-minute video diagnostic will be delivered to your inbox within 48 hours.
+                  Your personalized Loom breakdown will be delivered within 48 hours.
                 </p>
               )}
             </form>
