@@ -138,7 +138,7 @@ const CoreOffer = () => {
             onClick={handleScrollToForm}
             className="text-accent hover:text-accent/80 text-sm font-medium underline underline-offset-4 transition-colors duration-200"
           >
-            Not sure you're ready for the sprint? Start with a free Core Funnel Audit →
+            Not sure you're ready for the sprint? Start with a FREE Core Funnel Audit →
           </button>
         </div>
 
