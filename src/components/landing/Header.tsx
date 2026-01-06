@@ -6,6 +6,10 @@ const Header = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const scrollToPlaybook = () => {
+    document.getElementById("q1-growth-windows")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border">
       <div className="container-wide px-6 md:px-8 lg:px-12">
@@ -16,35 +20,40 @@ const Header = () => {
               href="#offer" 
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              How it works
+              Services
+            </a>
+            <a 
+              href="#q1-growth-windows"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToPlaybook();
+              }}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Seasonal Playbook
             </a>
             <a 
               href="#fit" 
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Is this for me?
+              Case Studies
             </a>
-            <a 
-              href="#contact" 
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToContact();
-              }}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            <Button 
+              variant="accent" 
+              size="sm" 
+              onClick={scrollToContact}
+              className="transition-transform hover:scale-105"
             >
-              Core Funnel Audit
-            </a>
-            <Button variant="accent" size="sm" onClick={scrollToContact}>
-              Get Started
+              GET FREE FUNNEL AUDIT
             </Button>
           </nav>
           <Button 
             variant="accent" 
             size="sm" 
             onClick={scrollToContact}
-            className="md:hidden"
+            className="md:hidden transition-transform hover:scale-105"
           >
-            Get Started
+            Free Audit
           </Button>
         </div>
       </div>
