@@ -25,27 +25,32 @@ const videoCards = [
 const offerings = [
   {
     icon: Palette,
-    title: "PERFORMANCE BRANDING",
+    title: "SCALE-READY IDENTITY",
     description:
-      "We don't just make logos; we build conversion-centric visual systems. A professional identity refresh designed to look high-end on every landing page and ad we run.",
+      "We don't just build logos; we build the brand authority required to scale. When your ads start working, your biggest bottleneck will be hiring. We ensure your brand looks like a market leader so you can attract high-tier talent and grow your team as fast as your lead volume.",
+    growthNote:
+      "Build a business that is addictive to grow, not just a job you have to manage.",
   },
   {
     icon: Video,
     title: "CONTENT-AS-A-SERVICE (CaaS)",
     description:
       "We provide the viral scripts and research; you provide the face. Our team handles the professional post-production, captions, and distribution across Reels, TikTok, and Shorts.",
+    growthNote: null,
   },
   {
     icon: Globe,
     title: "ORGANIC MULTIPLIER",
     description:
       "Build a regional presence that scales beyond your local zip code. Warm up your cold leads with consistent, high-value organic content that lowers your overall CAC.",
+    growthNote: null,
   },
   {
     icon: Flame,
     title: "THE PAID-ORGANIC BRIDGE",
     description:
       "We don't leave your growth to the algorithm. When an organic post starts to gain traction, we immediately bridge it over to your paid ad account—using data-backed proof to scale your most viral content into high-converting seasonal ads.",
+    growthNote: null,
   },
 ];
 
@@ -171,6 +176,11 @@ const AuthorityLayer = () => {
               <p className="text-white/60 font-body text-sm leading-relaxed">
                 {offering.description}
               </p>
+              {offering.growthNote && (
+                <p className="text-accent/80 font-body text-xs italic mt-4 pt-3 border-t border-white/10">
+                  "{offering.growthNote}"
+                </p>
+              )}
             </motion.div>
           ))}
         </div>
