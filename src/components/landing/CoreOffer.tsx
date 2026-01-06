@@ -36,18 +36,18 @@ const CoreOffer = () => {
   ];
 
   const included = [
-    "Strategic seasonal offer positioning",
-    "Paid ad setup across Meta, Google, or both",
-    "Conversion-focused landing page",
-    "Real-time budget optimization",
-    "Complete performance documentation",
+    "Strategic seasonal offer positioning based on your Core Funnel Audit.",
+    "Ad campaign setup on Meta, Google, or both—aligned with peak demand.",
+    "Conversion-focused landing page tweaks to plug obvious leaks.",
+    "15–30 minute Loom breakdown of your funnel performance.",
+    "Simple dashboard for the metrics that matter: CPC, Lead Quality, and ROI.",
   ];
 
   const notIncluded = [
-    "Long-term retainers or ongoing management",
-    "Guaranteed leads, sales, or revenue outcomes",
-    "Endless revisions or scope creep",
-    "Organic social, SEO, or content marketing",
+    "A long-term, expensive retainer or open-ended management plan.",
+    "A 'magic button' or guaranteed-lead scheme for poor offers.",
+    "Organic social media, SEO, or general content marketing.",
+    "Endless revisions—this is a focused, high-speed 30-45 day sprint.",
   ];
 
   const handleScrollToForm = () => {
@@ -142,10 +142,12 @@ const CoreOffer = () => {
           </button>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          <div className="p-8 bg-sage-light rounded-lg">
+        {/* What's Included / What This Is Not - High Contrast Cards */}
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+          {/* Included Card - White background with dark-blue checks */}
+          <div className="p-6 bg-white rounded-lg shadow-md order-1">
             <h3 className="text-xl font-display font-bold text-foreground mb-6 tracking-wider">
-              What's included
+              What's Included
             </h3>
             <ul className="space-y-4">
               {included.map((item, index) => (
@@ -157,23 +159,34 @@ const CoreOffer = () => {
             </ul>
           </div>
 
-          <div className="p-8 bg-card rounded-lg border border-border">
+          {/* Not Included Card - Light grey background with grey X icons */}
+          <div className="p-6 bg-muted rounded-lg shadow-md order-2">
             <h3 className="text-xl font-display font-bold text-foreground mb-6 tracking-wider">
-              What this is not
+              What This Is Not
             </h3>
             <ul className="space-y-4">
               {notIncluded.map((item, index) => (
                 <li key={index} className="flex items-start gap-3">
-                  <X className="w-5 h-5 text-muted-foreground mt-0.5 shrink-0" />
+                  <X className="w-5 h-5 text-muted-foreground/60 mt-0.5 shrink-0" />
                   <span className="text-muted-foreground">{item}</span>
                 </li>
               ))}
             </ul>
-            <p className="mt-8 pt-6 border-t border-border text-sm text-muted-foreground">
-              This is a defined scope of work with a clear timeline. If that sounds 
-              limiting, it's intentional. Constraints create focus.
-            </p>
           </div>
+        </div>
+
+        {/* Final Hook */}
+        <div className="text-center max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl font-bold text-foreground">
+            Every Seasonal Momentum Sprint starts with a{' '}
+            <button
+              onClick={handleScrollToForm}
+              className="text-accent hover:text-accent/80 underline underline-offset-4 transition-colors duration-200"
+            >
+              free Core Funnel Audit
+            </button>
+            . We fix real leaks, we don't guess.
+          </p>
         </div>
       </div>
     </section>
