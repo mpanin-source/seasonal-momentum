@@ -1,18 +1,37 @@
-import { Check, X } from "lucide-react";
+import { useState } from "react";
+import { Check, X, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CoreOffer = () => {
+  const [expandedPhase, setExpandedPhase] = useState<number | null>(null);
+
   const phases = [
     {
-      title: "Phase 1: Seasonal Alignment",
-      description: "We identify your peak demand window and craft an offer positioned for maximum market resonance.",
+      title: "PHASE 1 · SEASONAL ALIGNMENT & OFFER FIT",
+      summary: "Clarify your local buyer and peak demand window. Lock a seasonal offer that actually converts. Set win metrics for the sprint: leads, booked calls, and ROAS.",
+      bullets: [
+        "Deep-dive into your local market and buyer persona",
+        "Craft a seasonal offer positioned for maximum conversion",
+        "Define clear KPIs: lead targets, booked calls, and ROAS benchmarks"
+      ]
     },
     {
-      title: "Phase 2: High-Intensity Execution",
-      description: "Rapid deployment of paid campaigns across Meta and Google with conversion-optimized landing pages.",
+      title: "PHASE 2 · HIGH-INTENSITY LAUNCH & OPTIMIZATION",
+      summary: "Rebuild paid campaigns around winning angles. Rapid creative testing to find scroll-stopping ads. Daily checks to cut waste and push winners.",
+      bullets: [
+        "Launch paid campaigns with high-converting creative angles",
+        "A/B test ad variations to identify top performers fast",
+        "Daily budget reallocation to maximize ROAS"
+      ]
     },
     {
-      title: "Phase 3: Data-Driven Handover",
-      description: "Comprehensive performance review with documented insights and actionable next steps for sustained growth.",
+      title: "PHASE 3 · DATA-DRIVEN HANDOVER & SCALE PLAN",
+      summary: "Loom walkthrough of every funnel change. Bottleneck map for the next 90 days. Option to retain Creative Core as a growth partner.",
+      bullets: [
+        "Comprehensive Loom video documenting all funnel changes",
+        "90-day bottleneck map with prioritized action items",
+        "Optional retainer proposal for continued growth partnership"
+      ]
     },
   ];
 
@@ -31,34 +50,96 @@ const CoreOffer = () => {
     "Organic social, SEO, or content marketing",
   ];
 
+  const handleScrollToForm = () => {
+    const formElement = document.getElementById('corediagnostic');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const togglePhase = (index: number) => {
+    setExpandedPhase(expandedPhase === index ? null : index);
+  };
+
   return (
     <section className="section-padding" id="offer">
       <div className="container-wide">
         <div className="container-narrow text-center mb-16">
-          <p className="text-sm font-medium tracking-wide text-accent uppercase mb-4">
-            The Core Offer
+          <p className="text-xs font-medium tracking-[0.2em] text-accent uppercase mb-4">
+            IMPLEMENTATION PROGRAM • BY INVITE AFTER CORE FUNNEL AUDIT
           </p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
-            Seasonal Growth Sprint
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-6 tracking-wider">
+            SEASONAL GROWTH SPRINT (30–45 DAY BUILD + LAUNCH)
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            A 30–45 day sprint designed around your peak season. We set up, run, 
-            and optimize a focused campaign while demand is high.
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            A focused implementation sprint we offer to qualified brands after your Core Funnel Audit. 
+            We fix the biggest leaks in your funnel and scale into peak demand while momentum is on your side.
           </p>
         </div>
 
-        {/* Three Phases */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+        {/* Three Phases - Accordion Style */}
+        <div className="max-w-4xl mx-auto mb-12 space-y-4">
           {phases.map((phase, index) => (
-            <div key={index} className="p-6 bg-card rounded-lg border border-border text-center">
-              <h3 className="text-lg font-display font-bold text-foreground mb-3 tracking-wider">
-                {phase.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {phase.description}
-              </p>
-            </div>
+            <motion.div
+              key={index}
+              className={`bg-card rounded-lg border-2 transition-all duration-300 cursor-pointer overflow-hidden ${
+                expandedPhase === index 
+                  ? 'border-accent shadow-lg' 
+                  : 'border-border hover:border-accent/50 hover:-translate-y-1 hover:shadow-md'
+              }`}
+              onClick={() => togglePhase(index)}
+            >
+              <div className="p-6 flex items-center justify-between">
+                <div className="flex-1">
+                  <h3 className="text-lg font-display font-bold text-foreground tracking-wider">
+                    {phase.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-2 pr-4">
+                    {phase.summary}
+                  </p>
+                </div>
+                <motion.div
+                  animate={{ rotate: expandedPhase === index ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="shrink-0 ml-4"
+                >
+                  <ChevronDown className="w-5 h-5 text-accent" />
+                </motion.div>
+              </div>
+              
+              <AnimatePresence>
+                {expandedPhase === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    <div className="px-6 pb-6 pt-2 border-t border-border/50">
+                      <ul className="space-y-3">
+                        {phase.bullets.map((bullet, bulletIndex) => (
+                          <li key={bulletIndex} className="flex items-start gap-3">
+                            <Check className="w-4 h-4 text-accent mt-1 shrink-0" />
+                            <span className="text-sm text-foreground/90">{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
           ))}
+        </div>
+
+        {/* Bridge CTA */}
+        <div className="text-center mb-12">
+          <button
+            onClick={handleScrollToForm}
+            className="text-accent hover:text-accent/80 text-sm font-medium underline underline-offset-4 transition-colors duration-200"
+          >
+            Not sure you're ready for the sprint? Start with a free Core Funnel Audit →
+          </button>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
