@@ -735,7 +735,7 @@ const Q1GrowthWindows = () => {
             ))}
         </div>
 
-        {/* SEASONAL ROI CALCULATOR */}
+        {/* MARKET GAP ANALYZER */}
         <div ref={calculatorRef} id="roi-calculator" className="mt-20 md:mt-28">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -745,7 +745,7 @@ const Q1GrowthWindows = () => {
             className="text-center mb-12"
           >
             <p className="text-sm font-medium tracking-[0.25em] text-accent uppercase mb-5">
-              Seasonal ROI Calculator
+              Market Gap Analyzer
             </p>
             <h3
               className="text-3xl md:text-5xl font-display font-black text-white tracking-wider uppercase"
@@ -755,176 +755,305 @@ const Q1GrowthWindows = () => {
             >
               {selectedNiche ? (
                 <>
-                  What to Expect from a $2K <span className="text-accent">{selectedNiche.title}</span> Sprint
+                  Your <span className="text-accent">{selectedNiche.title}</span> Funnel Gap
                 </>
               ) : (
-                <>Select a Niche Above to See ROI</>
+                <>See What You're Leaving on the Table</>
               )}
             </h3>
           </motion.div>
 
-          <AnimatePresence mode="wait">
-            {selectedNiche ? (
-              <motion.div
-                key={selectedNiche.id}
-                initial={{ opacity: 0, y: 20, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -20, scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                className="max-w-4xl mx-auto"
-              >
-                <div
-                  className="rounded-2xl p-6 md:p-8"
-                  style={{
-                    background: "linear-gradient(135deg, #16162a 0%, #1a1a32 100%)",
-                    border: "1px solid hsl(217 91% 53% / 0.3)",
-                    boxShadow: "0 0 60px hsl(217 91% 53% / 0.1)",
-                  }}
-                >
-                  {/* Selected Niche Header */}
-                  <div className="flex items-center gap-3 mb-8 pb-6 border-b border-white/10">
-                    <div className="p-3 rounded-xl bg-accent/20 border border-accent/50">
-                      <selectedNiche.icon className="w-6 h-6 text-accent" strokeWidth={1.5} />
-                    </div>
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-accent mb-1">Selected Niche</p>
-                      <h4 className="text-xl font-display font-bold text-white tracking-wider uppercase">
-                        {selectedNiche.title}
-                      </h4>
-                    </div>
-                  </div>
-
-                  {/* ROI Metrics Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                    {/* Expected Leads */}
-                    <motion.div
-                      className="rounded-xl p-5 text-center relative overflow-hidden"
-                      style={{
-                        background: "linear-gradient(135deg, hsl(217 91% 53% / 0.1) 0%, transparent 100%)",
-                        border: "1px solid hsl(217 91% 53% / 0.3)",
-                      }}
-                    >
-                      {isLoading && (
-                        <motion.div
-                          className="absolute inset-0 bg-accent/20 rounded-xl"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: [0, 0.5, 0] }}
-                          transition={{ duration: 0.6, ease: "easeInOut" }}
-                        />
-                      )}
-                      <Users className="w-8 h-8 text-accent mx-auto mb-4" />
-                      <p className="text-4xl md:text-5xl font-display font-black text-white mb-2">
-                        <AnimatedCounter value={selectedNiche.forecastData.leadsMin} />–
-                        <AnimatedCounter value={selectedNiche.forecastData.leadsMax} />
-                      </p>
-                      <p className="text-sm uppercase tracking-[0.15em] text-white/50">Expected Leads</p>
-                    </motion.div>
-
-                    {/* Cost Per Lead */}
-                    <motion.div
-                      className="rounded-xl p-5 text-center relative overflow-hidden"
-                      style={{
-                        background: "linear-gradient(135deg, hsl(280 70% 50% / 0.1) 0%, transparent 100%)",
-                        border: "1px solid hsl(280 70% 50% / 0.3)",
-                      }}
-                    >
-                      {isLoading && (
-                        <motion.div
-                          className="absolute inset-0 bg-purple-400/20 rounded-xl"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: [0, 0.5, 0] }}
-                          transition={{ duration: 0.6, ease: "easeInOut", delay: 0.1 }}
-                        />
-                      )}
-                      <Target className="w-8 h-8 text-purple-400 mx-auto mb-4" />
-                      <p className="text-4xl md:text-5xl font-display font-black text-purple-400 mb-2">
-                        $<AnimatedCounter value={selectedNiche.forecastData.costPerLead} />
-                      </p>
-                      <p className="text-sm uppercase tracking-[0.15em] text-white/50">Cost Per Lead</p>
-                    </motion.div>
-
-                    {/* Revenue Opportunity */}
-                    <motion.div
-                      className="rounded-xl p-5 text-center relative overflow-hidden"
-                      style={{
-                        background: "linear-gradient(135deg, hsl(160 60% 40% / 0.1) 0%, transparent 100%)",
-                        border: "1px solid hsl(160 60% 40% / 0.3)",
-                      }}
-                    >
-                      {isLoading && (
-                        <motion.div
-                          className="absolute inset-0 bg-emerald-400/20 rounded-xl"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: [0, 0.5, 0] }}
-                          transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
-                        />
-                      )}
-                      <motion.div
-                        className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-emerald-500/20 via-emerald-500/10 to-transparent"
-                        initial={{ height: "0%" }}
-                        animate={{ height: `${revenuePercentage}%` }}
-                        transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
-                      />
-                      <div className="relative z-10">
-                        <DollarSign className="w-8 h-8 text-emerald-400 mx-auto mb-4" />
-                        <p className="text-4xl md:text-5xl font-display font-black text-emerald-400 mb-2">
-                          $<AnimatedCounter value={Math.round(revenue / 1000)} suffix="K" />
-                        </p>
-                        <p className="text-sm uppercase tracking-[0.15em] text-white/50 mb-1">Revenue Opportunity</p>
-                        <p className="text-xs text-emerald-400/70">
-                          at ${selectedNiche.forecastData.avgTicket.toLocaleString()} avg job
-                        </p>
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* Cost of Inaction Reminder */}
-                  <div className="mt-8 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center gap-4">
-                    <AlertTriangle className="w-6 h-6 text-amber-400 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm font-medium text-amber-400 mb-1">Cost of Waiting</p>
-                      <p className="text-xs text-amber-400/70">{selectedNiche.costOfInaction}</p>
-                    </div>
-                  </div>
-
-                  {/* Projection disclaimer */}
-                  <p className="text-xs text-white/40 text-center mt-6">
-                    These are projections. Your Core Funnel Audit uses your actual numbers to find realistic upside.
-                  </p>
-                </div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="max-w-2xl mx-auto text-center py-16"
-              >
-                <div
-                  className="rounded-2xl p-8 md:p-12"
-                  style={{
-                    background: "linear-gradient(135deg, #16162a 0%, #1a1a32 100%)",
-                    border: "1px solid hsl(217 91% 53% / 0.2)",
-                  }}
-                >
-                  <div className="p-4 rounded-xl bg-accent/10 border border-accent/30 w-fit mx-auto mb-6">
-                    <TrendingUp className="w-10 h-10 text-accent" />
-                  </div>
-                  <h4 className="text-xl font-display font-bold text-white mb-3 uppercase tracking-wider">
-                    Select a Niche to See Your ROI
-                  </h4>
-                  <p className="text-white/50 text-sm leading-relaxed">
-                    Click on any niche card above to reveal projected leads, cost per lead, and revenue opportunity for that
-                    seasonal window.
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <MarketGapAnalyzer selectedNiche={selectedNiche} isLoading={isLoading} />
         </div>
       </div>
     </section>
+  );
+};
+
+interface MarketGapAnalyzerProps {
+  selectedNiche: NicheData | null;
+  isLoading: boolean;
+}
+
+const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps) => {
+  const [adSpend, setAdSpend] = useState(5000);
+  const [avgSaleValue, setAvgSaleValue] = useState(800);
+  const [currentLeadVolume, setCurrentLeadVolume] = useState(50);
+  const [isCalculating, setIsCalculating] = useState(false);
+
+  const handleSliderChange = (setter: (val: number) => void, value: number[]) => {
+    setter(value[0]);
+    setIsCalculating(true);
+    setTimeout(() => setIsCalculating(false), 800);
+  };
+
+  // Current State Calculations (user's baseline)
+  const currentCPL = currentLeadVolume > 0 ? adSpend / currentLeadVolume : 100;
+  const currentCloseRate = 0.15; // Assume 15% baseline
+  const currentCustomers = Math.round(currentLeadVolume * currentCloseRate);
+  const currentRevenue = currentCustomers * avgSaleValue;
+
+  // Optimized State Calculations (Creative Core improvements)
+  const optimizedCPL = currentCPL * 0.7; // 30% reduction
+  const optimizedLeads = Math.round(adSpend / optimizedCPL);
+  const optimizedCloseRate = currentCloseRate * 1.2; // 20% increase
+  const optimizedCustomers = Math.round(optimizedLeads * optimizedCloseRate);
+  const optimizedRevenue = optimizedCustomers * avgSaleValue;
+
+  // The Revenue Leak
+  const revenueLeak = optimizedRevenue - currentRevenue;
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-5xl mx-auto"
+    >
+      <div
+        className="rounded-2xl p-6 md:p-8"
+        style={{
+          background: "linear-gradient(135deg, #16162a 0%, #1a1a32 100%)",
+          border: "1px solid hsl(217 91% 53% / 0.3)",
+          boxShadow: "0 0 60px hsl(217 91% 53% / 0.1)",
+        }}
+      >
+        {/* Input Sliders */}
+        <div className="mb-8 pb-6 border-b border-white/10">
+          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-6 text-center">
+            Enter Your Current Numbers
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Monthly Ad Spend */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs uppercase tracking-wider text-white/50">Monthly Ad Spend</span>
+                <span className="text-lg font-display font-bold text-accent">${adSpend.toLocaleString()}</span>
+              </div>
+              <Slider
+                value={[adSpend]}
+                onValueChange={(v) => handleSliderChange(setAdSpend, v)}
+                min={1000}
+                max={25000}
+                step={500}
+                className="w-full"
+              />
+            </div>
+
+            {/* Average Sale Value */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs uppercase tracking-wider text-white/50">Avg Sale Value</span>
+                <span className="text-lg font-display font-bold text-emerald-400">${avgSaleValue.toLocaleString()}</span>
+              </div>
+              <Slider
+                value={[avgSaleValue]}
+                onValueChange={(v) => handleSliderChange(setAvgSaleValue, v)}
+                min={100}
+                max={10000}
+                step={100}
+                className="w-full"
+              />
+            </div>
+
+            {/* Current Lead Volume */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs uppercase tracking-wider text-white/50">Current Lead Volume</span>
+                <span className="text-lg font-display font-bold text-purple-400">{currentLeadVolume}</span>
+              </div>
+              <Slider
+                value={[currentLeadVolume]}
+                onValueChange={(v) => handleSliderChange(setCurrentLeadVolume, v)}
+                min={5}
+                max={200}
+                step={5}
+                className="w-full"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Side-by-Side Comparison */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          {/* Your Current State */}
+          <div
+            className="rounded-xl p-5 relative overflow-hidden"
+            style={{
+              background: "linear-gradient(135deg, hsl(0 0% 50% / 0.05) 0%, transparent 100%)",
+              border: "1px solid hsl(0 0% 50% / 0.2)",
+            }}
+          >
+            <div className="flex items-center gap-2 mb-5">
+              <div className="w-2 h-2 rounded-full bg-white/40" />
+              <p className="text-sm uppercase tracking-[0.15em] text-white/60 font-medium">Your Current State</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Cost Per Lead</span>
+                <span className="text-lg font-display font-bold text-white/70">${currentCPL.toFixed(0)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Leads Generated</span>
+                <span className="text-lg font-display font-bold text-white/70">{currentLeadVolume}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Close Rate</span>
+                <span className="text-lg font-display font-bold text-white/70">{(currentCloseRate * 100).toFixed(0)}%</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Customers</span>
+                <span className="text-lg font-display font-bold text-white/70">{currentCustomers}</span>
+              </div>
+              <div className="pt-3 border-t border-white/10">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium text-white/60">Monthly Revenue</span>
+                  <span className="text-2xl font-display font-black text-white/70">${currentRevenue.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Creative Core Optimized */}
+          <div
+            className="rounded-xl p-5 relative overflow-hidden"
+            style={{
+              background: "linear-gradient(135deg, hsl(217 91% 53% / 0.1) 0%, hsl(160 60% 40% / 0.05) 100%)",
+              border: "1px solid hsl(160 60% 40% / 0.3)",
+              boxShadow: "0 0 30px hsl(160 60% 40% / 0.1)",
+            }}
+          >
+            {isCalculating && (
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                initial={{ x: "-100%" }}
+                animate={{ x: "100%" }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+              />
+            )}
+            <div className="flex items-center gap-2 mb-5">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <p className="text-sm uppercase tracking-[0.15em] text-emerald-400 font-medium">Creative Core Optimized</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Cost Per Lead</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-display font-bold text-emerald-400">${optimizedCPL.toFixed(0)}</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">-30%</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Leads Generated</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-display font-bold text-emerald-400">{optimizedLeads}</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+{optimizedLeads - currentLeadVolume}</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Close Rate</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-display font-bold text-emerald-400">{(optimizedCloseRate * 100).toFixed(0)}%</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+20%</span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-white/50">Customers</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-display font-bold text-emerald-400">{optimizedCustomers}</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+{optimizedCustomers - currentCustomers}</span>
+                </div>
+              </div>
+              <div className="pt-3 border-t border-emerald-400/20">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium text-emerald-400/80">Monthly Revenue</span>
+                  <span className="text-2xl font-display font-black text-emerald-400">${optimizedRevenue.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Revenue Leak Display */}
+        <motion.div
+          className="rounded-xl p-6 md:p-8 text-center relative overflow-hidden mb-6"
+          style={{
+            background: "linear-gradient(135deg, hsl(0 70% 50% / 0.1) 0%, hsl(0 70% 40% / 0.05) 100%)",
+            border: "1px solid hsl(0 70% 50% / 0.3)",
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 opacity-30"
+            animate={{
+              boxShadow: [
+                "inset 0 0 40px hsl(0 70% 50% / 0.3)",
+                "inset 0 0 60px hsl(0 70% 50% / 0.5)",
+                "inset 0 0 40px hsl(0 70% 50% / 0.3)",
+              ],
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <p className="text-xs uppercase tracking-[0.2em] text-red-400/70 mb-3 relative z-10">
+            Your Monthly Revenue Leak
+          </p>
+          <motion.p
+            className="text-5xl md:text-7xl font-display font-black text-red-400 relative z-10"
+            animate={isCalculating ? { scale: [1, 1.05, 1] } : {}}
+            transition={{ duration: 0.8 }}
+            style={{
+              textShadow: "0 0 40px hsl(0 70% 50% / 0.5)",
+            }}
+          >
+            ${revenueLeak.toLocaleString()}
+          </motion.p>
+          <p className="text-sm text-red-400/60 mt-2 relative z-10">
+            left on the table every month
+          </p>
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.button
+          onClick={scrollToContact}
+          className="w-full py-4 px-6 rounded-xl font-display font-bold text-lg uppercase tracking-wider text-white relative overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, hsl(217 91% 53%) 0%, hsl(217 91% 43%) 100%)",
+            boxShadow: "0 0 30px hsl(217 91% 53% / 0.4)",
+          }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-white/20"
+            initial={{ scale: 0, opacity: 0.5 }}
+            animate={{ scale: 2, opacity: 0 }}
+            transition={{
+              repeat: Infinity,
+              duration: 1.5,
+              ease: "easeOut",
+            }}
+            style={{ borderRadius: "inherit" }}
+          />
+          <span className="relative z-10 flex items-center justify-center gap-2">
+            Plug The Leak: Request CoreDiagnostic
+            <ArrowRight className="w-5 h-5" />
+          </span>
+        </motion.button>
+
+        {/* Disclaimer */}
+        <p className="text-xs text-white/40 text-center mt-6">
+          Projections based on Creative Core benchmarks. Your Core Funnel Audit uses your actual numbers.
+        </p>
+      </div>
+    </motion.div>
   );
 };
 
