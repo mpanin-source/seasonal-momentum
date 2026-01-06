@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X, ChevronRight, Calendar, ArrowRight } from "lucide-react";
+import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X, ChevronRight, Calendar, ArrowRight, Info, ChevronDown } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface NicheData {
   id: string;
@@ -775,11 +776,73 @@ interface MarketGapAnalyzerProps {
   isLoading: boolean;
 }
 
+type TicketTier = "low" | "mid" | "high" | "custom";
+
+interface TierPreset {
+  label: string;
+  description: string;
+  avgSaleValue: number;
+  adSpendMin: number;
+  adSpendMax: number;
+}
+
+const tierPresets: Record<Exclude<TicketTier, "custom">, TierPreset> = {
+  low: {
+    label: "Low Ticket ($500 avg)",
+    description: "Fitness, Cleaning, Med-Spas",
+    avgSaleValue: 500,
+    adSpendMin: 500,
+    adSpendMax: 1500,
+  },
+  mid: {
+    label: "Mid Ticket ($3,500 avg)",
+    description: "HVAC, Landscaping, Plumbing",
+    avgSaleValue: 3500,
+    adSpendMin: 2000,
+    adSpendMax: 3500,
+  },
+  high: {
+    label: "High Ticket ($15,000 avg)",
+    description: "Roofing, Solar, Legal",
+    avgSaleValue: 15000,
+    adSpendMin: 3500,
+    adSpendMax: 5000,
+  },
+};
+
 const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps) => {
-  const [adSpend, setAdSpend] = useState(5000);
-  const [avgSaleValue, setAvgSaleValue] = useState(800);
-  const [currentLeadVolume, setCurrentLeadVolume] = useState(50);
+  const [selectedTier, setSelectedTier] = useState<TicketTier | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [adSpend, setAdSpend] = useState(3000);
+  const [avgSaleValue, setAvgSaleValue] = useState(2000);
+  const [currentLeadVolume, setCurrentLeadVolume] = useState(40);
+  const [currentCloseRateInput, setCurrentCloseRateInput] = useState(15);
   const [isCalculating, setIsCalculating] = useState(false);
+
+  const handleTierSelect = (tier: TicketTier) => {
+    setSelectedTier(tier);
+    setIsDropdownOpen(false);
+    
+    if (tier === "custom") {
+      // Reset to defaults for manual entry
+      setAdSpend(3000);
+      setAvgSaleValue(2000);
+      setCurrentLeadVolume(40);
+      setCurrentCloseRateInput(15);
+    } else {
+      const preset = tierPresets[tier];
+      setAvgSaleValue(preset.avgSaleValue);
+      // Set ad spend to middle of range
+      const midAdSpend = Math.round((preset.adSpendMin + preset.adSpendMax) / 2);
+      setAdSpend(midAdSpend);
+      // Adjust lead volume based on tier
+      const estimatedLeads = tier === "low" ? 60 : tier === "mid" ? 35 : 20;
+      setCurrentLeadVolume(estimatedLeads);
+    }
+    
+    setIsCalculating(true);
+    setTimeout(() => setIsCalculating(false), 800);
+  };
 
   const handleSliderChange = (setter: (val: number) => void, value: number[]) => {
     setter(value[0]);
@@ -789,18 +852,19 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
 
   // Current State Calculations (user's baseline)
   const currentCPL = currentLeadVolume > 0 ? adSpend / currentLeadVolume : 100;
-  const currentCloseRate = 0.15; // Assume 15% baseline
+  const currentCloseRate = currentCloseRateInput / 100;
   const currentCustomers = Math.round(currentLeadVolume * currentCloseRate);
   const currentRevenue = currentCustomers * avgSaleValue;
 
   // Optimized State Calculations (Creative Core improvements)
-  const optimizedCPL = currentCPL * 0.7; // 30% reduction
+  // 31% reduction in CPL and 22% increase in Close Rate
+  const optimizedCPL = currentCPL * 0.69; // 31% reduction
   const optimizedLeads = Math.round(adSpend / optimizedCPL);
-  const optimizedCloseRate = currentCloseRate * 1.2; // 20% increase
+  const optimizedCloseRate = currentCloseRate * 1.22; // 22% increase
   const optimizedCustomers = Math.round(optimizedLeads * optimizedCloseRate);
   const optimizedRevenue = optimizedCustomers * avgSaleValue;
 
-  // The Revenue Leak
+  // The Revenue Leak (Optimized - Current)
   const revenueLeak = optimizedRevenue - currentRevenue;
 
   const scrollToContact = () => {
@@ -809,6 +873,16 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
       contactSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const getAdSpendRange = () => {
+    if (selectedTier && selectedTier !== "custom") {
+      const preset = tierPresets[selectedTier];
+      return { min: preset.adSpendMin, max: Math.max(preset.adSpendMax * 3, 10000) };
+    }
+    return { min: 500, max: 25000 };
+  };
+
+  const adSpendRange = getAdSpendRange();
 
   return (
     <motion.div
@@ -825,12 +899,68 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
           boxShadow: "0 0 60px hsl(217 91% 53% / 0.1)",
         }}
       >
+        {/* Quick Start Dropdown */}
+        <div className="mb-8 pb-6 border-b border-white/10">
+          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-4 text-center">
+            Quick Start: Select Your Tier
+          </p>
+          <div className="relative max-w-md mx-auto">
+            <button
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-[#0a0a14] border border-accent/30 hover:border-accent/50 transition-colors"
+            >
+              <span className="text-sm text-white/80">
+                {selectedTier 
+                  ? selectedTier === "custom" 
+                    ? "Custom (Manual Entry)" 
+                    : tierPresets[selectedTier].label
+                  : "Choose a ticket tier..."}
+              </span>
+              <ChevronDown className={`w-4 h-4 text-accent transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
+            </button>
+            
+            <AnimatePresence>
+              {isDropdownOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full left-0 right-0 mt-2 rounded-lg bg-[#0f0f1c] border border-accent/30 overflow-hidden z-50"
+                  style={{ boxShadow: "0 10px 40px rgba(0,0,0,0.5)" }}
+                >
+                  {(Object.keys(tierPresets) as Exclude<TicketTier, "custom">[]).map((tier) => (
+                    <button
+                      key={tier}
+                      onClick={() => handleTierSelect(tier)}
+                      className={`w-full flex flex-col items-start px-4 py-3 hover:bg-accent/10 transition-colors text-left ${
+                        selectedTier === tier ? "bg-accent/15" : ""
+                      }`}
+                    >
+                      <span className="text-sm font-medium text-white">{tierPresets[tier].label}</span>
+                      <span className="text-xs text-white/50">{tierPresets[tier].description}</span>
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => handleTierSelect("custom")}
+                    className={`w-full flex flex-col items-start px-4 py-3 hover:bg-accent/10 transition-colors text-left border-t border-white/10 ${
+                      selectedTier === "custom" ? "bg-accent/15" : ""
+                    }`}
+                  >
+                    <span className="text-sm font-medium text-white">Custom (Manual)</span>
+                    <span className="text-xs text-white/50">Enter your own values</span>
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
         {/* Input Sliders */}
         <div className="mb-8 pb-6 border-b border-white/10">
           <p className="text-xs uppercase tracking-[0.2em] text-accent mb-6 text-center">
-            Enter Your Current Numbers
+            Your Current Numbers
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Monthly Ad Spend */}
             <div>
               <div className="flex justify-between items-center mb-3">
@@ -840,9 +970,9 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
               <Slider
                 value={[adSpend]}
                 onValueChange={(v) => handleSliderChange(setAdSpend, v)}
-                min={1000}
-                max={25000}
-                step={500}
+                min={adSpendRange.min}
+                max={adSpendRange.max}
+                step={100}
                 className="w-full"
               />
             </div>
@@ -857,7 +987,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
                 value={[avgSaleValue]}
                 onValueChange={(v) => handleSliderChange(setAvgSaleValue, v)}
                 min={100}
-                max={10000}
+                max={25000}
                 step={100}
                 className="w-full"
               />
@@ -866,7 +996,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
             {/* Current Lead Volume */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <span className="text-xs uppercase tracking-wider text-white/50">Current Lead Volume</span>
+                <span className="text-xs uppercase tracking-wider text-white/50">Current Leads/Mo</span>
                 <span className="text-lg font-display font-bold text-purple-400">{currentLeadVolume}</span>
               </div>
               <Slider
@@ -874,7 +1004,23 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
                 onValueChange={(v) => handleSliderChange(setCurrentLeadVolume, v)}
                 min={5}
                 max={200}
-                step={5}
+                step={1}
+                className="w-full"
+              />
+            </div>
+
+            {/* Current Close Rate */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-xs uppercase tracking-wider text-white/50">Close Rate</span>
+                <span className="text-lg font-display font-bold text-amber-400">{currentCloseRateInput}%</span>
+              </div>
+              <Slider
+                value={[currentCloseRateInput]}
+                onValueChange={(v) => handleSliderChange(setCurrentCloseRateInput, v)}
+                min={5}
+                max={50}
+                step={1}
                 className="w-full"
               />
             </div>
@@ -949,7 +1095,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
                 <span className="text-sm text-white/50">Cost Per Lead</span>
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-display font-bold text-emerald-400">${optimizedCPL.toFixed(0)}</span>
-                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">-30%</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">-31%</span>
                 </div>
               </div>
               <div className="flex justify-between items-center">
@@ -963,7 +1109,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
                 <span className="text-sm text-white/50">Close Rate</span>
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-display font-bold text-emerald-400">{(optimizedCloseRate * 100).toFixed(0)}%</span>
-                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+20%</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+22%</span>
                 </div>
               </div>
               <div className="flex justify-between items-center">
@@ -1002,8 +1148,18 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
             }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
-          <p className="text-xs uppercase tracking-[0.2em] text-red-400/70 mb-3 relative z-10">
+          <p className="text-xs uppercase tracking-[0.2em] text-red-400/70 mb-3 relative z-10 flex items-center justify-center gap-2">
             Your Monthly Revenue Leak
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Info className="w-3.5 h-3.5 text-red-400/50 hover:text-red-400 transition-colors" />
+                </TooltipTrigger>
+                <TooltipContent className="max-w-xs bg-[#0f0f1c] border-white/20 text-white/80">
+                  <p className="text-xs">Based on standard performance gains seen in optimized seasonal service funnels.</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </p>
           <motion.p
             className="text-5xl md:text-7xl font-display font-black text-red-400 relative z-10"
