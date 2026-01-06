@@ -176,18 +176,34 @@ const CoreOffer = () => {
         </div>
 
         {/* Final Hook */}
-        <div className="text-center max-w-3xl mx-auto">
-          <p className="text-lg md:text-xl font-bold text-foreground">
-            Every Seasonal Momentum Sprint starts with a{' '}
-            <button
-              onClick={handleScrollToForm}
-              className="text-accent hover:text-accent/80 underline underline-offset-4 transition-colors duration-200"
-            >
-              free Core Funnel Audit
-            </button>
-            . We fix real leaks, we don't guess.
-          </p>
-        </div>
+        <motion.div 
+          className="text-center max-w-4xl mx-auto mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="relative inline-block">
+            {/* Background glow effect */}
+            <div className="absolute -inset-4 bg-accent/10 rounded-2xl blur-xl" />
+            
+            {/* Main content card */}
+            <div className="relative bg-gradient-to-r from-card via-card to-card border-2 border-accent/30 rounded-xl px-8 py-6 md:px-12 md:py-8 shadow-lg">
+              <p className="text-2xl md:text-3xl lg:text-4xl font-display tracking-wider text-foreground leading-tight">
+                EVERY SEASONAL MOMENTUM SPRINT STARTS WITH A{' '}
+                <button
+                  onClick={handleScrollToForm}
+                  className="text-accent hover:text-accent/80 italic underline underline-offset-4 decoration-2 transition-colors duration-200"
+                >
+                  FREE CORE FUNNEL AUDIT
+                </button>
+              </p>
+              <p className="mt-4 text-lg md:text-xl font-medium text-muted-foreground">
+                We fix real leaks, we don't guess.
+              </p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
