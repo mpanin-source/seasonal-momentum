@@ -5,6 +5,7 @@ import Problem from "@/components/landing/Problem";
 import CoreOffer from "@/components/landing/CoreOffer";
 import LeadPhilosophy from "@/components/landing/LeadPhilosophy";
 import PhaseTwo from "@/components/landing/PhaseTwo";
+import AuthorityLayer from "@/components/landing/AuthorityLayer";
 import FitSection from "@/components/landing/FitSection";
 import WhyItWorks from "@/components/landing/WhyItWorks";
 import ContactForm from "@/components/landing/ContactForm";
@@ -20,6 +21,7 @@ const Index = () => {
         <CoreOffer />
         <LeadPhilosophy />
         <PhaseTwo />
+        <AuthorityLayer />
         <FitSection />
         <WhyItWorks />
         <ContactForm />
