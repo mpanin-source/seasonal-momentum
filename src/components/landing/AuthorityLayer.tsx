@@ -1,21 +1,24 @@
 import { motion } from "framer-motion";
-import { Play, Palette, Video, Globe } from "lucide-react";
+import { Play, Palette, Video, Globe, Flame } from "lucide-react";
 
 const videoCards = [
   {
     title: "THE EXPERT SERIES",
     label: "Scripted by Us | Filmed by Client",
     gradient: "from-accent/20 to-accent/5",
+    badge: null,
   },
   {
     title: "THE REELS ACCELERATOR",
     label: "High-End Edit | Organic Reach",
     gradient: "from-accent/15 to-accent/5",
+    badge: "SCALE READY",
   },
   {
     title: "THE MARKET DOMINATOR",
     label: "Visual Branding | Scale",
     gradient: "from-accent/20 to-accent/10",
+    badge: null,
   },
 ];
 
@@ -37,6 +40,12 @@ const offerings = [
     title: "ORGANIC MULTIPLIER",
     description:
       "Build a regional presence that scales beyond your local zip code. Warm up your cold leads with consistent, high-value organic content that lowers your overall CAC.",
+  },
+  {
+    icon: Flame,
+    title: "THE PAID-ORGANIC BRIDGE",
+    description:
+      "We don't leave your growth to the algorithm. When an organic post starts to gain traction, we immediately bridge it over to your paid ad account—using data-backed proof to scale your most viral content into high-converting seasonal ads.",
   },
 ];
 
@@ -108,6 +117,15 @@ const AuthorityLayer = () => {
                 <div
                   className={`relative w-56 md:w-64 aspect-[9/16] rounded-2xl bg-gradient-to-b ${card.gradient} border border-accent/30 overflow-hidden group cursor-pointer`}
                 >
+                  {/* Badge overlay */}
+                  {card.badge && (
+                    <div className="absolute top-3 right-3 z-10">
+                      <div className="px-2.5 py-1 bg-accent text-white text-[10px] font-bold tracking-wider rounded-full shadow-lg shadow-accent/40 animate-pulse">
+                        {card.badge}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 rounded-full bg-accent/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent/30">
@@ -133,8 +151,8 @@ const AuthorityLayer = () => {
           </div>
         </motion.div>
 
-        {/* Three High-Value Offerings */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        {/* Four High-Value Offerings - 2x2 Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
           {offerings.map((offering, index) => (
             <motion.div
               key={offering.title}
@@ -170,8 +188,8 @@ const AuthorityLayer = () => {
             onClick={scrollToForm}
             className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-body text-lg transition-colors group"
           >
-            Build authority while you scale. Ask about the Multiplier in your
-            Audit
+            Turn your viral moments into predictable revenue. Ask about the
+            Paid-Organic Bridge in your Audit
             <span className="group-hover:translate-x-1 transition-transform">
               →
             </span>
