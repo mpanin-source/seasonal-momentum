@@ -1,47 +1,68 @@
+import { Brain, Clock, Target, Vault } from "lucide-react";
+
 const WhyItWorks = () => {
-  const reasons = [
+  const pillars = [
     {
-      title: "Seasonal alignment",
+      icon: Brain,
+      title: "NEURO-SEASONAL ALIGNMENT",
       description:
-        "We only run campaigns when demand is naturally high. No convincing. No forcing. Just showing up when people are already looking.",
+        "We align your brand with the biological triggers of your audience. Whether it is the \"Fresh Start\" optimism of Spring or the \"Security & Comfort\" of Winter, our scripts hit the emotional cues that drive irrational buying behavior.",
+      badge: "PSYCHOLOGY-BACKED",
     },
     {
-      title: "Controlled scope",
+      icon: Clock,
+      title: "THE 21-DAY INTENT WINDOW",
       description:
-        "A defined timeline and budget means no scope creep. We do one thing well instead of many things poorly.",
+        "Timing is the difference between a high-ticket lead and a window shopper. We launch our \"Wake-Up Agent\" exactly 21 days before demand peaks, capturing intent while competitors are still in neutral.",
     },
     {
-      title: "Repeatable systems",
+      icon: Target,
+      title: "DATA-DRIVEN VELOCITY",
       description:
-        "Each sprint builds on the last. What worked gets refined. What didn't gets cut. Your next season starts stronger.",
+        "Every click is tagged. We use intent data to identify high-value prospects who are already researching your solution, allowing us to prioritize outreach where the win-rate is highest.",
     },
     {
-      title: "Compounding learnings",
+      icon: Vault,
+      title: "COMPOUNDING DATA ASSETS",
       description:
-        "Every campaign generates data. Over time, you know exactly what works for your business, your market, and your timing.",
+        "Stop paying to rent the same lead twice. Our CRM infrastructure builds a \"Lead Vault\" that compounds in value, lowering your acquisition costs every single season.",
     },
   ];
 
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-background">
       <div className="container-wide">
         <div className="container-narrow text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-6 tracking-wider">
-            Why this approach works
+            THE SCIENCE OF PREDICTIVE MOMENTUM
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            Simple principles, consistently applied.
+          <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            We don't chase leads; we anticipate demand. Our framework leverages the predictable 
+            psychological shifts of your local market to ensure you are the first choice—not the last resort.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {reasons.map((reason, index) => (
-            <div key={index} className="p-8 bg-card rounded-lg border border-border">
-              <h3 className="text-xl font-display font-bold text-foreground mb-3 tracking-wider">
-                {reason.title}
+        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+          {pillars.map((pillar, index) => (
+            <div 
+              key={index} 
+              className="relative p-8 bg-card rounded-lg border border-border hover:border-primary/30 transition-colors"
+            >
+              {pillar.badge && (
+                <div className="absolute top-4 right-4 px-3 py-1 bg-primary/10 border border-primary/30 rounded-full">
+                  <span className="text-[10px] font-bold tracking-widest text-primary uppercase">
+                    {pillar.badge}
+                  </span>
+                </div>
+              )}
+              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
+                <pillar.icon className="w-6 h-6 text-primary" />
+              </div>
+              <h3 className="text-lg font-display font-bold text-foreground mb-3 tracking-wider">
+                {pillar.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
-                {reason.description}
+              <p className="text-muted-foreground leading-relaxed text-sm">
+                {pillar.description}
               </p>
             </div>
           ))}
