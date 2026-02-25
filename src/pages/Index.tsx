@@ -8,6 +8,7 @@ import PhaseTwo from "@/components/landing/PhaseTwo";
 import AuthorityLayer from "@/components/landing/AuthorityLayer";
 import FitSection from "@/components/landing/FitSection";
 import WhyItWorks from "@/components/landing/WhyItWorks";
+import SeasonalTiers from "@/components/landing/SeasonalTiers";
 import ContactForm from "@/components/landing/ContactForm";
 import Footer from "@/components/landing/Footer";
 
@@ -24,6 +25,7 @@ const Index = () => {
         <AuthorityLayer />
         <FitSection />
         <WhyItWorks />
+        <SeasonalTiers />
         <ContactForm />
       </main>
       <Footer />

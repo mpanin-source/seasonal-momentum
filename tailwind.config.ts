@@ -67,6 +67,16 @@ export default {
         charcoal: "hsl(var(--charcoal))",
         slate: "hsl(var(--slate))",
         "warm-white": "hsl(var(--warm-white))",
+        tier: {
+          blue: "hsl(var(--tier-blue))",
+          "blue-foreground": "hsl(var(--tier-blue-foreground))",
+          teal: "hsl(var(--tier-teal))",
+          "teal-foreground": "hsl(var(--tier-teal-foreground))",
+          purple: "hsl(var(--tier-purple))",
+          "purple-foreground": "hsl(var(--tier-purple-foreground))",
+          gold: "hsl(var(--tier-gold))",
+          "gold-foreground": "hsl(var(--tier-gold-foreground))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

@@ -61,6 +61,16 @@
     --shadow-card: 0 4px 12px -2px hsl(220 15% 20% / 0.06);
     --shadow-elevated: 0 12px 32px -8px hsl(220 15% 20% / 0.1);
 
+    /* Tier colors */
+    --tier-blue: 217 91% 53%;
+    --tier-blue-foreground: 0 0% 100%;
+    --tier-teal: 174 60% 40%;
+    --tier-teal-foreground: 0 0% 100%;
+    --tier-purple: 270 50% 45%;
+    --tier-purple-foreground: 0 0% 100%;
+    --tier-gold: 42 80% 50%;
+    --tier-gold-foreground: 240 28% 14%;
+
     /* Transitions */
     --transition-base: 200ms ease;
     --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
