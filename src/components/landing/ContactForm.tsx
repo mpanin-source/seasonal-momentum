@@ -83,9 +83,9 @@ const ContactForm = () => {
   const canSubmit = formData.name && formData.email && formData.website && formData.monthlyRevenue;
 
   const inputClasses =
-    "bg-[#1A1A1A] border border-[#333333] text-[#FFFFFF] placeholder:text-[#888888] focus:border-primary focus:ring-primary/40 focus:ring-2 focus:shadow-[0_0_10px_rgba(0,150,255,0.3)] h-12 transition-all duration-200";
+    "bg-[#1A1A1A] border border-[#444444] text-[#FFFFFF] placeholder:text-[#BBBBBB] focus:border-primary focus:ring-primary/40 focus:ring-2 focus:shadow-[0_0_15px_rgba(0,150,255,0.4)] h-12 transition-all duration-200";
   
-  const labelClasses = "block text-[#FFFFFF] text-xs uppercase tracking-wider mb-2 font-medium";
+  const labelClasses = "block text-[#FFFFFF]/90 text-xs uppercase tracking-wider mb-2 font-medium";
 
   // Success State
   if (showSuccess) {
@@ -221,7 +221,7 @@ const ContactForm = () => {
                     </div>
                     <div>
                       <h4 className="text-[#FFFFFF] font-semibold mb-1">{point.title}</h4>
-                      <p className="text-[#888888] text-sm">{point.description}</p>
+                      <p className="text-[#BBBBBB] text-sm">{point.description}</p>
                     </div>
                   </div>
                 ))}
@@ -230,7 +230,7 @@ const ContactForm = () => {
 
             {/* Right Column: Lead Capture Form */}
             <div>
-              <div className="bg-[#0d0d0d] border border-[#222] rounded-xl p-6 sm:p-8">
+              <div className="bg-[#0d0d0d] border border-[#333] rounded-xl p-6 sm:p-8 relative overflow-hidden" style={{ boxShadow: '0 0 60px hsl(217 91% 53% / 0.08)' }}>
                 <h3 className="font-display text-[#FFFFFF] uppercase text-lg tracking-wider mb-6 text-center">
                   Request Your Audit
                 </h3>
@@ -311,14 +311,14 @@ const ContactForm = () => {
 
                 {/* Trust Signals */}
                 <div className="mt-6 pt-6 border-t border-[#222] space-y-4">
-                  <div className="flex items-center gap-3 text-[#888888] text-sm">
+                  <div className="flex items-center gap-3 text-[#BBBBBB] text-sm">
                     <Shield className="w-4 h-4 text-primary shrink-0" />
                     <span>Your data is 100% secure. We only audit what you share.</span>
                   </div>
                   
                   <div className="flex items-center gap-3 text-sm">
                     <Clock className="w-4 h-4 text-primary shrink-0" />
-                    <span className="text-[#888888]">
+                    <span className="text-[#BBBBBB]">
                       <span className="text-primary font-semibold">Limited Capacity:</span> Due to the depth of our audits, 
                       we only accept 5 new requests per week. Currently: <span className="text-primary font-bold">2 spots remaining</span>.
                     </span>

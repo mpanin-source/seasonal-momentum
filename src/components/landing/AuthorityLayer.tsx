@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Play, Palette, Video, Globe, Flame } from "lucide-react";
+import { Play, Palette, Video, Globe, Flame, Users, Rocket } from "lucide-react";
 
 const videoCards = [
   {
@@ -24,10 +24,18 @@ const videoCards = [
 
 const offerings = [
   {
+    icon: Rocket,
+    title: "GROW YOUR TEAM, NOT JUST YOUR PAYROLL",
+    description:
+      "When your ads start working, you'll have more leads than your current team can handle. Instead of hiring immediately, we run campaigns designed for your employees/contractors to sell MORE and earn MORE. This scales your business without increasing payroll risk.\n\nThink of it as: Your employees become commission-based lead closers. You keep the margin. Everyone grows together.",
+    growthNote:
+      "Perfect for service businesses scaling from 5→10→20 person teams.",
+  },
+  {
     icon: Palette,
     title: "SCALE-READY IDENTITY",
     description:
-      "We don't just build logos; we build the brand authority required to scale. When your ads start working, your biggest bottleneck will be hiring. We ensure your brand looks like a market leader so you can attract high-tier talent and grow your team as fast as your lead volume.",
+      "We don't just build logos; we build the visual authority required to scale. When your ads start working, your biggest bottleneck will be hiring. We ensure your brand looks like a market leader so you can attract high-tier talent and grow your team as fast as your lead volume.",
     growthNote:
       "Build a business that is addictive to grow, not just a job you have to manage.",
   },
@@ -77,6 +85,19 @@ const AuthorityLayer = () => {
       </div>
 
       <div className="container-wide px-6 md:px-8 relative z-10">
+        {/* Upsell Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="text-center mb-6"
+        >
+          <span className="inline-block px-5 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold tracking-[0.2em] rounded-full uppercase">
+            Authority Layer · Optional Upsell — Not included with base Seasonal Momentum tiers
+          </span>
+        </motion.div>
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -93,10 +114,11 @@ const AuthorityLayer = () => {
             <br />
             START BEING THE AUTHORITY.
           </h2>
-          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body">
-            Paid ads bring the volume; organic authority brings the trust. We
-            build the visual identity and content engine that makes your leads
-            close faster and your brand dominate the local feed.
+          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body leading-relaxed">
+            As your lead volume scales, your next bottleneck won't be leads—it'll be capacity.
+            <br /><br />
+            The Authority Layer handles this: Team scaling, content systems, and organic multiplier
+            to grow your business faster than hiring can keep up.
           </p>
         </motion.div>
 
@@ -122,7 +144,6 @@ const AuthorityLayer = () => {
                 <div
                   className={`relative w-56 md:w-64 aspect-[9/16] rounded-2xl bg-gradient-to-b ${card.gradient} border border-accent/30 overflow-hidden group cursor-pointer`}
                 >
-                  {/* Badge overlay */}
                   {card.badge && (
                     <div className="absolute top-3 right-3 z-10">
                       <div className="px-2.5 py-1 bg-accent text-white text-[10px] font-bold tracking-wider rounded-full shadow-lg shadow-accent/40 animate-pulse">
@@ -130,15 +151,11 @@ const AuthorityLayer = () => {
                       </div>
                     </div>
                   )}
-
-                  {/* Play button overlay */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="w-16 h-16 rounded-full bg-accent/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent/30">
                       <Play className="w-7 h-7 text-white fill-white ml-1" />
                     </div>
                   </div>
-
-                  {/* Card label */}
                   <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-charcoal/95 to-transparent pt-12">
                     <h3 className="font-display text-lg text-white tracking-wide mb-1">
                       {card.title}
@@ -147,8 +164,6 @@ const AuthorityLayer = () => {
                       {card.label}
                     </p>
                   </div>
-
-                  {/* Decorative lines */}
                   <div className="absolute top-4 left-4 right-4 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
                 </div>
               </motion.div>
@@ -156,8 +171,8 @@ const AuthorityLayer = () => {
           </div>
         </motion.div>
 
-        {/* Four High-Value Offerings - 2x2 Grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
+        {/* Five High-Value Offerings Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
           {offerings.map((offering, index) => (
             <motion.div
               key={offering.title}
@@ -165,7 +180,9 @@ const AuthorityLayer = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 * index }}
-              className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-accent/40 hover:bg-white/10 transition-all duration-300 group"
+              className={`bg-white/5 border border-white/10 rounded-xl p-6 hover:border-accent/40 hover:bg-white/10 transition-all duration-300 group ${
+                index === 0 ? "md:col-span-2 border-accent/30 bg-accent/5" : ""
+              }`}
             >
               <div className="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center mb-4 group-hover:bg-accent/30 transition-colors">
                 <offering.icon className="w-6 h-6 text-accent" />
@@ -173,7 +190,7 @@ const AuthorityLayer = () => {
               <h3 className="font-display text-xl text-white tracking-wide mb-3">
                 {offering.title}
               </h3>
-              <p className="text-white/60 font-body text-sm leading-relaxed">
+              <p className="text-white/60 font-body text-sm leading-relaxed whitespace-pre-line">
                 {offering.description}
               </p>
               {offering.growthNote && (
@@ -184,6 +201,23 @@ const AuthorityLayer = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* Section Footer */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="max-w-3xl mx-auto mb-12 p-6 rounded-xl bg-white/5 border border-white/10 text-center"
+        >
+          <p className="text-white/60 font-body text-sm leading-relaxed">
+            Not ready to scale a team yet? <span className="text-white/80 font-medium">Skip the Authority Layer for now.</span>
+            <br />
+            Just want leads and a system to nurture them? <span className="text-white/80 font-medium">Tiers 1–3 have you covered.</span>
+            <br />
+            Want to dominate your market? <span className="text-accent font-semibold">Authority Layer is where it happens.</span>
+          </p>
+        </motion.div>
 
         {/* CTA */}
         <motion.div
