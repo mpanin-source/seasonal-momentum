@@ -788,22 +788,22 @@ interface TierPreset {
 
 const tierPresets: Record<Exclude<TicketTier, "custom">, TierPreset> = {
   low: {
-    label: "Low Ticket ($500 avg)",
-    description: "Fitness, Cleaning, Med-Spas",
+    label: "Low Opportunity",
+    description: "$2k-5k/month potential",
     avgSaleValue: 500,
     adSpendMin: 500,
     adSpendMax: 1500,
   },
   mid: {
-    label: "Mid Ticket ($3,500 avg)",
-    description: "HVAC, Landscaping, Plumbing",
+    label: "Mid Opportunity",
+    description: "$5k-15k/month potential",
     avgSaleValue: 3500,
     adSpendMin: 2000,
     adSpendMax: 3500,
   },
   high: {
-    label: "High Ticket ($15,000 avg)",
-    description: "Roofing, Solar, Legal",
+    label: "High Opportunity",
+    description: "$15k-50k+/month potential",
     avgSaleValue: 15000,
     adSpendMin: 3500,
     adSpendMax: 5000,
@@ -857,10 +857,14 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
   const currentRevenue = currentCustomers * avgSaleValue;
 
   // Optimized State Calculations (Creative Core improvements)
-  // 31% reduction in CPL and 22% increase in Close Rate
-  const optimizedCPL = currentCPL * 0.69; // 31% reduction
+  // Tier-specific: Low -35% CPL / +18% CR, Mid -30% CPL / +24% CR, High -25% CPL / +28% CR
+  const cplReduction = selectedTier === "low" ? 0.65 : selectedTier === "high" ? 0.75 : 0.70;
+  const closeRateBoost = selectedTier === "low" ? 1.18 : selectedTier === "high" ? 1.28 : 1.24;
+  const cplReductionLabel = selectedTier === "low" ? "35" : selectedTier === "high" ? "25" : "30";
+  const closeRateBoostLabel = selectedTier === "low" ? "18" : selectedTier === "high" ? "28" : "24";
+  const optimizedCPL = currentCPL * cplReduction;
   const optimizedLeads = Math.round(adSpend / optimizedCPL);
-  const optimizedCloseRate = currentCloseRate * 1.22; // 22% increase
+  const optimizedCloseRate = currentCloseRate * closeRateBoost;
   const optimizedCustomers = Math.round(optimizedLeads * optimizedCloseRate);
   const optimizedRevenue = optimizedCustomers * avgSaleValue;
 
@@ -1095,7 +1099,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
                 <span className="text-sm text-white/50">Cost Per Lead</span>
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-display font-bold text-emerald-400">${optimizedCPL.toFixed(0)}</span>
-                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">-31%</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">-{cplReductionLabel}%</span>
                 </div>
               </div>
               <div className="flex justify-between items-center">
@@ -1109,7 +1113,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
                 <span className="text-sm text-white/50">Close Rate</span>
                 <div className="flex items-center gap-2">
                   <span className="text-lg font-display font-bold text-emerald-400">{(optimizedCloseRate * 100).toFixed(0)}%</span>
-                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+22%</span>
+                  <span className="text-xs text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded">+{closeRateBoostLabel}%</span>
                 </div>
               </div>
               <div className="flex justify-between items-center">
