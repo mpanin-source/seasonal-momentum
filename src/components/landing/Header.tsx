@@ -15,7 +15,7 @@ const Header = () => {
   };
 
   const scrollToAlaCarte = () => {
-    document.getElementById("tiers")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("ala-carte")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -109,7 +109,7 @@ const Header = () => {
                   onClick={() => {
                     setMobileModalOpen(false);
                     setTimeout(() => {
-                      document.getElementById("tiers")?.scrollIntoView({ behavior: "smooth" });
+                      document.getElementById("ala-carte")?.scrollIntoView({ behavior: "smooth" });
                     }, 150);
                   }}
                   className={`w-full text-left px-4 py-3 rounded-xl font-display text-base tracking-wide ${t.color} transition-transform hover:scale-[1.02]`}

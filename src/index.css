@@ -175,4 +175,8 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .cta-emphasis {
+    @apply italic text-accent font-bold;
+  }
 }
