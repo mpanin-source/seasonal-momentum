@@ -115,6 +115,18 @@ export default {
           from: { opacity: "0", transform: "translateY(20px) skewX(-5deg)" },
           to: { opacity: "1", transform: "translateY(0) skewX(-5deg)" },
         },
+        "ghost-in": {
+          from: { opacity: "0", transform: "translateY(8px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "ghost-out": {
+          from: { opacity: "1", transform: "translateY(0)" },
+          to: { opacity: "0", transform: "translateY(-8px)" },
+        },
+        "trigger-pulse": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.7" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -122,6 +134,9 @@ export default {
         "fade-in": "fade-in 0.5s ease-out forwards",
         "slide-up": "slide-up 0.5s ease-out forwards",
         "pulse-glow": "pulseGlow 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) forwards",
+        "ghost-in": "ghost-in 0.4s cubic-bezier(0.32, 0.72, 0.3, 1)",
+        "ghost-out": "ghost-out 0.3s cubic-bezier(0.32, 0.72, 0.3, 1)",
+        "trigger-pulse": "trigger-pulse 2s ease-in-out infinite",
       },
     },
   },

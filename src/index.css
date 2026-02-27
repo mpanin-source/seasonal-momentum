@@ -197,3 +197,101 @@
     opacity: 0;
   }
 }
+
+@keyframes ghostIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ghostOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes numberHighlight {
+  0% {
+    color: hsl(var(--accent));
+    text-shadow: 0 0 10px hsl(var(--accent) / 0.5);
+  }
+  50% {
+    color: hsl(var(--foreground));
+    text-shadow: none;
+  }
+  100% {
+    color: hsl(var(--accent));
+  }
+}
+
+@keyframes triggerPulse {
+  0%, 100% {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px hsl(var(--destructive)));
+  }
+  50% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 8px hsl(var(--destructive)));
+  }
+}
+
+@keyframes slideInLine {
+  from { width: 0; }
+  to { width: 60px; }
+}
+
+.results-ghost-in {
+  animation: ghostIn 0.4s cubic-bezier(0.32, 0.72, 0.3, 1);
+}
+
+.results-ghost-out {
+  animation: ghostOut 0.3s cubic-bezier(0.32, 0.72, 0.3, 1);
+}
+
+.number-highlight {
+  animation: numberHighlight 0.6s ease-in-out;
+}
+
+.trigger-marker {
+  animation: triggerPulse 2s ease-in-out infinite;
+}
+
+.quote-line {
+  animation: slideInLine 0.6s ease-out;
+  height: 4px;
+  background: hsl(var(--accent));
+  border-radius: 2px;
+  margin-bottom: 16px;
+}
+
+/* Focus states */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button, a, [role="button"] {
+  transition: outline 0.2s ease;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

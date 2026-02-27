@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Select,
@@ -20,6 +20,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Thermometer,
@@ -45,7 +46,6 @@ function daysUntilDate(peakDate: string): number {
   const now = new Date();
   const currentYear = now.getFullYear();
   let target = new Date(`${peakDate}, ${currentYear}`);
-  // If peak already passed this year, use next year
   if (target < now) {
     target = new Date(`${peakDate}, ${currentYear + 1}`);
   }
@@ -58,12 +58,10 @@ function generateWavePath(peaks: { monthNumber: number; intensity: number }[]): 
   const baseline = height - 20;
   const points: { x: number; y: number }[] = [];
 
-  // Create intensity map for all 12 months
   const intensityMap = new Array(12).fill(0.1);
   peaks.forEach((p) => {
     const idx = p.monthNumber - 1;
     intensityMap[idx] = p.intensity;
-    // Spread influence to neighbors
     if (idx > 0) intensityMap[idx - 1] = Math.max(intensityMap[idx - 1], p.intensity * 0.5);
     if (idx < 11) intensityMap[idx + 1] = Math.max(intensityMap[idx + 1], p.intensity * 0.5);
     if (idx > 1) intensityMap[idx - 2] = Math.max(intensityMap[idx - 2], p.intensity * 0.25);
@@ -77,7 +75,6 @@ function generateWavePath(peaks: { monthNumber: number; intensity: number }[]): 
     points.push({ x, y });
   }
 
-  // Smooth curve through points
   let path = `M ${points[0].x} ${points[0].y}`;
   for (let i = 1; i < points.length; i++) {
     const prev = points[i - 1];
@@ -98,7 +95,6 @@ function generateFillPath(peaks: { monthNumber: number; intensity: number }[]): 
 
 function getTriggerX(peakMonthNumber: number): number {
   const width = 680;
-  // 21 days before = ~0.7 months before
   const triggerMonth = peakMonthNumber - 1 - 0.7;
   return 60 + (triggerMonth / 12) * (width - 60);
 }
@@ -111,6 +107,8 @@ function getPeakX(peakMonthNumber: number): number {
 export default function OpportunityMap() {
   const [selectedNiche, setSelectedNiche] = useState("hvac");
   const [selectedPeakIndex, setSelectedPeakIndex] = useState(0);
+  const [hoveredPeak, setHoveredPeak] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const niche = NICHE_DATA[selectedNiche];
   const peak = niche.peaks[selectedPeakIndex];
@@ -119,8 +117,11 @@ export default function OpportunityMap() {
   const NicheIcon = ICON_MAP[niche.icon] || Thermometer;
 
   const handleNicheChange = (value: string) => {
+    setIsLoading(true);
     setSelectedNiche(value);
     setSelectedPeakIndex(0);
+    setHoveredPeak(null);
+    setTimeout(() => setIsLoading(false), 300);
   };
 
   const scrollToContact = () => {
@@ -199,129 +200,223 @@ export default function OpportunityMap() {
               transition={{ duration: 0.3 }}
               className="rounded-2xl p-6 md:p-8 bg-card border border-border shadow-card"
             >
-              <h3 className="text-2xl font-display text-foreground mb-4 flex items-center gap-2">
-                <NicheIcon className="w-6 h-6 text-accent" />
-                Demand Wave: {niche.name}
-              </h3>
+              {isLoading ? (
+                <div className="space-y-4">
+                  <Skeleton className="h-8 w-64" />
+                  <Skeleton className="h-[200px] w-full" />
+                  <Skeleton className="h-4 w-96" />
+                  <Skeleton className="h-4 w-72" />
+                </div>
+              ) : (
+                <>
+                  <h3 className="text-2xl font-display text-foreground mb-4 flex items-center gap-2">
+                    <NicheIcon className="w-6 h-6 text-accent" />
+                    Demand Wave: {niche.name}
+                  </h3>
 
-              {/* SVG Wave */}
-              <div className="w-full overflow-x-auto mb-6">
-                <svg
-                  viewBox="0 0 700 200"
-                  className="w-full min-w-[500px]"
-                  preserveAspectRatio="xMidYMid meet"
-                >
-                  {/* Grid lines */}
-                  <line x1="60" y1="160" x2="680" y2="160" stroke="hsl(var(--border))" strokeWidth="1" />
-                  <line x1="60" y1="30" x2="60" y2="160" stroke="hsl(var(--border))" strokeWidth="1" />
-
-                  {/* Month labels */}
-                  {MONTHS.map((m, i) => (
-                    <text
-                      key={m}
-                      x={60 + (i / 12) * 620 + 620 / 24}
-                      y="178"
-                      textAnchor="middle"
-                      className="fill-muted-foreground"
-                      fontSize="10"
-                      fontFamily="Inter, sans-serif"
+                  {/* SVG Wave */}
+                  <div className="w-full overflow-x-auto mb-6">
+                    <svg
+                      viewBox="0 0 700 200"
+                      className="w-full min-w-[500px]"
+                      preserveAspectRatio="xMidYMid meet"
                     >
-                      {m}
-                    </text>
-                  ))}
+                      {/* Gradient defs */}
+                      <defs>
+                        <linearGradient id="waveFill" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity="0.2" />
+                          <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.02" />
+                        </linearGradient>
+                      </defs>
 
-                  {/* Y labels */}
-                  <text x="50" y="165" textAnchor="end" className="fill-muted-foreground" fontSize="9" fontFamily="Inter">Low</text>
-                  <text x="50" y="38" textAnchor="end" className="fill-muted-foreground" fontSize="9" fontFamily="Inter">High</text>
+                      {/* Grid lines */}
+                      <line x1="60" y1="160" x2="680" y2="160" stroke="hsl(var(--border))" strokeWidth="1" />
+                      <line x1="60" y1="30" x2="60" y2="160" stroke="hsl(var(--border))" strokeWidth="1" />
 
-                  {/* Wave fill */}
-                  <motion.path
-                    d={generateFillPath(niche.peaks)}
-                    fill="hsl(var(--accent) / 0.1)"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  />
+                      {/* Month labels */}
+                      {MONTHS.map((m, i) => (
+                        <text
+                          key={m}
+                          x={60 + (i / 12) * 620 + 620 / 24}
+                          y="178"
+                          textAnchor="middle"
+                          className="fill-muted-foreground"
+                          fontSize="10"
+                          fontFamily="Inter, sans-serif"
+                        >
+                          {m}
+                        </text>
+                      ))}
 
-                  {/* Wave line */}
-                  <motion.path
-                    d={generateWavePath(niche.peaks)}
-                    fill="none"
-                    stroke="hsl(var(--accent))"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                  />
+                      {/* Y labels */}
+                      <text x="50" y="165" textAnchor="end" className="fill-muted-foreground" fontSize="9" fontFamily="Inter">Low</text>
+                      <text x="50" y="38" textAnchor="end" className="fill-muted-foreground" fontSize="9" fontFamily="Inter">High</text>
 
-                  {/* Peak marker */}
-                  <circle
-                    cx={getPeakX(peak.monthNumber)}
-                    cy={160 - peak.intensity * 130}
-                    r="5"
-                    fill="hsl(var(--accent))"
-                    stroke="hsl(var(--background))"
-                    strokeWidth="2"
-                  />
+                      {/* Wave fill with gradient */}
+                      <motion.path
+                        d={generateFillPath(niche.peaks)}
+                        fill="url(#waveFill)"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      />
 
-                  {/* 21-Day Trigger line */}
-                  <line
-                    x1={getTriggerX(peak.monthNumber)}
-                    y1="25"
-                    x2={getTriggerX(peak.monthNumber)}
-                    y2="160"
-                    stroke="hsl(var(--destructive))"
-                    strokeWidth="1.5"
-                    strokeDasharray="4 3"
-                  />
-                  <rect
-                    x={getTriggerX(peak.monthNumber) - 42}
-                    y="12"
-                    width="84"
-                    height="18"
-                    rx="4"
-                    fill="hsl(var(--destructive) / 0.15)"
-                    stroke="hsl(var(--destructive) / 0.4)"
-                    strokeWidth="1"
-                  />
-                  <text
-                    x={getTriggerX(peak.monthNumber)}
-                    y="24"
-                    textAnchor="middle"
-                    fill="hsl(var(--destructive))"
-                    fontSize="9"
-                    fontWeight="600"
-                    fontFamily="Inter, sans-serif"
+                      {/* Wave line */}
+                      <motion.path
+                        d={generateWavePath(niche.peaks)}
+                        fill="none"
+                        stroke="hsl(var(--accent))"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                      />
+
+                      {/* Interactive peak markers */}
+                      {niche.peaks.map((p, idx) => {
+                        const cx = getPeakX(p.monthNumber);
+                        const cy = 160 - p.intensity * 130;
+                        const isHovered = hoveredPeak === idx;
+                        return (
+                          <g
+                            key={idx}
+                            onMouseEnter={() => setHoveredPeak(idx)}
+                            onMouseLeave={() => setHoveredPeak(null)}
+                            className="cursor-pointer"
+                          >
+                            {/* Hover area */}
+                            <circle cx={cx} cy={cy} r="16" fill="transparent" />
+                            {/* Visible dot */}
+                            <circle
+                              cx={cx}
+                              cy={cy}
+                              r={isHovered ? 7 : 5}
+                              fill="hsl(var(--accent))"
+                              stroke="hsl(var(--background))"
+                              strokeWidth="2"
+                              style={{ transition: "r 0.2s ease" }}
+                            />
+                            {/* Tooltip */}
+                            {isHovered && (
+                              <g>
+                                <rect
+                                  x={cx - 55}
+                                  y={cy - 42}
+                                  width="110"
+                                  height="32"
+                                  rx="6"
+                                  fill="hsl(var(--card))"
+                                  stroke="hsl(var(--border))"
+                                  strokeWidth="1"
+                                />
+                                <text
+                                  x={cx}
+                                  y={cy - 28}
+                                  textAnchor="middle"
+                                  fill="hsl(var(--foreground))"
+                                  fontSize="9"
+                                  fontWeight="600"
+                                  fontFamily="Inter"
+                                >
+                                  Peak: {p.peakDate}
+                                </text>
+                                <text
+                                  x={cx}
+                                  y={cy - 16}
+                                  textAnchor="middle"
+                                  fill="hsl(var(--accent))"
+                                  fontSize="9"
+                                  fontFamily="Inter"
+                                >
+                                  Intensity: {(p.intensity * 100).toFixed(0)}%
+                                </text>
+                              </g>
+                            )}
+                          </g>
+                        );
+                      })}
+
+                      {/* 21-Day Trigger line with pulse */}
+                      <g className="trigger-marker">
+                        <line
+                          x1={getTriggerX(peak.monthNumber)}
+                          y1="25"
+                          x2={getTriggerX(peak.monthNumber)}
+                          y2="160"
+                          stroke="hsl(var(--destructive))"
+                          strokeWidth="1.5"
+                          strokeDasharray="4 3"
+                        />
+                        <rect
+                          x={getTriggerX(peak.monthNumber) - 42}
+                          y="12"
+                          width="84"
+                          height="18"
+                          rx="4"
+                          fill="hsl(var(--destructive) / 0.15)"
+                          stroke="hsl(var(--destructive) / 0.4)"
+                          strokeWidth="1"
+                        />
+                        <text
+                          x={getTriggerX(peak.monthNumber)}
+                          y="24"
+                          textAnchor="middle"
+                          fill="hsl(var(--destructive))"
+                          fontSize="9"
+                          fontWeight="600"
+                          fontFamily="Inter, sans-serif"
+                        >
+                          21-Day Trigger
+                        </text>
+                      </g>
+
+                      {/* 21-day window highlight band */}
+                      <rect
+                        x={getTriggerX(peak.monthNumber)}
+                        y="30"
+                        width={getPeakX(peak.monthNumber) - getTriggerX(peak.monthNumber)}
+                        height="130"
+                        fill="hsl(var(--accent) / 0.06)"
+                        rx="2"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Interpretation */}
+                  <motion.div
+                    className="space-y-3 max-w-2xl"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
                   >
-                    21-Day Trigger
-                  </text>
-                </svg>
-              </div>
+                    <p className="text-lg text-foreground font-medium">
+                      <span className="font-bold">{niche.name}</span> search intent peaks in{" "}
+                      <span className="text-accent font-bold">{peak.month}</span>.
+                    </p>
+                    <p className="text-base text-muted-foreground">
+                      To capture that demand, you need to launch by{" "}
+                      <span className="text-accent font-bold">{triggerDate}</span>{" "}
+                      (21 days before peak).
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      That means <span className="text-accent font-bold">{daysLeft} days</span> to prepare your campaigns.
+                    </p>
 
-              {/* Interpretation */}
-              <div className="space-y-3 max-w-2xl">
-                <p className="text-lg text-foreground font-medium">
-                  <span className="font-bold">{niche.name}</span> search intent peaks in{" "}
-                  <span className="text-accent font-bold">{peak.month}</span>.
-                </p>
-                <p className="text-base text-muted-foreground">
-                  To capture that demand, you need to launch by{" "}
-                  <span className="text-accent font-bold">{triggerDate}</span>{" "}
-                  (21 days before peak).
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  That means <span className="text-accent font-bold">{daysLeft} days</span> to prepare your campaigns.
-                </p>
-
-                <button
-                  onClick={scrollToContact}
-                  className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-accent-foreground font-bold text-sm uppercase tracking-wider hover:bg-accent/90 transition-colors"
-                >
-                  See Your Custom Growth Plan
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
+                    <motion.button
+                      onClick={scrollToContact}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent text-accent-foreground font-bold text-sm uppercase tracking-wider hover:bg-accent/90 transition-colors"
+                    >
+                      See Your Custom Growth Plan
+                      <motion.span whileHover={{ x: 4 }}>
+                        <ArrowRight className="w-4 h-4" />
+                      </motion.span>
+                    </motion.button>
+                  </motion.div>
+                </>
+              )}
             </motion.div>
           </AnimatePresence>
         </motion.div>
