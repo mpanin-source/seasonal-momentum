@@ -11,6 +11,8 @@ import WhyItWorks from "@/components/landing/WhyItWorks";
 import SeasonalTiers from "@/components/landing/SeasonalTiers";
 import ContactForm from "@/components/landing/ContactForm";
 import Footer from "@/components/landing/Footer";
+import QuoteSection from "@/components/landing/QuoteSection";
+import AlaCarteSection from "@/components/landing/AlaCarteSection";
 
 const Index = () => {
   return (
@@ -19,13 +21,18 @@ const Index = () => {
       <main className="pt-16">
         <Hero />
         <Q1GrowthWindows />
+        <Problem />
+        <QuoteSection variant="full" />
         <CoreOffer />
         <LeadPhilosophy />
         <PhaseTwo />
         <AuthorityLayer />
         <FitSection />
         <WhyItWorks />
+        <QuoteSection variant="short" />
+        <AlaCarteSection />
         <SeasonalTiers />
+        <QuoteSection variant="confidence" />
         <ContactForm />
       </main>
       <Footer />

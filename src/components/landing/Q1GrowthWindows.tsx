@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X, ChevronRight, Calendar, ArrowRight, Info, ChevronDown } from "lucide-react";
+import { Dumbbell, Calculator, TreeDeciduous, Fan, TrendingUp, Users, DollarSign, Target, Sparkles, Truck, Droplets, Bug, Heart, Hammer, AlertTriangle, X, ChevronRight, Calendar, ArrowRight, Info, ChevronDown, Rocket, Settings, Crown, BadgeCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -812,7 +812,6 @@ const tierPresets: Record<Exclude<TicketTier, "custom">, TierPreset> = {
 
 const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps) => {
   const [selectedTier, setSelectedTier] = useState<TicketTier | null>(null);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [adSpend, setAdSpend] = useState(3000);
   const [avgSaleValue, setAvgSaleValue] = useState(2000);
   const [currentLeadVolume, setCurrentLeadVolume] = useState(40);
@@ -821,7 +820,6 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
 
   const handleTierSelect = (tier: TicketTier) => {
     setSelectedTier(tier);
-    setIsDropdownOpen(false);
     
     if (tier === "custom") {
       // Reset to defaults for manual entry
@@ -903,59 +901,49 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
           boxShadow: "0 0 60px hsl(217 91% 53% / 0.1)",
         }}
       >
-        {/* Quick Start Dropdown */}
+        {/* Psychology Cards */}
         <div className="mb-8 pb-6 border-b border-white/10">
-          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-4 text-center">
-            Quick Start: Select Your Tier
+          <p className="text-xs uppercase tracking-[0.2em] text-accent mb-6 text-center">
+            Which Sounds Most Like You?
           </p>
-          <div className="relative max-w-md mx-auto">
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-full flex items-center justify-between px-4 py-3 rounded-lg bg-[#0a0a14] border border-accent/30 hover:border-accent/50 transition-colors"
-            >
-              <span className="text-sm text-white/80">
-                {selectedTier 
-                  ? selectedTier === "custom" 
-                    ? "Custom (Manual Entry)" 
-                    : tierPresets[selectedTier].label
-                  : "Choose a ticket tier..."}
-              </span>
-              <ChevronDown className={`w-4 h-4 text-accent transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
-            </button>
-            
-            <AnimatePresence>
-              {isDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="absolute top-full left-0 right-0 mt-2 rounded-lg bg-[#0f0f1c] border border-accent/30 overflow-hidden z-50"
-                  style={{ boxShadow: "0 10px 40px rgba(0,0,0,0.5)" }}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto">
+            {([
+              { tier: "low" as const, icon: Rocket, name: "THE PILOT LAUNCH", price: "$2,500 – $5,000", belief: "\"I need proof this works before I commit.\"", desc: "You're testing seasonal ads for the first time. Low risk, measurable results.", color: "--tier-blue", shadowColor: "217 91% 53%" },
+              { tier: "mid" as const, icon: Settings, name: "THE SYSTEM BUILDER", price: "$5,000 – $10,000", belief: "\"I'm drowning in follow-ups with no system.\"", desc: "You have leads but no automation. Time to scale without hiring.", color: "--tier-teal", shadowColor: "174 60% 40%", badge: "MOST POPULAR" },
+              { tier: "high" as const, icon: Crown, name: "THE MARKET AUTHORITY", price: "$10,000 – $20,000", belief: "\"I'm competing on price. I want to compete on value.\"", desc: "You want to own your market. Brand, authority, dominance.", color: "--tier-purple", shadowColor: "270 50% 45%" },
+              { tier: "custom" as const, icon: Rocket, name: "THE AGENTIC EMPIRE", price: "$20,000+", belief: "\"I'm ready to build a real business, not just a job.\"", desc: "Market domination. Scaling beyond your current limits.", color: "--tier-gold", shadowColor: "42 80% 50%", badge: "MARKET LEADER" },
+            ]).map((card) => {
+              const IconComp = card.icon;
+              const isSelected = selectedTier === card.tier;
+              return (
+                <motion.button
+                  key={card.tier}
+                  onClick={() => handleTierSelect(card.tier)}
+                  className={`relative rounded-lg p-5 text-left cursor-pointer transition-all border-2 ${isSelected ? "ring-2" : ""}`}
+                  style={{
+                    background: `hsl(var(${card.color}))`,
+                    color: card.tier === "custom" ? "hsl(var(--foreground))" : "white",
+                    borderColor: isSelected ? "white" : `hsl(${card.shadowColor} / 0.5)`,
+                  }}
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow: `0 8px 30px hsl(${card.shadowColor} / 0.4)`,
+                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  {(Object.keys(tierPresets) as Exclude<TicketTier, "custom">[]).map((tier) => (
-                    <button
-                      key={tier}
-                      onClick={() => handleTierSelect(tier)}
-                      className={`w-full flex flex-col items-start px-4 py-3 hover:bg-accent/10 transition-colors text-left ${
-                        selectedTier === tier ? "bg-accent/15" : ""
-                      }`}
-                    >
-                      <span className="text-sm font-medium text-white">{tierPresets[tier].label}</span>
-                      <span className="text-xs text-white/50">{tierPresets[tier].description}</span>
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => handleTierSelect("custom")}
-                    className={`w-full flex flex-col items-start px-4 py-3 hover:bg-accent/10 transition-colors text-left border-t border-white/10 ${
-                      selectedTier === "custom" ? "bg-accent/15" : ""
-                    }`}
-                  >
-                    <span className="text-sm font-medium text-white">Custom (Manual)</span>
-                    <span className="text-xs text-white/50">Enter your own values</span>
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  {card.badge && (
+                    <span className="absolute top-2 right-2 text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded-full bg-white/20 backdrop-blur-sm">
+                      {card.badge}
+                    </span>
+                  )}
+                  <IconComp className="w-6 h-6 mb-2 opacity-80" />
+                  <p className="text-xs uppercase tracking-wider font-bold opacity-70 mb-1">{card.price}</p>
+                  <h4 className="font-display text-base font-black tracking-wider uppercase mb-2">{card.name}</h4>
+                  <p className="text-xs italic opacity-70 mb-2">{card.belief}</p>
+                  <p className="text-xs opacity-60 leading-relaxed">{card.desc}</p>
+                </motion.button>
+              );
+            })}
           </div>
         </div>
 
@@ -1208,10 +1196,16 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
           </span>
         </motion.button>
 
-        {/* Disclaimer */}
-        <p className="text-xs text-white/40 text-center mt-6">
-          Projections based on Creative Core benchmarks. Your Core Funnel Audit uses your actual numbers.
-        </p>
+        {/* Verification Badge + Disclaimer */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+          <div className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/50 text-emerald-400">
+            <BadgeCheck className="w-3.5 h-3.5" />
+            <span className="font-medium">Verified Benchmark</span>
+          </div>
+          <p className="text-xs text-white/40 text-center">
+            Based on Creative Core 2026 local service data. Your Core Funnel Audit uses your actual numbers.
+          </p>
+        </div>
       </div>
     </motion.div>
   );
