@@ -121,6 +121,7 @@ export default {
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out forwards",
         "slide-up": "slide-up 0.5s ease-out forwards",
+        "pulse-glow": "pulseGlow 0.5s cubic-bezier(0.36, 0, 0.66, -0.56) forwards",
       },
     },
   },
