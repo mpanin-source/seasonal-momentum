@@ -12,6 +12,22 @@ const scrollToTiers = () => {
 
 type NurtureOption = "existing" | "hosted" | "managed";
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+};
+
 const AlaCarteSection = () => {
   const [nurtureOption, setNurtureOption] = useState<NurtureOption>("existing");
 
@@ -57,15 +73,19 @@ const AlaCarteSection = () => {
           </p>
         </motion.div>
 
-        {/* 3 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+        {/* 3 Cards with stagger */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12"
+        >
           {/* Card 1: Landing Page */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0 }}
-            className="rounded-2xl p-8 md:p-10 text-tier-blue-foreground flex flex-col"
+            variants={itemVariants}
+            whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)" }}
+            className="rounded-2xl p-8 md:p-10 text-tier-blue-foreground flex flex-col transition-shadow"
             style={{ background: "hsl(var(--tier-blue))" }}
           >
             <Globe className="w-8 h-8 mb-4 opacity-80" />
@@ -106,18 +126,24 @@ const AlaCarteSection = () => {
               <span className="font-semibold">Best for:</span> Quick wins, testing new offers, low-commitment
             </p>
 
-            <button onClick={scrollToContact} className="mt-auto w-full py-3 rounded-xl font-display font-bold text-sm uppercase tracking-wider bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center gap-2">
-              GET MY LANDING PAGE <ArrowRight className="w-4 h-4" />
-            </button>
+            <motion.button
+              onClick={scrollToContact}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="mt-auto w-full py-3 rounded-xl font-display font-bold text-sm uppercase tracking-wider bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center gap-2"
+            >
+              GET MY LANDING PAGE
+              <motion.span initial={{ x: 0 }} whileHover={{ x: 4 }}>
+                <ArrowRight className="w-4 h-4" />
+              </motion.span>
+            </motion.button>
           </motion.div>
 
           {/* Card 2: CRM Setup */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="rounded-2xl p-8 md:p-10 text-tier-teal-foreground flex flex-col"
+            variants={itemVariants}
+            whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)" }}
+            className="rounded-2xl p-8 md:p-10 text-tier-teal-foreground flex flex-col transition-shadow"
             style={{ background: "hsl(var(--tier-teal))" }}
           >
             <Database className="w-8 h-8 mb-4 opacity-80" />
@@ -156,18 +182,24 @@ const AlaCarteSection = () => {
               <span className="font-semibold">Best for:</span> Teams with leads but no system, growing too fast
             </p>
 
-            <button onClick={scrollToContact} className="mt-auto w-full py-3 rounded-xl font-display font-bold text-sm uppercase tracking-wider bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center gap-2">
-              SET UP MY CRM + AUTOMATION <ArrowRight className="w-4 h-4" />
-            </button>
+            <motion.button
+              onClick={scrollToContact}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="mt-auto w-full py-3 rounded-xl font-display font-bold text-sm uppercase tracking-wider bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center gap-2"
+            >
+              SET UP MY CRM + AUTOMATION
+              <motion.span initial={{ x: 0 }} whileHover={{ x: 4 }}>
+                <ArrowRight className="w-4 h-4" />
+              </motion.span>
+            </motion.button>
           </motion.div>
 
           {/* Card 3: Nurture */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="rounded-2xl p-8 md:p-10 text-tier-purple-foreground flex flex-col"
+            variants={itemVariants}
+            whileHover={{ y: -4, boxShadow: "0 20px 40px rgba(0, 0, 0, 0.2)" }}
+            className="rounded-2xl p-8 md:p-10 text-tier-purple-foreground flex flex-col transition-shadow"
             style={{ background: "hsl(var(--tier-purple))" }}
           >
             <Settings className="w-8 h-8 mb-4 opacity-80" />
@@ -176,23 +208,33 @@ const AlaCarteSection = () => {
             </h3>
             <p className="text-sm opacity-80 mb-4">We automate the follow-up. You close the deals.</p>
 
-            {/* Pricing Tabs */}
+            {/* Pricing Tabs with enhanced selection */}
             <div className="flex gap-1 mb-3 rounded-lg overflow-hidden bg-white/10 p-0.5">
               {(["existing", "hosted", "managed"] as NurtureOption[]).map((opt) => (
-                <button
+                <motion.button
                   key={opt}
                   onClick={() => setNurtureOption(opt)}
+                  whileTap={{ scale: 0.95 }}
                   className={`flex-1 text-[10px] py-1.5 px-1 rounded-md font-semibold uppercase tracking-wider transition-all ${
-                    nurtureOption === opt ? "bg-white/25 shadow-sm" : "hover:bg-white/10"
+                    nurtureOption === opt
+                      ? "bg-white/25 shadow-sm shadow-accent/30"
+                      : "hover:bg-white/10"
                   }`}
                 >
                   {opt === "existing" ? "Your CRM" : opt === "hosted" ? "We Host" : "Managed"}
-                </button>
+                </motion.button>
               ))}
             </div>
 
-            <p className="text-xl font-display font-bold mb-0.5">{nurturepricing[nurtureOption].price}</p>
-            <p className="text-xs opacity-60 mb-4">{nurturepricing[nurtureOption].desc}</p>
+            <motion.div
+              key={nurtureOption}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <p className="text-xl font-display font-bold mb-0.5">{nurturepricing[nurtureOption].price}</p>
+              <p className="text-xs opacity-60 mb-4">{nurturepricing[nurtureOption].desc}</p>
+            </motion.div>
 
             <p className="text-sm italic opacity-70 mb-4">
               "I get leads from multiple sources but no system connects them."
@@ -228,11 +270,19 @@ const AlaCarteSection = () => {
               <span className="font-semibold">Best for:</span> Solopreneurs, referral-heavy businesses
             </p>
 
-            <button onClick={scrollToContact} className="mt-auto w-full py-3 rounded-xl font-display font-bold text-sm uppercase tracking-wider bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center gap-2">
-              AUTOMATE MY FOLLOW-UP <ArrowRight className="w-4 h-4" />
-            </button>
+            <motion.button
+              onClick={scrollToContact}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="mt-auto w-full py-3 rounded-xl font-display font-bold text-sm uppercase tracking-wider bg-white/20 hover:bg-white/30 transition-colors flex items-center justify-center gap-2"
+            >
+              AUTOMATE MY FOLLOW-UP
+              <motion.span initial={{ x: 0 }} whileHover={{ x: 4 }}>
+                <ArrowRight className="w-4 h-4" />
+              </motion.span>
+            </motion.button>
           </motion.div>
-        </div>
+        </motion.div>
 
         {/* Section Footer */}
         <div className="text-center space-y-3">

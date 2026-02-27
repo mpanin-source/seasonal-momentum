@@ -812,17 +812,18 @@ const tierPresets: Record<Exclude<TicketTier, "custom">, TierPreset> = {
 
 const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps) => {
   const [selectedTier, setSelectedTier] = useState<TicketTier | null>(null);
+  const [hoveredTier, setHoveredTier] = useState<TicketTier | null>(null);
   const [adSpend, setAdSpend] = useState(3000);
   const [avgSaleValue, setAvgSaleValue] = useState(2000);
   const [currentLeadVolume, setCurrentLeadVolume] = useState(40);
   const [currentCloseRateInput, setCurrentCloseRateInput] = useState(15);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [resultsKey, setResultsKey] = useState(0);
 
   const handleTierSelect = (tier: TicketTier) => {
     setSelectedTier(tier);
     
     if (tier === "custom") {
-      // Reset to defaults for manual entry
       setAdSpend(3000);
       setAvgSaleValue(2000);
       setCurrentLeadVolume(40);
@@ -830,21 +831,29 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
     } else {
       const preset = tierPresets[tier];
       setAvgSaleValue(preset.avgSaleValue);
-      // Set ad spend to middle of range
       const midAdSpend = Math.round((preset.adSpendMin + preset.adSpendMax) / 2);
       setAdSpend(midAdSpend);
-      // Adjust lead volume based on tier
       const estimatedLeads = tier === "low" ? 60 : tier === "mid" ? 35 : 20;
       setCurrentLeadVolume(estimatedLeads);
     }
     
     setIsCalculating(true);
+    setResultsKey((k) => k + 1);
     setTimeout(() => setIsCalculating(false), 800);
+  };
+
+  const handleCardHover = (tier: TicketTier) => {
+    setHoveredTier(tier);
+  };
+
+  const handleCardHoverEnd = () => {
+    setHoveredTier(null);
   };
 
   const handleSliderChange = (setter: (val: number) => void, value: number[]) => {
     setter(value[0]);
     setIsCalculating(true);
+    setResultsKey((k) => k + 1);
     setTimeout(() => setIsCalculating(false), 800);
   };
 
@@ -854,8 +863,7 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
   const currentCustomers = Math.round(currentLeadVolume * currentCloseRate);
   const currentRevenue = currentCustomers * avgSaleValue;
 
-  // Optimized State Calculations (Creative Core improvements)
-  // Tier-specific: Low -35% CPL / +18% CR, Mid -30% CPL / +24% CR, High -25% CPL / +28% CR
+  // Optimized State Calculations
   const cplReduction = selectedTier === "low" ? 0.65 : selectedTier === "high" ? 0.75 : 0.70;
   const closeRateBoost = selectedTier === "low" ? 1.18 : selectedTier === "high" ? 1.28 : 1.24;
   const cplReductionLabel = selectedTier === "low" ? "35" : selectedTier === "high" ? "25" : "30";
@@ -866,7 +874,6 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
   const optimizedCustomers = Math.round(optimizedLeads * optimizedCloseRate);
   const optimizedRevenue = optimizedCustomers * avgSaleValue;
 
-  // The Revenue Leak (Optimized - Current)
   const revenueLeak = optimizedRevenue - currentRevenue;
 
   const scrollToContact = () => {
@@ -885,6 +892,21 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
   };
 
   const adSpendRange = getAdSpendRange();
+
+  const cardVariants = {
+    default: {
+      scale: 1,
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    },
+    hover: {
+      scale: 1.02,
+      boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+    },
+    selected: {
+      scale: 1.02,
+      boxShadow: "0 0 30px hsl(217 91% 53% / 0.4), inset 0 0 0 2px hsl(217 91% 53%)",
+    },
+  };
 
   return (
     <motion.div
@@ -915,19 +937,21 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
             ]).map((card) => {
               const IconComp = card.icon;
               const isSelected = selectedTier === card.tier;
+              const isHovered = hoveredTier === card.tier;
               return (
                 <motion.button
                   key={card.tier}
                   onClick={() => handleTierSelect(card.tier)}
-                  className={`relative rounded-lg p-5 text-left cursor-pointer transition-all border-2 ${isSelected ? "ring-2" : ""}`}
+                  onHoverStart={() => handleCardHover(card.tier)}
+                  onHoverEnd={handleCardHoverEnd}
+                  variants={cardVariants}
+                  animate={isSelected ? "selected" : isHovered ? "hover" : "default"}
+                  transition={{ duration: 0.2 }}
+                  className={`relative rounded-lg p-5 text-left cursor-pointer border-2 ${isSelected ? "ring-2 ring-accent" : ""}`}
                   style={{
                     background: `hsl(var(${card.color}))`,
                     color: card.tier === "custom" ? "hsl(var(--foreground))" : "white",
                     borderColor: isSelected ? "white" : `hsl(${card.shadowColor} / 0.5)`,
-                  }}
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow: `0 8px 30px hsl(${card.shadowColor} / 0.4)`,
                   }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -1019,8 +1043,9 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
           </div>
         </div>
 
-        {/* Side-by-Side Comparison */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        {/* Side-by-Side Comparison with ghost animation */}
+        <AnimatePresence mode="wait">
+        <motion.div key={resultsKey} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.4, ease: [0.32, 0.72, 0.3, 1] }}>
           {/* Your Current State */}
           <div
             className="rounded-xl p-5 relative overflow-hidden"
@@ -1119,7 +1144,8 @@ const MarketGapAnalyzer = ({ selectedNiche, isLoading }: MarketGapAnalyzerProps)
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
+        </AnimatePresence>
 
         {/* Revenue Leak Display */}
         <motion.div

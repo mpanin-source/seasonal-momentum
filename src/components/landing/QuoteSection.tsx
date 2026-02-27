@@ -1,21 +1,27 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 interface QuoteSectionProps {
   variant: "full" | "short" | "confidence";
 }
 
 const QuoteSection = ({ variant }: QuoteSectionProps) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+
   if (variant === "full") {
     return (
       <section id="philosophy-quote" className="section-padding bg-background">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: [0.32, 0.72, 0.3, 1] }}
           className="max-w-3xl mx-auto rounded-2xl p-8 md:p-12 border-l-4 border-accent shadow-sm"
           style={{ background: "hsl(var(--accent) / 0.05)" }}
         >
+          {isInView && <div className="quote-line" />}
           <p className="text-lg md:text-xl leading-relaxed text-foreground mb-4">
             ROAS, Return On Ad Spend, is one of the most misunderstood metrics in paid ads.
             People chase big numbers without understanding what they actually mean. Context matters.
@@ -39,7 +45,7 @@ const QuoteSection = ({ variant }: QuoteSectionProps) => {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto px-6 py-4 text-center border-t-2 border-b-2 border-accent"
         >
           <p className="text-lg md:text-xl italic text-foreground">
@@ -58,7 +64,7 @@ const QuoteSection = ({ variant }: QuoteSectionProps) => {
         initial={{ opacity: 0, scale: 1.02 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6, ease: [0.32, 0.72, 0.3, 1] }}
         className="max-w-3xl mx-auto rounded-xl p-6 md:p-8"
         style={{ background: "hsl(var(--primary) / 0.1)" }}
       >
@@ -71,12 +77,13 @@ const QuoteSection = ({ variant }: QuoteSectionProps) => {
         <p className="text-lg font-bold text-accent">
           We don't chase vanity numbers. We chase profit.
         </p>
-        <button
+        <motion.button
           onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-          className="mt-4 text-sm text-accent hover:text-accent/80 transition-colors font-medium"
+          className="mt-4 text-sm text-accent hover:text-accent/80 transition-colors font-medium inline-flex items-center gap-1"
+          whileHover={{ x: 4 }}
         >
           Ready to see what's actually working? →
-        </button>
+        </motion.button>
       </motion.div>
     </section>
   );
