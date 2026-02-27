@@ -1,6 +1,6 @@
 import Header from "@/components/landing/Header";
 import Hero from "@/components/landing/Hero";
-import Q1GrowthWindows from "@/components/landing/Q1GrowthWindows";
+import OpportunityMap from "@/components/landing/OpportunityMap";
 import Problem from "@/components/landing/Problem";
 import CoreOffer from "@/components/landing/CoreOffer";
 import LeadPhilosophy from "@/components/landing/LeadPhilosophy";
@@ -13,14 +13,16 @@ import ContactForm from "@/components/landing/ContactForm";
 import Footer from "@/components/landing/Footer";
 import QuoteSection from "@/components/landing/QuoteSection";
 import AlaCarteSection from "@/components/landing/AlaCarteSection";
+import MouseGlowEffect from "@/components/MouseGlowEffect";
 
 const Index = () => {
   return (
     <>
+      <MouseGlowEffect />
       <Header />
       <main className="pt-16">
         <Hero />
-        <Q1GrowthWindows />
+        <OpportunityMap />
         <Problem />
         <QuoteSection variant="full" />
         <CoreOffer />
